@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- Table의 re_step column과 BeanClass의 restep 변수를 연결해주는 설정 -->
+	
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias alias="MyBoard" type="board.model.BoardBean"/>
+		<typeAlias alias="MyBoardThumb" type="board.model.Board_Bad_GoodBean"/>
+		<typeAlias alias="MyBoardReply" type="board.model.BoardReplyBean"/>
+		<typeAlias alias="MyBoardSort" type="board.model.BoardSortBean"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="board/mybatis/Board.xml"/>
+	</mappers>
+</configuration>
+
+
