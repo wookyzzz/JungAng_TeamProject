@@ -3,5 +3,24 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="board.model.BoardBean">
-
+	<select id="getTotalCount" resultType="int">
+		select count(*) from bbs
+		<if test="column == 'title'">
+			where subject like #{search}
+		</if>
+		<if test="column == 'content'">
+			where contents like #{search}
+		</if>
+	</select>
+	<select id="getData" resultType="MyBoard">
+		select rownum as rank, idx, memNum, sortNum, subject, contents, image, ref, re_step, re_level, readCount, inputdate
+		 from(select * from bbs order by ref asc, re_step desc)
+		<if test="column == 'title'">
+			where subject like #{search}
+		</if>
+		<if test="column == 'content'">
+			where contents like #{search}
+		</if>
+		order by rank desc
+	</select>
 </mapper>
