@@ -26,13 +26,14 @@
 		<typeAlias alias="MyProductReview" type="product.model.Product_Review_Bean"/>
 		<!-- 카테고리 -->
 		<typeAlias alias="MyCategory" type="category.model.CategoryBean"/>
+		<typeAlias alias="MyCategoryDetail" type="category.model.CategoryDetailBean"/>
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="board/mybatis/Board.xml"/>
-		<mapper resource="board/mybatis/member.xml"/>
-		<mapper resource="board/mybatis/product.xml"/>
-		<mapper resource="board/mybatis/category.xml"/>
+		<mapper resource="util/mybatis/Board.xml"/>
+		<mapper resource="util/mybatis/member.xml"/>
+		<mapper resource="util/mybatis/product.xml"/>
+		<mapper resource="util/mybatis/category.xml"/>
 	</mappers>
 </configuration>
 

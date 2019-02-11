@@ -37,15 +37,18 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
 
 
 ------ database ------
-    -- 멤버 
+-- 멤버 
+    drop table members CASCADE CONSTRAINTS;
     create table members(
         idx number primary key,
         id varchar2(20) unique,
         passwd varchar2(20) not null,
         name nvarchar2(30) not null,
+        tel varchar2(20) not null,
         hp varchar2(20) not null,
         nick nvarchar2(30),
         email varchar2(40),
+        postcode varchar2(20),
         address_home nvarchar2(50),
         addres_company nvarchar2(50),
         detail_address nvarchar2(30),
@@ -56,6 +59,7 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         mem_level varchar2(15)
     );
     --멤버 신고
+    drop table mem_report;
     create table mem_report(
     idx number primary key not null,
     memNum number not null,
@@ -65,12 +69,22 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
     )
     
     --카테고리
+    drop table categories cascade constrains;
     create table categories(
         idx number primary key not null,
-        name varchar(30) unique
+        name varchar(30) not null unique
+    );
+    
+    create table categories_detail(
+        idx number primary key not null,
+        catNum number not null,
+        name varchar(30) unique,
+        url varchar2(50),
+        foreign key(catNum) references categories(idx)
     );
     
     --상품
+    drop table products CASCADE CONSTRAINTS;
      create table products(
         idx number primary key not null,
         catNum number not null,
@@ -80,11 +94,12 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         price number not null,
         quantity number,
         image varchar2(50),
-        foreign key (catNum) references categories(idx)
-        foreign key (memNum) references member(idx)
+        foreign key (catNum) references categories(idx),
+        foreign key (memNum) references members(idx)
     );
     
     --상품QnA
+        drop table prdQnA; 
         create table prdQnA(
         idx number primary key not null,
         prdNum number not null,
@@ -101,8 +116,8 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         foreign key(prdNum) references products(idx),
         foreign key(memNum) references members(idx)
     );    
-    drop table prdQnA;
     --후기
+    drop table review;
     create table review(
     idx number primary key,
     memNum number not null,
@@ -115,6 +130,7 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
     );
 
     --장바구니
+    drop table shoppingCart;
     create table shoppingCart(
         memNum number not null,
         prdNum number not null,
@@ -124,15 +140,9 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         foreign key (prdNum) references products(idx)
     );
 
-    --게시판(분류)
-    create table bbs_sort(
-        idx number not null primary key,
-        categoriesNum not null,
-        name nvarchar2(15) unique,
-        foreign key(categoriesNum) references categories(idx)
-    );
 
     --게시판
+    drop table bbs cascade CONSTRAINTS;
     create table bbs(
      idx number not null primary key,
      memNum number not null,
@@ -147,9 +157,10 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
     inputdate date default sysdate,
     best_letter number, --추천수?
       foreign key(memNum) references members(idx),
-      foreign key(sortNum) references bbs_sort(idx)
+      foreign key(sortNum) references categories_detail(idx)
 );
    --게시판 (좋아요/싫어요)
+   drop table bbs_bad_good;
    create table bbs_bad_good(
        bbs_ref number,
        bbs_good_member number,
@@ -160,6 +171,7 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
 );
 
 --댓글
+    drop table bbs_re;
     create table bbs_re(
         idx number not null primary key,
         re_bbs_ref number not null, --> reference 게시판(bbs_number)
@@ -174,26 +186,26 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         foreign key(re_bbs_ref) references bbs(idx),
          foreign key(memNum) references members(idx)
     );
-    
+    select * from bbs_re;
     commit;
 
     --카테고리 메뉴 시퀀스 
+    drop sequence menu_num_seq;
     create sequence menu_num_seq
         minvalue 1000
         start with 1000
-        maxvalue 1999
+        maxvalue 20000
+        increment by 1000
+        nocache;
+        
+        create sequence cat_detail_seq
+        minvalue 1001
+        start with 1001
         increment by 1
         nocache;
-    -- 카테고리 상품 번호 시퀀스    
-    create sequence prd_num_seq
-        minvalue 2000
-        start with 2000
-        maxvalue 2999
-        increment by 1
-        nocache;
-        drop sequence mem_seq;
     
     --멤버 시퀀스
+    drop sequence mem_seq;
     create sequence mem_seq
         minvalue 1
         start with 1
@@ -201,6 +213,7 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         nocache;
     
     --상품 시퀀스
+    drop sequence prd_seq;
     create sequence prd_seq
         minvalue 1
         start with 1
@@ -208,6 +221,7 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         nocache;
     
     --상품 QnA 시퀀스
+    drop sequence prd_qna_seq;
     create sequence prd_qna_seq
         minvalue 1
         start with 1
@@ -216,6 +230,7 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         commit;
         
     --리뷰 시퀀스
+    drop sequence review_seq;
     create sequence review_seq
         minvalue 1
         start with 1
@@ -224,6 +239,7 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         commit;
         
     --게시판 시퀀스
+    drop sequence bbs_seq;
     create sequence bbs_seq
         minvalue 1
         start with 1
@@ -232,6 +248,7 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         commit;
         
     --게시판 분류 시퀀스
+    drop sequence bbs_sort_seq;
     create sequence bbs_sort_seq
         minvalue 1
         start with 1
@@ -239,10 +256,17 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
         nocache;
         commit;
         
-  --게시판 댓글 시퀀스      
+  --게시판 댓글 시퀀스
+  drop sequence bbs_re_seq;
     create sequence bbs_re_seq
         minvalue 1
         start with 1
         increment by 1
         nocache;
         commit;
+        
+        
+ --insert data--
+ insert into categories (idx, name) values (menu_num_seq.nextval, '커뮤니티');
+insert into categories (idx, name) values (menu_num_seq.nextval, '장터');
+insert into categories_detail(idx, catNum, name, url) values(cat_detail_seq.nextval, 1000, '전체게시판', 'list.bbs');
