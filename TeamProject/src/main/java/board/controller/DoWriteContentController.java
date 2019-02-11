@@ -1,7 +1,5 @@
 package board.controller;
 
-import java.awt.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import board.model.BoardBean;
 import board.model.BoardDao;
 
 @Controller
@@ -27,6 +26,14 @@ public class DoWriteContentController {
 		}
 		
 		return getPage;
+	}
+	
+	@RequestMapping(value=command, method=RequestMethod.POST)
+	public String gotoList(BoardBean bean, HttpSession session){
+		System.out.println("sortNum : " + bean.getSortNum());
+		System.out.println("subject : " + bean.getSubject());
+		System.out.println("contetnts : " + bean.getContents());
+		return "redirect:/list.bbs";
 	}
 	
 }
