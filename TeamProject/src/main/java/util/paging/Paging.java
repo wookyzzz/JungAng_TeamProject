@@ -1,7 +1,7 @@
 package util.paging;
 
 public class Paging {
-	
+	//페이징
 	private int totalCount = 0; // 전체글수
 	private int totalPage = 0; //전체 페이지수 (totalCount/pagesize) + (totalpage%pagesize=0 ? 0 : 1)
 	private int pageNumber = 0; //현재 페이지 번호
