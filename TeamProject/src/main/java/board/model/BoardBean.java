@@ -14,17 +14,18 @@ public class BoardBean {
 	private int restep;
 	private int relevel;
 	private int readCount;
-	private int inputdate;
+	private String inputdate;
 	private MultipartFile upload;
 	private String upload2;
 	private String name;
 	private int thumbs;
+	private String nickname;
 	public BoardBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public BoardBean(int idx, int memNum, int sortNum, String subject, String contents, String image, int ref,
-			int restep, int relevel, int readCount, int inputdate, MultipartFile upload, String upload2, String name, int thumbs) {
+			int restep, int relevel, int readCount, String inputdate, MultipartFile upload, String upload2, String name, int thumbs) {
 		super();
 		this.idx = idx;
 		this.memNum = memNum;
@@ -102,10 +103,10 @@ public class BoardBean {
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
-	public int getInputdate() {
+	public String getInputdate() {
 		return inputdate;
 	}
-	public void setInputdate(int inputdate) {
+	public void setInputdate(String inputdate) {
 		this.inputdate = inputdate;
 	}
 	public MultipartFile getUpload() {
@@ -135,6 +136,12 @@ public class BoardBean {
 	}
 	public void setThumbs(int thumbs) {
 		this.thumbs = thumbs;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	

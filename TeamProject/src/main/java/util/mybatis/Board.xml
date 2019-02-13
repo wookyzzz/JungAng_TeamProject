@@ -23,4 +23,11 @@
 		</if>
 		order by rank desc
 	</select>
+	<insert id="insertNewLetter">
+		insert into bbs(idx, memNum, sortNum, subject, contents, ref, re_step, re_level, readCount, inputdate) 
+		values(bbs_seq.nextval, 2, #{sortNum}, #{subject}, #{contents}, bbs_seq.nextval, 0, 0, 0, sysdate )
+	</insert>
+	<select id="getContentByIdx" resultType="MyBoard">
+		select * from bbs where idx = #{idx}
+	</select>
 </mapper>

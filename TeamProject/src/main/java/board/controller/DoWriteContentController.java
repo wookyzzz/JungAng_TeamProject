@@ -33,6 +33,7 @@ public class DoWriteContentController {
 		System.out.println("sortNum : " + bean.getSortNum());
 		System.out.println("subject : " + bean.getSubject());
 		System.out.println("contetnts : " + bean.getContents());
+		boardDao.insertNewLetter(bean);
 		return "redirect:/list.bbs";
 	}
 	

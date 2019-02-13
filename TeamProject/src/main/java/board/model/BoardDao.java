@@ -30,4 +30,14 @@ private String namespace="board.model.BoardBean";
 		list = sqlSessionTemplate.selectList(namespace+".getData", map, rowBounds);
 		return list;
 	}
+
+	public void insertNewLetter(BoardBean bean) {
+		sqlSessionTemplate.insert(namespace+".insertNewLetter", bean);
+	}
+
+	public BoardBean getContentByIdx(int idx) {
+		BoardBean bean = new BoardBean();
+		bean = sqlSessionTemplate.selectOne(namespace+".getContentByIdx", idx);
+		return bean;
+	}
 }
