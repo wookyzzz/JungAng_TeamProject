@@ -14,13 +14,13 @@
 					<c:forEach var="cate" items="${ctList }">
 						<li class="dropdown-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${cate.name } <span class="caret"></span></a>
+									<ul class="dropdown-menu">
 							<c:forEach var="detail" items="${detailList }">
 								<c:if test="${detail.catNum eq cate.idx }">
-									<ul class="dropdown-menu">
 										<li><a href="${detail.url }">${detail.name }/${detail.url }</a></li>
-									</ul>
 								</c:if>
 							</c:forEach>
+									</ul>
 						</li>
 					</c:forEach>
 					<form class="navbar-form navbar-right">

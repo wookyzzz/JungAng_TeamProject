@@ -10,4 +10,20 @@
 	<select id="getDetailList" resultType="MyCategoryDetail">
 		select * from categories_detail order by idx
 	</select>
+	<select id="getDetailListbyIdx" resultType="MyCategoryDetail">
+		select * from categories_detail where catNum = #{idx}
+	</select>
+	
+	<insert id="addCategory">
+		insert into categories values (menu_num_seq.nextval, #{name})
+	</insert>
+	<delete id="deleteCategory">
+		delete from categories where idx = #{idx}
+	</delete>
+	<insert id="addCategoryDetail">
+		insert into categories_detail values (cat_detail_seq.nextval, #{catNum}, #{name}, #{url})
+	</insert>
+	<delete id="deleteCategoryDetail">
+		delete from categories_detail where idx = #{idx}
+	</delete>
 </mapper>

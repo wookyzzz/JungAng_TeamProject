@@ -27,4 +27,29 @@ public class CategoryDao {
 		list = sqlSessionTemplate.selectList(namespace+".getDetailList");
 		return list;
 	}
+
+	public List<CategoryDetailBean> getDetailListbyIdx(int idx) {
+		List<CategoryDetailBean> list = new ArrayList<CategoryDetailBean>();
+		list = sqlSessionTemplate.selectList(namespace+".getDetailListbyIdx",idx);
+		return list;
+	}
+
+	public void addCategory(String name) {
+		sqlSessionTemplate.insert(namespace+".addCategory", name);
+	}
+
+	public void deleteCategory(int idx) {
+		sqlSessionTemplate.delete(namespace+".deleteCategory",idx);
+		
+	}
+
+	public void addCategoryDetail(CategoryDetailBean bean) {
+		sqlSessionTemplate.insert(namespace+".addCategoryDetail", bean);
+		
+	}
+
+	public void deleteCategoryDetail(int idx) {
+		sqlSessionTemplate.delete(namespace+".deleteCategoryDetail",idx);
+		
+	}
 }
