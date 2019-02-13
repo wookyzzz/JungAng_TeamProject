@@ -270,3 +270,10 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
  insert into categories (idx, name) values (menu_num_seq.nextval, '커뮤니티');
 insert into categories (idx, name) values (menu_num_seq.nextval, '장터');
 insert into categories_detail(idx, catNum, name, url) values(cat_detail_seq.nextval, 1000, '전체게시판', 'list.bbs');
+
+insert into categories (idx, name) values (9999, '홈페이지 관리');
+select * from categories;
+commit;
+insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 9999, '카테고리 관리', 'manage.ct');
+select * from categories_detail;
+commit;
