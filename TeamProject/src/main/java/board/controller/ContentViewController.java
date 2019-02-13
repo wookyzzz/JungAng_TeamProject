@@ -27,6 +27,7 @@ public class ContentViewController {
 			mav.setViewName("redirect:/list.ct");
 		}
 		BoardBean bean = new BoardBean();
+		boardDao.raiseReadCount(idx);
 		bean = boardDao.getContentByIdx(idx);
 		mav.addObject("bean", bean);
 		mav.setViewName(getPage);

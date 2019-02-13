@@ -12,6 +12,7 @@
 			where contents like #{search}
 		</if>
 	</select>
+	
 	<select id="getData" resultType="MyBoard">
 		select rownum as rank, idx, memNum, sortNum, subject, contents, image, ref, re_step, re_level, readCount, inputdate
 		 from(select * from bbs order by ref asc, re_step desc)
@@ -23,11 +24,29 @@
 		</if>
 		order by rank desc
 	</select>
+	
 	<insert id="insertNewLetter">
 		insert into bbs(idx, memNum, sortNum, subject, contents, ref, re_step, re_level, readCount, inputdate) 
 		values(bbs_seq.nextval, 2, #{sortNum}, #{subject}, #{contents}, bbs_seq.nextval, 0, 0, 0, sysdate )
 	</insert>
+	
 	<select id="getContentByIdx" resultType="MyBoard">
 		select * from bbs where idx = #{idx}
 	</select>
+	
+	<update id="raiseReadCount">
+		update bbs set readCount = readCount+1 where idx = #{idx}
+	</update>
+	
+	<insert id="insertNewReply">
+	insert into bbs(idx, memNum, sortNum, subject, contents, ref, re_step, re_level, readCount, inputdate) 
+	values(bbs_seq.nextval, 2, #{sortNum}, #{subject}, #{contents}, #{ref}, #{restep}, #{relevel}, 0, sysdate)
+	</insert>
+	<update id="updateLegacyLetterReStep">
+	update bbs set re_step = re_step+1 where ref = #{ref} and re_step > #{restep}
+	</update>
+	<select id="getCountEqualsREF" resultType="int">
+	select count(*) from bbs where ref = #{ref} and re_step > #{restep}
+	</select>
+	
 </mapper>
