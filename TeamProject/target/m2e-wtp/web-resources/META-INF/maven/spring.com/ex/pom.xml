@@ -173,6 +173,15 @@
 			<version>2.8.2</version>
 		</dependency>
 		
+		
+		<!-- 유효성 검사 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>   
+		
+		
 		<!-- jackson(json data 요청처리) -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
 		<dependency>

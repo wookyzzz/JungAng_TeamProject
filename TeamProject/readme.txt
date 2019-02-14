@@ -37,27 +37,61 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
 
 
 ------ database ------
--- 멤버 
-    drop table members CASCADE CONSTRAINTS;
-    create table members(
+-- -- 멤버 
+DROP TABLE members CASCADE CONSTRAINTS;
+
+drop sequence seqmember;
+create sequence seqmember start with 1 increment by 1 nocache ;
+
+create table members(
         idx number primary key,
         id varchar2(20) unique,
         passwd varchar2(20) not null,
         name nvarchar2(30) not null,
-        tel varchar2(20) not null,
-        hp varchar2(20) not null,
-        nick nvarchar2(30),
+        tel varchar2(20) not null,   --일반전화
+        hp varchar2(20) not null,   --핸드폰번호
+        nick nvarchar2(30),      
         email varchar2(40),
-        postcode varchar2(20),
-        address_home nvarchar2(50),
-        addres_company nvarchar2(50),
-        detail_address nvarchar2(30),
+        postcode1 varchar2(20),      --우편번호1
+        address1 nvarchar2(50),      --기본주소1 (자택)
+        detail_address1 nvarchar2(30),   --(자택)상세주소
+        postcode2 varchar2(20),      --우편번호2
+        address2 nvarchar2(50),      --추가주소2 (회사)
+        detail_address2 nvarchar2(30),   --(회사)상세주소
         sales_authority number default 0, -- 사업자 등록 여부 0(false) / 1(true)  
         cash number,
         point number,
-        birthday date,
+        birthday_yeardate varchar2(20),
+	birthday_month varchar2(20),
+	birthday_date varchar2(20),
         mem_level varchar2(15)
     );
+
+insert into members(idx, id, passwd, name, tel, hp, nick, email, postcode1, address1, detail_address1, postcode2, address2, detail_address2, cash, point, birthday_yeardate,birthday_month,birthday_date, mem_level)
+values(seqmember.nextval, 'kim', 1234, '김철수', '02-1111-1111', '010-1111-1111','철수','aaa@gmail.com','111-222','서울시 강남구','장미아파트','222-111','서울시 은평구','비즈타워', 0, 100, 1994, 04, 08, '일반');
+
+
+commit ;
+
+col idx for a4
+col id for a6
+col passwd for a10
+col name for a8
+col tel for a15
+col hp for a15
+col nick for a6
+col email for a15
+col postcode1 for a8
+col address1 for a20
+col detail_address1 for a30
+col postcode2 for a8
+col address2 for a20
+col detail_address2 for a30
+col cash for a8
+col point for a8
+col birthday for a10
+col mem_level for a8
+
     --멤버 신고
     drop table mem_report;
     create table mem_report(

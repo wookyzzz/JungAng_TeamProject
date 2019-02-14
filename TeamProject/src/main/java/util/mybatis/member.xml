@@ -1,7 +1,66 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
-<mapper namespace="member.model.memberbean">
 
+<mapper namespace="member.model.MemberBean">
+
+<insert parameterType="MyMember" id="InsertData"> 
+insert into members(id, passwd, name, tel, hp, nick, email, postcode1, address1, detail_address1, 
+postcode2, address2, detailaddress2,salesauthority, cash, point, birthdayyeardate, birthdaymonth , birthdaydate, memlevel) 
+values( #{id}, #{passwd}, #{name}, #{tel}, #{hp},#{nick}, #{email}, #{postcode1} #{address1}, #{detailaddress1}, 
+#{postcode2} #{address2}, #{detailaddress2}, #{salesauthority} #{cash}, #{point}, #{birthdayyeardate}, #{birthdaymonth}, #{birthdaydate}, #{memlevel} ) 
+</insert>
+
+
+
+	<select id="GetTotalCount" resultType="int">
+		select count(*) from members
+		<if test="whatColumn == 'id'">
+			where id like #{keyword}
+		</if>		
+		<if test="whatColumn == 'name'">
+			where name like #{keyword}
+		</if>	
+	</select>
+
+	<select id="GetDataList" resultType="MyMember" parameterType="hashmap">
+		select * from members		
+		<if test="whatColumn == 'id'">
+			where id like #{keyword}
+		</if>		
+		<if test="whatColumn == 'name'">
+			where name like #{keyword}
+		</if>	
+		order by id desc
+	</select>
+
+	
+	
+	<select id="GetData" resultType="MyMember">
+		select * from members
+		where id = #{id} 
+	</select>
+	
+
+	<delete id="DeleteData">   
+		delete from members
+		where id=#{id}
+	</delete>
+
+
+	<update id="UpdateData" parameterType="MyMember">
+		update members set
+		name=#{name}, tel=#{tel}, hp=#{hp}, nick=#{nick}, email=#{email}, postcode1=#{postcode1}, address1=#{address1}, detailaddress1=#{detailaddress1}, 
+		postcode2=#{postcode2}, address2=#{address2}, detailaddress2=#{detailaddress2}
+		where id=#{id}
+	</update>
+	
+	<update id="UpdateData2" parameterType="MyMember">
+		update members set
+		point = point + #{point} 
+		where id=#{id}
+	</update>
+	
 </mapper>
+
+
