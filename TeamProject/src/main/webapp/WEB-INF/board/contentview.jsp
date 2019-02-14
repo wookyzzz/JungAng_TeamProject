@@ -6,6 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.inputreply, .inputreply > .footer{
+background-color: lightgray;
+}
+</style>
 </head>
 <body>
 	<%@ include file="../common/topmenu.jsp" %>
@@ -51,6 +56,20 @@
 					</tr>
 				</tbody>
 			</table>
+		</div>
+		<div class="section" >
+			<div class="panel panel-default inputreply">
+			<form action="" method="post">
+			  <div class="panel-body">
+			    닉네임(id)
+			    <hr>
+			    <textarea name="contents" class="form-control" rows="5"></textarea>
+			  </div>
+			  <div class="panel-footer footer" align="right">
+				  <button type="submit" class="btn btn-default btn-sm">확인</button>
+			  </div>
+			  </form>
+			</div>
 		</div>
 	</div>
 </body>
