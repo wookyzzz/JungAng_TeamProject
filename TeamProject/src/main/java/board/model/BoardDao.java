@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import member.model.MemberBean;
+import member.model.MemberDao;
 import util.paging.Paging;
 
 @Component
@@ -17,6 +19,8 @@ private String namespace="board.model.BoardBean";
 	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
+	@Autowired
+	MemberDao memDao;
 
 	public int getTotalCount(Map<String, String> map) {
 		int cnt = -1;
@@ -74,5 +78,39 @@ private String namespace="board.model.BoardBean";
 		int cnt = 0;
 		cnt = sqlSessionTemplate.selectOne(namespace+".getCountEqualsREF", bean );
 		return cnt;
+	}
+
+	public List<BoardBean> setNickName(List<BoardBean> list) {
+		for(int i = 0 ; i < list.size() ; i++){
+			int memNum = list.get(i).getMemNum();
+			System.out.println(memNum);
+			MemberBean bean = memDao.getInfoByIdx(memNum);
+			System.out.println(bean.getNick());
+			list.get(i).setNickname(bean.getNick());
+		}
+		return list;
+	}
+	
+	public List<BoardReplyBean> setNickNameReply(List<BoardReplyBean> list) {
+		for(int i = 0 ; i < list.size() ; i++){
+			int memNum = list.get(i).getMemNum();
+			System.out.println(memNum);
+			MemberBean bean = memDao.getInfoByIdx(memNum);
+			System.out.println(bean.getNick());
+			list.get(i).setNickname(bean.getNick());
+		}
+		return list;
+	}
+
+	public void writeReply(BoardReplyBean bean) {
+		sqlSessionTemplate.insert(namespace+".writeReply", bean);
+		
+	}
+
+	public List<BoardReplyBean> getReplyByRe_Ref(int idx) {
+		List<BoardReplyBean> list = new ArrayList<BoardReplyBean>();
+		list = sqlSessionTemplate.selectList(namespace+".getReplyByRe_Ref", idx);
+		list = setNickNameReply(list);
+		return list;
 	}
 }

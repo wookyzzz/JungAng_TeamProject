@@ -8,8 +8,8 @@ public class BoardReplyBean {
 	private int reReStep;
 	private int reReLeval;
 	private String inputdate;
-	private String subject;
 	private String contents;
+	private String nickname;
 	
 	public int getIdx() {
 		return idx;
@@ -53,17 +53,17 @@ public class BoardReplyBean {
 	public void setInputdate(String inputdate) {
 		this.inputdate = inputdate;
 	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
 	public String getContents() {
 		return contents;
 	}
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	

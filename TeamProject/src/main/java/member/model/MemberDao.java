@@ -66,6 +66,13 @@ public class MemberDao {
 		cnt = sqlSessionTemplate.delete(namespace + ".DeleteData", pmKey);
 		return cnt;
 	}
+
+	public MemberBean getInfoByIdx(int memNum) {
+		MemberBean bean =  new MemberBean();
+		bean = sqlSessionTemplate.selectOne(namespace+".getInfoByIdx", memNum);
+		return bean;
+	}
+	
 	
 
 }

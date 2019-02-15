@@ -34,6 +34,23 @@
 			        </div>
 			        <button type="submit" class="btn btn-default">검색</button>
 			      </form>
+			      	<c:if test="${loginfo == null }">
+						<a href="LoginForm.mem"><button type="button" class="btn btn-default navbar-btn navbar-right">로그인</button></a>
+					</c:if>
+					<c:if test="${loginfo != null }">
+						<div class="btn-group">
+						  <button type="button" class="btn btn-default navbar-right navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						    ${loginfo.id } <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" role="menu">
+						    <li><a href="#">Action</a></li>
+						    <li><a href="#">Another action</a></li>
+						    <li><a href="#">Something else here</a></li>
+						    <li class="divider"></li>
+						    <li><a href="#">Separated link</a></li>
+						  </ul>
+						</div>
+			      	</c:if>
 				</ul>
 			</div>
 		</div>

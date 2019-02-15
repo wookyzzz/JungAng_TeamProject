@@ -1,5 +1,8 @@
 package board.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import board.model.BoardBean;
 import board.model.BoardDao;
+import board.model.BoardReplyBean;
 
 @Controller
 public class ContentViewController {
@@ -27,9 +31,13 @@ public class ContentViewController {
 			mav.setViewName("redirect:/list.ct");
 		}
 		BoardBean bean = new BoardBean();
+		List<BoardReplyBean> list = new ArrayList<BoardReplyBean>();
 		boardDao.raiseReadCount(idx);
+		list = boardDao.getReplyByRe_Ref(idx);
 		bean = boardDao.getContentByIdx(idx);
+		System.out.println("´ñ±Û ¸®½ºÆ® : " + list.size());
 		mav.addObject("bean", bean);
+		mav.addObject("list", list);
 		mav.setViewName(getPage);
 		return mav;
 	}

@@ -60,7 +60,9 @@ values( #{id}, #{passwd}, #{name}, #{tel}, #{hp},#{nick}, #{email}, #{postcode1}
 		point = point + #{point} 
 		where id=#{id}
 	</update>
-	
+	<select id="getInfoByIdx" resultType="MyMember">
+		select * from members where idx = #{memNum}
+	</select>
 </mapper>
 
 
