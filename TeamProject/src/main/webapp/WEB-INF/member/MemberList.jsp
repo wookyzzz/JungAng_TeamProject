@@ -41,10 +41,26 @@
 
 	<h2 align="center">회원 리스트 화면</h2>
 	<center>
-		<form action="list.mem" method="get" name="myform">
 
+    <div class="col-md-6" align="center">
+					<form class="form-inline">
+						<div class="form-group">
+						<label class="sr-only" for="column">칼럼</label>
+						<select class="form-control" id="column">
+							<option value="all">전체 검색
+							<option value="id">아이디
+							<option value="name">이름
+						</select>
+						</div>
+						<div class="form-group">
+						<label class="sr-only" id="search">검색</label>
+						<input type="text" name="search" id="search" class="form-control">
+						<button type="submit" class="btn btn-default">검색</button>
+						</div>
+					</form>
+				</div>
     <table class="table table-striped custab">
-    
+    <form action="list.mem" method="get" name="myform">
     <a href="registerForm.mem" class="btn btn-primary btn-xs pull-right"><b>+</b>회원등록</a>
         <tr>
             <th>ID</th>

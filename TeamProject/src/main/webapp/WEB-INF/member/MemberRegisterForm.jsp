@@ -38,7 +38,7 @@
 		<p>
 			<label for="tel">일반전화</label>
 			<input type="text" name="tel" id="tel" value="02-2000-1000">
-			<form:errors cssClass="err" path="tel" />
+			
 		</p>
 		<p>
 			<label for="hp">핸드폰번호</label>

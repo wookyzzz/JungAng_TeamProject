@@ -1,14 +1,28 @@
 package member.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 //회원 테이블
 public class MemberBean {
 	private int idx;
+	@NotEmpty(message = "아이디를 입력해주세요.")
 	private String id;
+	
+	@NotEmpty(message = "비밀번호를 입력해주세요.")
 	private String passwd;
+	
+	@NotEmpty(message = "아름을 입력해주세요")
 	private String name;
+	
 	private String tel;
+	
+	@NotEmpty(message = "핸드폰번호를 입력해주세요")
 	private String hp;
+	
+	@NotEmpty(message = "닉네임을 설정해주세요")
 	private String nick;
+	
+	@NotEmpty(message = "이메일을 입력해주세요")
 	private String email;
 	private String postcode1;
 	private String address1;
@@ -19,6 +33,7 @@ public class MemberBean {
 	private int salesauthority;
 	private int cash;
 	private int point;
+	
 	private String birthdayyeardate;
 	private String birthdaymonth;
 	private String birthdaydate;

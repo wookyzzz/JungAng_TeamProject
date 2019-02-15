@@ -46,7 +46,9 @@ margin-left: 20%;width: 60%;
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3 boxStyle" style="padding-right: 0px!important;padding-left: 0px!important;">
 		   <div class="panel-body" style="padding-right: 4px!important;padding-left: 4px!important;">
-                 <form method="post" name="challenge"  class="form-horizontal" role="form" action="#" onSubmit="return submitForm()" AUTOCOMPLETE = "off" >
+                 <form method="post" name="challenge"  class="form-horizontal" role="form" action="update.mem" onSubmit="return submitForm()" AUTOCOMPLETE = "off" >
+				 <input type="hidden" name="id" value="${member.id}">
+				
 				<fieldset class="landscape_nomargin" style="min-width: 0;padding:    .35em .625em .75em!important;margin:0 2px;border: 2px solid silver!important;margin-bottom: 10em;">
 			<legend style="border-bottom: none;width: inherit;!important;padding:inherit;" class="legend">Registration Form</legend>
 		
@@ -116,11 +118,11 @@ margin-left: 20%;width: 60%;
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
 						
-                        <input style="border-radius: 4px!important;" class="form-control" type="text" id="postcode1" placeholder="우편번호" value="${member.postcode1}">
+                        <input style="border-radius: 4px!important;" class="form-control" type="text" name="postcode1" id="postcode1" placeholder="우편번호" value="${member.postcode1}">
 					<input style="border-radius: 4px!important;" class="form-control" type="button" onclick="Postcode1()" value="우편번호 찾기"><br>
 
-					<input style="border-radius: 4px!important;" class="form-control" type="text" id="address1" placeholder="주소1(자택)" value="${member.address1}"><br>
-					<input style="border-radius: 4px!important;" class="form-control" type="text" id="detail_address1" placeholder="상세주소" value="${member.detailaddress1}">
+					<input style="border-radius: 4px!important;" class="form-control" type="text" name="address1" id="address1" placeholder="주소1(자택)" value="${member.address1}"><br>
+					<input style="border-radius: 4px!important;" class="form-control" type="text" name="detail_address1" id="detail_address1" placeholder="상세주소" value="${member.detailaddress1}">
 
 
 					<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -184,11 +186,11 @@ margin-left: 20%;width: 60%;
                            기본주소2(회사)<span style="color: red">*</span> :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
-						<input style="border-radius: 4px!important;" class="form-control" type="text" id="postcode2" placeholder="우편번호" value="${member.postcode2}">
+						<input style="border-radius: 4px!important;" class="form-control" type="text"  name="postcode2" id="postcode2" placeholder="우편번호" value="${member.postcode2}">
 					<input style="border-radius: 4px!important;" class="form-control" type="button" onclick="Postcode2()" value="우편번호 찾기"><br>
 
-					<input style="border-radius: 4px!important;" class="form-control" type="text" id="address2" placeholder="주소2(회사)" value="${member.address2}"><br>
-					<input style="border-radius: 4px!important;" class="form-control" type="text" id="detail_address2" placeholder="상세주소" value="${member.detailaddress2}">
+					<input style="border-radius: 4px!important;" class="form-control" type="text"  name="address2" id="address2" placeholder="주소2(회사)" value="${member.address2}"><br>
+					<input style="border-radius: 4px!important;" class="form-control" type="text"  name="detail_address2" id="detail_address2" placeholder="상세주소" value="${member.detailaddress2}">
 
 
 					<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -253,7 +255,7 @@ margin-left: 20%;width: 60%;
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
 						
-						<select name = "birthdayyear" id="birthday" >
+						<select n ame = "birthdayyear" id="birthday" >
 				<option value="">선택하세요</option>
 			<c:forEach var="i" begin="0" end="${2019-1900}">
     		<c:set var="birthdayyear" value="${2019-i}" />
