@@ -10,23 +10,37 @@
 .inputreply, .inputreply > .footer{
 background-color: lightgray;
 }
-#addreply:HOVER{
+#addreply:HOVER, #deletereply:hover{
 cursor: pointer;
 }
 
 </style>
 <script type="text/javascript">
 	$(function(){
-		$('tbody > tr > td > h5 > #addreply').on("click", function(){
-			alert("클릭");
-			var id = $(this).parent().parent().parent().attr("id");
-			alert(id);
-			var html = "<tr><td colspan=2><form action='' method='post'>";
-			html+="<textarea name='contents' class='form-control' rows='3' style='re-sizing:none;'></textarea>";
-			html+="<p class='text-right'><button type='submit' class='btn btn-default btn-sm'>등록</button></p></form>";
-			html += "</td></tr>";
-			$('#'+id).after(html);
+		
+		$('table > tbody > tr > td > h5 > #addreply').on("click", function(){
+			if($(this).hasClass("add")){
+				alert("add");
+				var id = $(this).parent().parent().parent().attr("id");
+				alert(id);
+				var html = "<tr><td colspan=2><form action='' method='post'>";
+				html+="<textarea name='contents' class='form-control' rows='3' style='re-sizing:none;'></textarea>";
+				html+="<p class='text-right'><button type='submit' class='btn btn-default btn-sm'>등록</button></p></form>";
+				html += "</td></tr>";
+				$('#'+id).after(html);
+				$(this).html("취소")
+				.removeAttr("class")
+				.attr("class","delete");
+			}else{
+				alert("delete");
+				$(this).parent().parent().parent().next().remove()
+				.html("답글")
+				.removeAttr("class")
+				.attr("class","add");
+				
+			}
 		})
+		
 	})
 </script>
 </head>
@@ -89,35 +103,10 @@ cursor: pointer;
 					</tr>
 				</tfoot>
 				<tbody>
-					<%-- <tr>
-						<td colspan=2>
-							<h5>닉네임<small>작성일</small>
-								<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">답글</a>
-							</h5>
-							내용
-						</td>
-					</tr>
-					<tr>
-						<td colspan=2>
-							<div class="collapse" id="collapseExample">
-							  <div class="well">
-							    ...
-							  </div>
-							</div>
-						</td>
-					</tr>
-					<tr id="content2">
-						<td></td>
-						<td>
-							<h5><img src="${pageContext.request.contextPath }/resources/images/reply_new_head.gif"><strong>닉네임</strong><small>작성일</small>
-							<a href="javascript:addreply()">답글</a></h5>
-							내용
-						</td>
-					</tr> --%>
 					<c:forEach var="replist" items="${list }">
 						<tr id="${replist.idx }">
 							<td colspan=2 id="td">
-								<h5 id="h5">${replist.nickname }<small>${replist.inputdate }</small><a id="addreply">답글</a></h5>
+								<h5 id="h5">${replist.nickname }<small>${replist.inputdate }</small><a id="addreply" class="add">답글</a></h5>
 								<p>${replist.contents }</p>
 							</td>
 						</tr>
