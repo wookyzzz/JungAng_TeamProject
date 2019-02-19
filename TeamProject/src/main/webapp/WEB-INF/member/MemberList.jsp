@@ -93,7 +93,6 @@
                <td>${member.salesauthority}</td>
                <td>${member.birthdayyeardate}년${member.birthdaymonth}월${member.birthdaydate}일</td>
                <td>${member.point}</td>
-               <td></td>
                <td class="text-center">
                 <a class='btn btn-info btn-xs' href="#" onclick="goUpdate('${member.id}')"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
                 <a href="delete.mem?id=<c:out value="${member.id}" />" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> 탈퇴</a>
