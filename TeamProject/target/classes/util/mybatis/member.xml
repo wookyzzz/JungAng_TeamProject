@@ -5,8 +5,8 @@
 <mapper namespace="member.model.MemberBean">
 
 <insert id="InsertData" parameterType="MyMember">
-insert into members(idx,id, passwd,passwd2, name, tel, hp,nick,email,postcode1,address1,detailaddress1,salesauthority,cash,point,birthdayyeardate,birthdaymonth,birthdaydate) 
-values(mem_seq.nextval, #{id}, #{passwd},#{passwd2}, #{name}, #{tel}, #{hp}, #{nick},#{email},#{postcode1},#{address1},#{detailaddress1},#{salesauthority},#{cash},#{point},#{birthdayyeardate},#{birthdaymonth},#{birthdaydate}) 
+insert into members(idx,id, passwd, name, tel, hp,nick,email,postcode1,address1,detailaddress1,salesauthority,cash,point,birthdayyeardate,birthdaymonth,birthdaydate) 
+values(mem_seq.nextval, #{id}, #{passwd}, #{name}, #{tel}, #{hp}, #{nick},#{email},#{postcode1},#{address1},#{detailaddress1},#{salesauthority},#{cash},#{point},#{birthdayyeardate},#{birthdaymonth},#{birthdaydate}) 
 </insert>
 
 
