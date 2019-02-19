@@ -47,28 +47,29 @@ create table members(
         idx number primary key,
         id varchar2(20) unique,
         passwd varchar2(20) not null,
+        passwd2 varchar2(20) not null,
         name nvarchar2(30) not null,
-        tel varchar2(20) not null,   --일반전화
+        tel varchar2(20) null,   --일반전화
         hp varchar2(20) not null,   --핸드폰번호
         nick nvarchar2(30),      
         email varchar2(40),
         postcode1 varchar2(20),      --우편번호1
         address1 nvarchar2(50),      --기본주소1 (자택)
-        detail_address1 nvarchar2(30),   --(자택)상세주소
+        detailaddress1 nvarchar2(30),   --(자택)상세주소
         postcode2 varchar2(20),      --우편번호2
         address2 nvarchar2(50),      --추가주소2 (회사)
-        detail_address2 nvarchar2(30),   --(회사)상세주소
-        sales_authority number default 0, -- 사업자 등록 여부 0(false) / 1(true)  
+        detailaddress2 nvarchar2(30),   --(회사)상세주소
+        salesauthority nvarchar2(30), -- 사업자 등록 여부 0(false) / 1(true)  
         cash number,
         point number,
-        birthday_yeardate varchar2(20),
-	birthday_month varchar2(20),
-	birthday_date varchar2(20),
-        mem_level varchar2(15)
+        birthdayyeardate varchar2(20),
+		birthdaymonth varchar2(20),
+		birthdaydate varchar2(20),
+        memlevel varchar2(15)
     );
 
-insert into members(idx, id, passwd, name, tel, hp, nick, email, postcode1, address1, detail_address1, postcode2, address2, detail_address2, cash, point, birthday_yeardate,birthday_month,birthday_date, mem_level)
-values(seqmember.nextval, 'kim', 1234, '김철수', '02-1111-1111', '010-1111-1111','철수','aaa@gmail.com','111-222','서울시 강남구','장미아파트','222-111','서울시 은평구','비즈타워', 0, 100, 1994, 04, 08, '일반');
+insert into members(idx, id, passwd,passwd2, name, tel, hp, nick, email, postcode1, address1, detailaddress1, postcode2, address2, detailaddress2,salesauthority, cash, point, birthdayyeardate,birthdaymonth,birthdaydate, memlevel)
+values(seqmember.nextval, 'kim', 1234,1234, '김철수', '02-1111-1111', '010-1111-1111','철수','aaa@gmail.com','111-222','서울시 강남구','장미아파트','222-111','서울시 은평구','비즈타워','일반', 0, 100, 1994, 04, 08, '일반');
 
 
 commit ;

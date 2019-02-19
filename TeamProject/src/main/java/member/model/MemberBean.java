@@ -1,28 +1,21 @@
 package member.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
 //회원 테이블
 public class MemberBean {
 	private int idx;
-	@NotEmpty(message = "아이디를 입력해주세요.")
 	private String id;
 	
-	@NotEmpty(message = "비밀번호를 입력해주세요.")
 	private String passwd;
-	
-	@NotEmpty(message = "아름을 입력해주세요")
+	private String passwd2;
 	private String name;
 	
 	private String tel;
 	
-	@NotEmpty(message = "핸드폰번호를 입력해주세요")
 	private String hp;
 	
-	@NotEmpty(message = "닉네임을 설정해주세요")
 	private String nick;
 	
-	@NotEmpty(message = "이메일을 입력해주세요")
 	private String email;
 	private String postcode1;
 	private String address1;
@@ -30,7 +23,7 @@ public class MemberBean {
 	private String postcode2;
 	private String address2;
 	private String detailaddress2;
-	private int salesauthority;
+	private String salesauthority;
 	private int cash;
 	private int point;
 	
@@ -65,6 +58,14 @@ public class MemberBean {
 
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
+	}
+
+	public String getPasswd2() {
+		return passwd2;
+	}
+
+	public void setPasswd2(String passwd2) {
+		this.passwd2 = passwd2;
 	}
 
 	public String getName() {
@@ -155,11 +156,11 @@ public class MemberBean {
 		this.detailaddress2 = detailaddress2;
 	}
 
-	public int getSalesauthority() {
+	public String getSalesauthority() {
 		return salesauthority;
 	}
 
-	public void setSalesauthority(int salesauthority) {
+	public void setSalesauthority(String salesauthority) {
 		this.salesauthority = salesauthority;
 	}
 
@@ -211,24 +212,15 @@ public class MemberBean {
 		this.memlevel = memlevel;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberBean [idx=" + idx + ", id=" + id + ", passwd=" + passwd + ", name=" + name + ", tel=" + tel
-				+ ", hp=" + hp + ", nick=" + nick + ", email=" + email + ", postcode1=" + postcode1 + ", address1="
-				+ address1 + ", detailaddress1=" + detailaddress1 + ", postcode2=" + postcode2 + ", address2="
-				+ address2 + ", detailaddress2=" + detailaddress2 + ", salesauthority=" + salesauthority + ", cash="
-				+ cash + ", point=" + point + ", birthdayyeardate=" + birthdayyeardate + ", birthdaymonth="
-				+ birthdaymonth + ", birthdaydate=" + birthdaydate + ", memlevel=" + memlevel + "]";
-	}
-
-	public MemberBean(int idx, String id, String passwd, String name, String tel, String hp, String nick, String email,
-			String postcode1, String address1, String detailaddress1, String postcode2, String address2,
-			String detailaddress2, int salesauthority, int cash, int point, String birthdayyeardate,
+	public MemberBean(int idx, String id, String passwd, String passwd2, String name, String tel, String hp,
+			String nick, String email, String postcode1, String address1, String detailaddress1, String postcode2,
+			String address2, String detailaddress2, String salesauthority, int cash, int point, String birthdayyeardate,
 			String birthdaymonth, String birthdaydate, String memlevel) {
 		super();
 		this.idx = idx;
 		this.id = id;
 		this.passwd = passwd;
+		this.passwd2 = passwd2;
 		this.name = name;
 		this.tel = tel;
 		this.hp = hp;
@@ -248,5 +240,17 @@ public class MemberBean {
 		this.birthdaydate = birthdaydate;
 		this.memlevel = memlevel;
 	}
+
+	@Override
+	public String toString() {
+		return "MemberBean [idx=" + idx + ", id=" + id + ", passwd=" + passwd + ", passwd2=" + passwd2 + ", name="
+				+ name + ", tel=" + tel + ", hp=" + hp + ", nick=" + nick + ", email=" + email + ", postcode1="
+				+ postcode1 + ", address1=" + address1 + ", detailaddress1=" + detailaddress1 + ", postcode2="
+				+ postcode2 + ", address2=" + address2 + ", detailaddress2=" + detailaddress2 + ", salesauthority="
+				+ salesauthority + ", cash=" + cash + ", point=" + point + ", birthdayyeardate=" + birthdayyeardate
+				+ ", birthdaymonth=" + birthdaymonth + ", birthdaydate=" + birthdaydate + ", memlevel=" + memlevel
+				+ "]";
+	}
+	
 	
 }

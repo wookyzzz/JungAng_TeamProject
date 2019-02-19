@@ -4,13 +4,10 @@
 
 <mapper namespace="member.model.MemberBean">
 
-<insert parameterType="MyMember" id="InsertData"> 
-insert into members(id, passwd, name, tel, hp, nick, email, postcode1, address1, detail_address1, 
-postcode2, address2, detail_address2 ,sales_authority , cash, point, birthday_yeardate , birthday_month  , birthday_date , mem_level) 
-values( #{id}, #{passwd}, #{name}, #{tel}, #{hp},#{nick}, #{email}, #{postcode1} #{address1}, #{detailaddress1}, 
-#{postcode2} #{address2}, #{detailaddress2}, #{salesauthority} #{cash}, #{point}, #{birthdayyeardate}, #{birthdaymonth}, #{birthdaydate}, #{memlevel} ) 
+<insert id="InsertData" parameterType="MyMember">
+insert into members(idx,id, passwd,passwd2, name, tel, hp,nick,email,postcode1,address1,detailaddress1,salesauthority,cash,point,birthdayyeardate,birthdaymonth,birthdaydate) 
+values(mem_seq.nextval, #{id}, #{passwd},#{passwd2}, #{name}, #{tel}, #{hp}, #{nick},#{email},#{postcode1},#{address1},#{detailaddress1},#{salesauthority},#{cash},#{point},#{birthdayyeardate},#{birthdaymonth},#{birthdaydate}) 
 </insert>
-
 
 
 	<select id="GetTotalCount" resultType="int">
@@ -50,8 +47,8 @@ values( #{id}, #{passwd}, #{name}, #{tel}, #{hp},#{nick}, #{email}, #{postcode1}
 
 	<update id="UpdateData" parameterType="MyMember">
 		update members set
-		name=#{name}, tel=#{tel}, hp=#{hp}, nick=#{nick}, email=#{email}, postcode1=#{postcode1}, address1=#{address1}, detail_address1=#{detailaddress1}, 
-		postcode2=#{postcode2}, address2=#{address2}, detail_address2=#{detailaddress2}
+		name=#{name}, tel=#{tel}, hp=#{hp}, nick=#{nick}, email=#{email}, postcode1=#{postcode1}, address1=#{address1},detailaddress1=#{detailaddress1},
+		salesauthority=#{salesauthority}, cash=#{cash}, point=#{point}, birthdayyeardate=#{birthdayyeardate}, birthdaymonth=#{birthdaymonth}, birthdaydate=#{birthdaydate}
 		where id=#{id}
 	</update>
 	

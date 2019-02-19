@@ -23,7 +23,7 @@ public class MemberRegisterController {
 	
 	@Autowired
 	@Qualifier("myMemberDao")
-	private MemberDao memberDao;	
+	private MemberDao memberDao;
 	
 	// 요청한곳 : 
 	@RequestMapping(value=command , method=RequestMethod.GET)

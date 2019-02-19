@@ -138,7 +138,7 @@ margin-left: 20%;width: 60%;
          <div class="form-group">
                      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
                        <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
-                           생일<span style="color: red">*</span> :</div>
+                           생일 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
 						${member.birthdayyeardate}년
@@ -148,6 +148,22 @@ margin-left: 20%;width: 60%;
                        <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
          </div>
          
+         <div class="form-group">
+                     <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
+                       <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
+                  즐겨찾기에 추가 :</div>
+                        
+						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
+						 <form action="add.mall" method="post">
+								<input type="hidden" name="idx" value="${member.idx}">
+								<input type="submit" value="주문">
+							</form>
+                        </div>
+                       <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
+         </div>
+         
+         
+      
         <div class="form-group">
 									<div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
 									<div class="col-sm-11 col-md-11 col-lg-11 col-xs-10" style="text-align:center;">

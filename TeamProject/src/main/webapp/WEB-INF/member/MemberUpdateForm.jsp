@@ -50,31 +50,32 @@ margin-left: 20%;width: 60%;
 				 <input type="hidden" name="id" value="${member.id}">
 				
 				<fieldset class="landscape_nomargin" style="min-width: 0;padding:    .35em .625em .75em!important;margin:0 2px;border: 2px solid silver!important;margin-bottom: 10em;">
-			<legend style="border-bottom: none;width: inherit;!important;padding:inherit;" class="legend">Registration Form</legend>
+			<legend style="border-bottom: none;width: inherit;!important;padding:inherit;" class="legend">정보 수정</legend>
 		
 			<div class="form-group">
 						 <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="text-align: right!important;">
-						 <span style="color: red">*</span> <span style="font-size: 8pt;">반드시 입력하세요</span>
+						 
 						 </div>
 						</div>	
 			 <div class="form-group" style="margin-bottom: 0px;">
                     <div class="col-sm-4 col-md-4 col-lg-5 col-xs-1"></div><div class="col-sm-8 col-md-8 col-lg-7 col-xs-10 mobilePad" id="message10" style=" font-size: 10pt;padding-left: 0px;"></div>                      
 
-                    </div>				
+                    </div>
+         			
 		 <div class="form-group">
                      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
                        <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
-                            이름 <span style="color: red">*</span> :</div>
+                            이름 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
-						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="name" id="name" value="${member.name}">
+						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="name" id="name" value="${member.name}" readonly />
                         </div>
                        <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
          </div>
          <div class="form-group">
                      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
                        <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
-                            일반전화 <span style="color: red">*</span> :</div>
+                            일반전화 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
 						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="tel" id="tel" value="${member.tel}">
@@ -84,7 +85,7 @@ margin-left: 20%;width: 60%;
          <div class="form-group">
                      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
                        <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
-                            핸드폰번호 <span style="color: red">*</span> :</div>
+                            핸드폰번호 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
 						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="hp" id="hp" value="${member.hp}">
@@ -94,7 +95,7 @@ margin-left: 20%;width: 60%;
          <div class="form-group">
                      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
                        <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
-                            닉네임 <span style="color: red">*</span> :</div>
+                            닉네임 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
 						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="nick" id="nick" value="${member.nick}">
@@ -104,7 +105,7 @@ margin-left: 20%;width: 60%;
          <div class="form-group">
                      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
                        <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
-                            이메일 <span style="color: red">*</span> :</div>
+                            이메일 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
 						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="email" id="email" value="${member.email}">
@@ -114,7 +115,7 @@ margin-left: 20%;width: 60%;
          <div class="form-group">
                      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
                        <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
-                            기본주소1(자택) <span style="color: red">*</span> :</div>
+                            기본주소1(자택) :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
 						
@@ -122,60 +123,53 @@ margin-left: 20%;width: 60%;
 					<input style="border-radius: 4px!important;" class="form-control" type="button" onclick="Postcode1()" value="우편번호 찾기"><br>
 
 					<input style="border-radius: 4px!important;" class="form-control" type="text" name="address1" id="address1" placeholder="주소1(자택)" value="${member.address1}"><br>
-					<input style="border-radius: 4px!important;" class="form-control" type="text" name="detail_address1" id="detail_address1" placeholder="상세주소" value="${member.detailaddress1}">
-
+					<input style="border-radius: 4px!important;" class="form-control" type="text" name="detailaddress1" id="detailaddress1" placeholder="상세주소" value="${member.detailaddress1}">
 
 					<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 					<script>
-						function Postcode1() {
-							new daum.Postcode(
-									{
-										oncomplete : function(data) {
-											// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+					function Postcode1() {
+				         new daum.Postcode({
+				             oncomplete: function(data) {
+				                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+				 
+				                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+				                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+				                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+				                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+				 
+				                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+				                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+				                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+				                    extraRoadAddr += data.bname;
+				                }
+				                // 건물명이 있고, 공동주택일 경우 추가한다.
+				                if(data.buildingName !== '' && data.apartment === 'Y'){
+				                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				                }
+				                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+				                if(extraRoadAddr !== ''){
+				                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+				                }
+				                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+				                if(fullRoadAddr !== ''){
+				                    fullRoadAddr += extraRoadAddr;
+				                }
+				 
+				                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+				                console.log(data.zonecode);
+				                console.log(fullRoadAddr);
+				                
+				                
+				                $("[name=postcode1]").val(data.zonecode);
+				                $("[name=address1]").val(fullRoadAddr);
+				                
+				                /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+				                document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+				                document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+				            }
+				         }).open();
+				     }
 
-											// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-											// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-											var addr = ''; // 주소 변수
-											var extraAddr = ''; // 참고항목 변수
-
-											//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-											if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-												addr = data.roadAddress;
-											} else { // 사용자가 지번 주소를 선택했을 경우(J)
-												addr = data.jibunAddress;
-											}
-
-											// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-											if (data.userSelectedType === 'R') {
-												// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-												// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-												if (data.bname !== ''
-														&& /[동|로|가]$/g
-																.test(data.bname)) {
-													extraAddr += data.bname;
-												}
-												// 건물명이 있고, 공동주택일 경우 추가한다.
-												if (data.buildingName !== ''
-														&& data.apartment === 'Y') {
-													extraAddr += (extraAddr !== '' ? ', '
-															+ data.buildingName
-															: data.buildingName);
-												}
-
-											} else {
-
-											}
-
-											// 우편번호와 주소 정보를 해당 필드에 넣는다.
-											document.getElementById('postcode1').value = data.zonecode;
-											document
-													.getElementById("address_home").value = addr;
-											// 커서를 상세주소 필드로 이동한다.
-											document.getElementById(
-													"detail_address1").focus();
-										}
-									}).open();
-						}
 					</script>
                         </div>
                        <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
@@ -183,67 +177,33 @@ margin-left: 20%;width: 60%;
          <div class="form-group">
                      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
                        <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
-                           기본주소2(회사)<span style="color: red">*</span> :</div>
+                            사업자 등록 여부 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
-						<input style="border-radius: 4px!important;" class="form-control" type="text"  name="postcode2" id="postcode2" placeholder="우편번호" value="${member.postcode2}">
-					<input style="border-radius: 4px!important;" class="form-control" type="button" onclick="Postcode2()" value="우편번호 찾기"><br>
-
-					<input style="border-radius: 4px!important;" class="form-control" type="text"  name="address2" id="address2" placeholder="주소2(회사)" value="${member.address2}"><br>
-					<input style="border-radius: 4px!important;" class="form-control" type="text"  name="detail_address2" id="detail_address2" placeholder="상세주소" value="${member.detailaddress2}">
-
-
-					<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-					<script>
-						function Postcode2() {
-							new daum.Postcode(
-									{
-										oncomplete : function(data) {
-											// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-											// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-											// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-											var addr = ''; // 주소 변수
-											var extraAddr = ''; // 참고항목 변수
-
-											//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-											if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-												addr = data.roadAddress;
-											} else { // 사용자가 지번 주소를 선택했을 경우(J)
-												addr = data.jibunAddress;
-											}
-
-											// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-											if (data.userSelectedType === 'R') {
-												// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-												// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-												if (data.bname !== ''
-														&& /[동|로|가]$/g
-																.test(data.bname)) {
-													extraAddr += data.bname;
-												}
-												// 건물명이 있고, 공동주택일 경우 추가한다.
-												if (data.buildingName !== ''
-														&& data.apartment === 'Y') {
-													extraAddr += (extraAddr !== '' ? ', '
-															+ data.buildingName
-															: data.buildingName);
-												}
-
-											} else {
-
-											}
-
-											// 우편번호와 주소 정보를 해당 필드에 넣는다.
-											document.getElementById('postcode2').value = data.zonecode;
-											document.getElementById("addres_company").value = addr;
-											// 커서를 상세주소 필드로 이동한다.
-											document.getElementById(
-													"detail_address2").focus();
-										}
-									}).open();
-						}
-					</script>
+                        <input type="radio" name="salesauthority"  value="일반" <c:if test="${member.salesauthority=='일반'}"> checked </c:if>>일반
+						<input type="radio" name="salesauthority"  value="사업가" <c:if test="${member.salesauthority=='사업가'}"> checked </c:if>>사업가
+                        </div>
+                       <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
+         </div>
+         
+         <div class="form-group">
+                     <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
+                       <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
+                            예치금 :</div>
+                        
+						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
+						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="cash" id="cash" value="${member.cash}" >
+                        </div>
+                       <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
+         </div>
+         
+         <div class="form-group">
+                     <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
+                       <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
+                            포인트 :</div>
+                        
+						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
+						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="point" id="point" value="${member.point}" >
                         </div>
                        <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
          </div>
@@ -251,31 +211,28 @@ margin-left: 20%;width: 60%;
         <div class="form-group">
                      <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
                        <div class="col-sm-3 col-md-3 col-lg-4 col-xs-10 mobileLabel" style=" padding-top: 7px; text-align: right;">
-                            생일 <span style="color: red">*</span> :</div>
+                            생년월일 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
 						
-						<select n ame = "birthdayyear" id="birthday" >
+						<select name = "birthdayyeardate" id="birthday" >
 				<option value="">선택하세요</option>
-			<c:forEach var="i" begin="0" end="${2019-1900}">
-    		<c:set var="birthdayyear" value="${2019-i}" />
-   		 		<option value="${birthdayyear}">${birthdayyear}</option>
+			<c:forEach var="i" begin="1900" end="2019" step="1" >
+   		 		<option value="${i}" <c:if test="${member.birthdayyeardate==i}"> selected </c:if>>${i}</option>
 			</c:forEach>
 			</select>
 			년
 			<select name = "birthdaymonth" id="birthday" >
 				<option value="">선택하세요</option>
-			<c:forEach var="i" begin="0" end="${12-1}">
-    		<c:set var="birthdaymonth" value="${12-i}" />
-   		 		<option value="${birthdaymonth}">${birthdaymonth}</option>
+			<c:forEach var="i" begin="1" end="12">
+   		 		<option value="${i}" <c:if test="${member.birthdaymonth==i}"> selected </c:if> >${i}</option>
 			</c:forEach>
 			</select>
 			월
 			<select name = "birthdaydate" id="birthday" >
 				<option value="">선택하세요</option>
-			<c:forEach var="i" begin="0" end="${31-1}">
-    		<c:set var="birthdaydate" value="${31-i}" />
-   		 		<option value="${birthdaydate}">${birthdaydate}</option>
+			<c:forEach var="i" begin="1" end="31">
+   		 		<option value="${i}" <c:if test="${member.birthdaydate==i}"> selected </c:if>>${i}</option>
 			</c:forEach>
 			</select>
 			일
