@@ -43,11 +43,9 @@
 						    ${loginfo.id } <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" role="menu">
-						    <li><a href="#">Action</a></li>
-						    <li><a href="#">Another action</a></li>
-						    <li><a href="#">Something else here</a></li>
-						    <li class="divider"></li>
-						    <li><a href="#">Separated link</a></li>
+						    <li><a href="update.mem">내 정보 수정</a></li>
+						    <li><a href="#">로그아웃</a></li>
+						   
 						  </ul>
 						</div>
 			      	</c:if>
