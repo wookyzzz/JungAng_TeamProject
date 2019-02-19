@@ -59,7 +59,7 @@ public class FileUploadController {
 				
 				printWriter = response.getWriter();
 				response.setCharacterEncoding("UTF-8");
-				response.setContentType("text/html, charset=utf-8");
+				response.setContentType("text/html; charset=utf-8");
 				String fileUrl = request.getContextPath()+"/resources/images/"+fileName;
 				
 				json.addProperty("uploaded", 1);

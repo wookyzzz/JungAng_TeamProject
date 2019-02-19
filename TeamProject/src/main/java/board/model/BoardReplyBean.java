@@ -6,7 +6,7 @@ public class BoardReplyBean {
 	private int memNum;
 	private int reRef;
 	private int reReStep;
-	private int reReLeval;
+	private int reReLevel;
 	private String inputdate;
 	private String contents;
 	private String nickname;
@@ -41,11 +41,11 @@ public class BoardReplyBean {
 	public void setReReStep(int reReStep) {
 		this.reReStep = reReStep;
 	}
-	public int getReReLeval() {
-		return reReLeval;
+	public int getReReLevel() {
+		return reReLevel;
 	}
-	public void setReReLeval(int reReLeval) {
-		this.reReLeval = reReLeval;
+	public void setReReLevel(int reReLeval) {
+		this.reReLevel = reReLeval;
 	}
 	public String getInputdate() {
 		return inputdate;

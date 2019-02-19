@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import board.model.BoardBean;
 import board.model.BoardDao;
 import board.model.BoardReplyBean;
+import util.paging.Paging;
 
 @Controller
 public class ContentViewController {
@@ -30,14 +31,24 @@ public class ContentViewController {
 			session.setAttribute("destination", "redirect:/contentview.bbs?idx="+idx);
 			mav.setViewName("redirect:/list.ct");
 		}
+		session.setAttribute("destination", "redirect:/contentview.bbs?idx="+idx);
 		BoardBean bean = new BoardBean();
 		List<BoardReplyBean> list = new ArrayList<BoardReplyBean>();
 		boardDao.raiseReadCount(idx);
-		list = boardDao.getReplyByRe_Ref(idx);
+		int totalCount = 0;
+		String pageNumber = "1";
+		String limit ="10";
+		String pagingSize="5";
+		totalCount = boardDao.getReplyCountByReBbsRef(idx);
+		Paging paging = new Paging(totalCount, pageNumber, limit, pagingSize);
+		list = boardDao.getReplyByRe_Ref(idx,paging);
 		bean = boardDao.getContentByIdx(idx);
+		int thumbCount = boardDao.getThumbCount(idx);
 		System.out.println("´ñ±Û ¸®½ºÆ® : " + list.size());
+		mav.addObject("paging", paging);
 		mav.addObject("bean", bean);
 		mav.addObject("list", list);
+		mav.addObject("thumbCount", thumbCount);
 		mav.setViewName(getPage);
 		return mav;
 	}
