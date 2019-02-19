@@ -36,8 +36,8 @@
 
 </style>
 </head>
-<%@ include file="../common/topmenu.jsp" %>
 <body onLoad='init()'>
+<%@ include file="../common/topmenu.jsp" %>
 
 	<h2 align="center">회원 리스트 화면</h2>
 	<center>

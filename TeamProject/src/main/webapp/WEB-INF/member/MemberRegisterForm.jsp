@@ -58,7 +58,6 @@ margin-left: 20%;width: 60%;
 </head>
 <%@ include file="../common/topmenu.jsp" %>
 <body>
-<h2>회원 가입 화면</h2>
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3 boxStyle" style="padding-right: 0px!important;padding-left: 0px!important;">
@@ -67,7 +66,7 @@ margin-left: 20%;width: 60%;
 				 <!-- registerForm.me => MemberRegisterController post-->
 				 
 				<fieldset class="landscape_nomargin" style="min-width: 0;padding:    .35em .625em .75em!important;margin:0 2px;border: 2px solid silver!important;margin-bottom: 10em;">
-			<legend style="border-bottom: none;width: inherit;!important;padding:inherit;" class="legend">정보 수정</legend>
+			<legend style="border-bottom: none;width: inherit;!important;padding:inherit;" class="legend">회원 가입</legend>
 		
 			<div class="form-group">
 						 <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="text-align: right!important;">
@@ -247,7 +246,7 @@ margin-left: 20%;width: 60%;
                             예치금 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
-						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="cash" id="cash" value="0">
+						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="cash" id="cash" value="0" disabled="disabled"/>
                         </div>
                        <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
          </div>
@@ -258,7 +257,8 @@ margin-left: 20%;width: 60%;
                             포인트 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
-						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="point" id="point" value="0">
+						<input style="border-radius: 4px!important;" type="text"  class="form-control" id="point" value="200" disabled="disabled"/>
+						<input type="hidden" name="point" value="200">
                         </div>
                        <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
          </div>
