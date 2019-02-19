@@ -68,9 +68,6 @@ create table members(
         memlevel varchar2(15)
     );
 
-insert into members(idx, id, passwd,passwd2, name, tel, hp, nick, email, postcode1, address1, detailaddress1, postcode2, address2, detailaddress2,salesauthority, cash, point, birthdayyeardate,birthdaymonth,birthdaydate, memlevel)
-values(seqmember.nextval, 'kim', 1234,1234, '김철수', '02-1111-1111', '010-1111-1111','철수','aaa@gmail.com','111-222','서울시 강남구','장미아파트','222-111','서울시 은평구','비즈타워','일반', 0, 100, 1994, 04, 08, '일반');
-
 
 commit ;
 
@@ -109,7 +106,8 @@ col mem_level for a8
         idx number primary key not null,
         name varchar(30) not null unique
     );
-    
+    drop table categories cascade CONSTRAINTS;
+
     create table categories_detail(
         idx number primary key not null,
         catNum number not null,
@@ -183,7 +181,7 @@ col mem_level for a8
      memNum number not null,
      sortNum number not null,
     subject nvarchar2(50) not null,
-    contents nvarchar2(200) not null,
+    contents nvarchar2(2000) not null,
     image varchar2(50),
      ref number,
      re_step number,
@@ -196,14 +194,15 @@ col mem_level for a8
 );
    --게시판 (좋아요/싫어요)
    drop table bbs_bad_good;
-   create table bbs_bad_good(
-       bbs_ref number,
-       bbs_good_member number,
-       bbs_bad_member number,
-       foreign key(bbs_ref) references bbs(idx),
-       foreign key(bbs_good_member) references members(idx),
-       foreign key(bbs_bad_member) references members(idx)
-);
+   drop table bbs_good;
+	create table bbs_good(
+	    bbs_ref number not null,
+	    bbs_good_member number not null,
+	    checkdate date default sysdate,
+	    foreign key(bbs_ref) references bbs(idx),
+	    foreign key(bbs_good_member) references members(idx)
+	);
+
 
 --댓글
     drop table bbs_re;
@@ -214,9 +213,7 @@ col mem_level for a8
         re_ref number,
         re_re_step number,
         re_re_level number,
-        readCount number,
         inputdate date default sysdate,
-         subject nvarchar2(50) not null,
         contents nvarchar2(200) not null,
         foreign key(re_bbs_ref) references bbs(idx),
          foreign key(memNum) references members(idx)
@@ -305,10 +302,11 @@ col mem_level for a8
  insert into categories (idx, name) values (menu_num_seq.nextval, '커뮤니티');
 insert into categories (idx, name) values (menu_num_seq.nextval, '장터');
 insert into categories_detail(idx, catNum, name, url) values(cat_detail_seq.nextval, 1000, '전체게시판', 'list.bbs');
-
-insert into categories (idx, name) values (9999, '홈페이지 관리');
+insert into members (idx, id, passwd, name, hp,tel) values(mem_seq.nextval, 'admin', 'admin', '관리자','010-0000-0000','010-0000-0000');
+insert into categories (idx, name) values (99999, '홈페이지 관리');
 select * from categories;
 commit;
-insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 9999, '카테고리 관리', 'manage.ct');
+insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, '카테고리 관리', 'manage.ct');
+insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, '회원 관리', 'list.mem');
 select * from categories_detail;
 commit;
