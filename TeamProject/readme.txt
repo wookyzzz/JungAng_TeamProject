@@ -36,18 +36,13 @@ session.setAttribute("loginfo") --> 회원 정보를 담는 session 객체
 
 
 
------- database ------
--- -- 멤버 
 DROP TABLE members CASCADE CONSTRAINTS;
-
-drop sequence seqmember;
-create sequence seqmember start with 1 increment by 1 nocache ;
 
 create table members(
         idx number primary key,
         id varchar2(20) unique,
         passwd varchar2(20) not null,
-        passwd2 varchar2(20) not null,
+        passwd2 varchar2(20) ,
         name nvarchar2(30) not null,
         tel varchar2(20) null,   --일반전화
         hp varchar2(20) not null,   --핸드폰번호
@@ -101,13 +96,13 @@ col mem_level for a8
     )
     
     --카테고리
-    drop table categories cascade constrains;
+    drop table categories cascade CONSTRAINTS;
     create table categories(
         idx number primary key not null,
         name varchar(30) not null unique
     );
-    drop table categories cascade CONSTRAINTS;
-
+    
+ drop table categories_detail cascade CONSTRAINTS;
     create table categories_detail(
         idx number primary key not null,
         catNum number not null,
@@ -132,7 +127,7 @@ col mem_level for a8
     );
     
     --상품QnA
-        drop table prdQnA; 
+        drop table prdQnA cascade CONSTRAINTS; 
         create table prdQnA(
         idx number primary key not null,
         prdNum number not null,
@@ -150,7 +145,7 @@ col mem_level for a8
         foreign key(memNum) references members(idx)
     );    
     --후기
-    drop table review;
+    drop table review cascade CONSTRAINTS;
     create table review(
     idx number primary key,
     memNum number not null,
@@ -163,7 +158,7 @@ col mem_level for a8
     );
 
     --장바구니
-    drop table shoppingCart;
+    drop table shoppingCart cascade CONSTRAINTS;
     create table shoppingCart(
         memNum number not null,
         prdNum number not null,
@@ -193,7 +188,7 @@ col mem_level for a8
       foreign key(sortNum) references categories_detail(idx)
 );
    --게시판 (좋아요/싫어요)
-   drop table bbs_bad_good;
+   drop table bbs_bad_good cascade CONSTRAINTS;
    drop table bbs_good;
 	create table bbs_good(
 	    bbs_ref number not null,
@@ -205,7 +200,7 @@ col mem_level for a8
 
 
 --댓글
-    drop table bbs_re;
+    drop table bbs_re cascade CONSTRAINTS;
     create table bbs_re(
         idx number not null primary key,
         re_bbs_ref number not null, --> reference 게시판(bbs_number)
@@ -310,3 +305,6 @@ insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.ne
 insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, '회원 관리', 'list.mem');
 select * from categories_detail;
 commit;
+select * from categories;
+select * from categories_detail;
+select * from members;
