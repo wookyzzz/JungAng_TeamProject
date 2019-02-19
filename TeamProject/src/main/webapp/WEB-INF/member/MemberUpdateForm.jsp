@@ -192,7 +192,7 @@ margin-left: 20%;width: 60%;
                             예치금 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
-						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="cash" id="cash" value="${member.cash}" >
+						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="cash" id="cash" value="${member.cash}" readonly />
                         </div>
                        <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
          </div>
@@ -203,7 +203,7 @@ margin-left: 20%;width: 60%;
                             포인트 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
-						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="point" id="point" value="${member.point}" >
+						<input style="border-radius: 4px!important;" type="text"  class="form-control" name="point" id="point" value="${member.point}" readonly />
                         </div>
                        <div class="col-sm-1 col-md-1 col-lg-1 col-xs-1"></div>
          </div>
