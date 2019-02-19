@@ -34,21 +34,22 @@
 			        </div>
 			        <button type="submit" class="btn btn-default">검색</button>
 			      </form>
+			      <ul class="nav navbar-nav navbar-right">
 			      	<c:if test="${loginfo == null }">
-						<a href="LoginForm.mem"><button type="button" class="btn btn-default navbar-btn navbar-right">로그인</button></a>
+						<a href="LoginForm.mem"><button type="button" class="btn btn-default navbar-btn">로그인</button></a>
 					</c:if>
 					<c:if test="${loginfo != null }">
 						<div class="btn-group">
-						  <button type="button" class="btn btn-default navbar-right navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						  <button type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 						    ${loginfo.id } <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" role="menu">
 						    <li><a href="update.mem">내 정보 수정</a></li>
-						    <li><a href="#">로그아웃</a></li>
-						   
+						    <li><a href="logout.mem">로그아웃</a></li>
 						  </ul>
 						</div>
 			      	</c:if>
+			      	</ul>
 				</ul>
 			</div>
 		</div>
