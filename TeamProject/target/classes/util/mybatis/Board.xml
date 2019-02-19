@@ -27,7 +27,7 @@
 	
 	<insert id="insertNewLetter">
 		insert into bbs(idx, memNum, sortNum, subject, contents, ref, re_step, re_level, readCount, inputdate) 
-		values(bbs_seq.nextval, 2, #{sortNum}, #{subject}, #{contents}, bbs_seq.nextval, 0, 0, 0, sysdate )
+		values(bbs_seq.nextval, #{memNum}, #{sortNum}, #{subject}, #{contents}, bbs_seq.nextval, 0, 0, 0, sysdate )
 	</insert>
 	
 	<select id="getContentByIdx" resultType="MyBoard">
@@ -39,14 +39,57 @@
 	</update>
 	
 	<insert id="insertNewReply">
-	insert into bbs(idx, memNum, sortNum, subject, contents, ref, re_step, re_level, readCount, inputdate) 
-	values(bbs_seq.nextval, 2, #{sortNum}, #{subject}, #{contents}, #{ref}, #{restep}, #{relevel}, 0, sysdate)
+		insert into bbs(idx, memNum, sortNum, subject, contents, ref, re_step, re_level, readCount, inputdate) 
+		values(bbs_seq.nextval, #{memNum}, #{sortNum}, #{subject}, #{contents}, #{ref}, #{restep}, #{relevel}, 0, sysdate)
 	</insert>
 	<update id="updateLegacyLetterReStep">
-	update bbs set re_step = re_step+1 where ref = #{ref} and re_step > #{restep}
+		update bbs set re_step = re_step+1 where ref = #{ref} and re_step > #{restep}
 	</update>
 	<select id="getCountEqualsREF" resultType="int">
-	select count(*) from bbs where ref = #{ref} and re_step > #{restep}
+		select count(*) from bbs where ref = #{ref} and re_step > #{restep}
 	</select>
 	
+	<insert id="writeReply">
+		insert into bbs_re(idx, re_bbs_ref, memNum, re_ref, re_re_step, re_re_level, inputdate, contents) 
+		values (bbs_re_seq.nextval, #{reBbsRef},${memNum}, bbs_re_seq.nextval, 0, 0, sysdate, #{contents})
+	</insert>
+	
+	<select id="getReplyByRe_Ref" resultType="MyBoardReply">
+		select rownum as rank, idx, memNum, re_bbs_ref, contents, re_ref, re_re_step, re_re_level, inputdate
+		 from(select * from bbs_re where re_bbs_ref = #{idx} order by re_ref desc, re_re_step asc)
+	</select>
+	
+	<select id="getReplyByIdx" resultType="MyBoardReply">
+		select * from bbs_re where idx = #{parentId}
+	</select>
+	<select id="getCountEqualsRe_REF" resultType="int">
+		select count(*) from bbs_re where re_ref = #{reRef} and re_re_step > #{reReStep}
+	</select>
+	<update id="updateLegacyLetterRE_ReStep">
+		update bbs_re set re_re_step = re_re_step +1 where re_ref=#{reRef} and re_re_step > #{reReStep}
+	</update>
+	<insert id="writeReReply">
+		insert into bbs_re(idx, re_bbs_ref, memNum, re_ref, re_re_step, re_re_level, inputdate, contents) 
+		values (bbs_re_seq.nextval, #{reBbsRef},${memNum}, #{reRef}, #{reReStep}, #{reReLevel}, sysdate, #{contents})
+	</insert>
+	<select id="getReplyCountByReBbsRef" resultType="int">
+		select count(*) from bbs_re where re_bbs_ref = #{idx}
+	</select>
+	
+	<!-- 좋아요 -->
+	<select id="searchMemberByidx" resultType="int">
+		select count(*) from bbs_good where bbs_ref = #{bbsRef} and bbs_good_member = #{bbsGoodMember}
+	</select>
+	
+	<insert id="increaseThumbCount">
+		insert into bbs_good values(#{bbsRef}, #{bbsGoodMember}, sysdate)
+	</insert>
+	
+	<delete id="decreaseThumbCount">
+		delete from bbs_good where bbs_ref = #{bbsRef} and bbs_good_member = #{bbsGoodMember}
+	</delete>
+	
+	<select id="getThumbCount" resultType="int">
+		select count(*) from bbs_good where bbs_ref = #{bbsRef}
+	</select>
 </mapper>

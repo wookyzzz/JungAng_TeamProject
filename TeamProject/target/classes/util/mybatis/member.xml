@@ -57,7 +57,9 @@ values(mem_seq.nextval, #{id}, #{passwd},#{passwd2}, #{name}, #{tel}, #{hp}, #{n
 		point = point + #{point} 
 		where id=#{id}
 	</update>
-	
+	<select id="getInfoByIdx" resultType="MyMember">
+		select * from members where idx = #{memNum}
+	</select>
 </mapper>
 
 

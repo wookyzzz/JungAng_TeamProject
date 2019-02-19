@@ -44,6 +44,7 @@ public class GetBoardListController {
 		System.out.println("totalCount : " + totalCount);
 		Paging paging = new Paging(totalCount, pageNumber, limit, pagingSize);
 		List<BoardBean> list = boardDao.getData(paging, map);
+		list = boardDao.setNickName(list);
 		mav.addObject("map", map);
 		mav.addObject("list", list);
 		mav.addObject("paging", paging);

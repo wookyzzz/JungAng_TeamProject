@@ -10,6 +10,7 @@
 	<mvc:annotation-driven/>
 	
 	<context:component-scan base-package="board"/>
+	<context:component-scan base-package="member"/>
 	
 	<bean id="internalResourceViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

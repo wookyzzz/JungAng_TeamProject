@@ -6,10 +6,10 @@ public class BoardReplyBean {
 	private int memNum;
 	private int reRef;
 	private int reReStep;
-	private int reReLeval;
+	private int reReLevel;
 	private String inputdate;
-	private String subject;
 	private String contents;
+	private String nickname;
 	
 	public int getIdx() {
 		return idx;
@@ -41,11 +41,11 @@ public class BoardReplyBean {
 	public void setReReStep(int reReStep) {
 		this.reReStep = reReStep;
 	}
-	public int getReReLeval() {
-		return reReLeval;
+	public int getReReLevel() {
+		return reReLevel;
 	}
-	public void setReReLeval(int reReLeval) {
-		this.reReLeval = reReLeval;
+	public void setReReLevel(int reReLeval) {
+		this.reReLevel = reReLeval;
 	}
 	public String getInputdate() {
 		return inputdate;
@@ -53,17 +53,17 @@ public class BoardReplyBean {
 	public void setInputdate(String inputdate) {
 		this.inputdate = inputdate;
 	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
 	public String getContents() {
 		return contents;
 	}
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	
