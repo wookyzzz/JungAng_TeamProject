@@ -247,4 +247,27 @@ private String namespace="board.model.BoardBean";
 		replycount = sqlSessionTemplate.selectOne(namespace+".getReplyCountByreBbsRef", reBbsRef);
 		return replycount;
 	}
+
+	public int deleteAllReply(int idx) {
+		int count = -1;
+		count = sqlSessionTemplate.delete(namespace+".deleteAllReply", idx);
+		return count;
+	}
+
+	public void deleteLetter(int idx) {
+		sqlSessionTemplate.delete(namespace+".deleteLetter",idx);
+		
+	}
+
+	public void deleteReply(int idx) {
+		sqlSessionTemplate.update(namespace+".deleteReply", idx);
+	}
+
+	public void updateReply(BoardReplyBean bean) {
+		sqlSessionTemplate.update(namespace+".updateReply", bean);
+	}
+
+	public void updateLetter(BoardBean bean) {
+		sqlSessionTemplate.update(namespace+".updateLetter", bean);
+	}
 }
