@@ -153,9 +153,11 @@ public class ProductQnAController {
 		int ref = Integer.parseInt(request.getParameter("ref")); 
 		bean.setRef(ref);
 		System.out.println("삭제목록:"+ref+","+relevel);
-		Map<String,Integer> refMap = new HashMap<String, Integer>();
+		Map<String,Integer> relevelMap = new HashMap<String, Integer>();
+		relevelMap.put("ref",ref);
+		relevelMap.put("relevel", relevel);
 		if(relevel==0){
-			productDao.deleteQnA_all(ref,relevel);
+			productDao.deleteQnA_all(relevelMap);
 		}
 		
 		int prdNum = Integer.parseInt(request.getParameter("prdNum"));

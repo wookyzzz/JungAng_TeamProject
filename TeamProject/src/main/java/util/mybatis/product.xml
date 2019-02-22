@@ -61,5 +61,9 @@
 			insert into prdQnA values(prd_qna_seq.nextval,#{prdNum},#{memId},#{contents},#{passwd},#{ref},#{restep},#{relevel},default)
 	</insert>
 
+	<delete id="delQnA">
+		delete * from prdQnA where
+		<if test="relevel=='0'"></if>
+	</delete>
 </mapper>
 
