@@ -88,14 +88,16 @@ public class ProductQnAController {
 		JsonObject Json = new JsonObject();
 		JsonArray jArray = new JsonArray();
 		for(ProductQnABean bean:contents){
+			String getStep = Integer.toString(bean.getRestep());
 			String getLevel = Integer.toString(bean.getRelevel());
 			String getContents = bean.getContents();
 			JsonObject json = new JsonObject();
-			System.out.println("level: "+getLevel);
+			System.out.println("step: "+getStep);
 			System.out.println("contents: "+ bean.getContents());
 
-				json.addProperty("key",getLevel);
-				json.addProperty("value", getContents);
+				json.addProperty("level",getLevel);
+				json.addProperty("step",getStep);
+				json.addProperty("contents", getContents);
 				System.out.println(json);
 				System.out.println(json.size());
 				jArray.add(json);
@@ -149,21 +151,23 @@ public class ProductQnAController {
 		ModelAndView mav = new ModelAndView();
 		ProductQnABean bean = new ProductQnABean();
 		int relevel = Integer.parseInt(request.getParameter("relevel")); 
+		int idx = Integer.parseInt(request.getParameter("idx")); 
 		bean.setRelevel(relevel);
 		int ref = Integer.parseInt(request.getParameter("ref")); 
 		bean.setRef(ref);
 		System.out.println("삭제목록:"+ref+","+relevel);
-		Map<String,Integer> relevelMap = new HashMap<String, Integer>();
-		relevelMap.put("ref",ref);
-		relevelMap.put("relevel", relevel);
 		if(relevel==0){
-			productDao.deleteQnA_all(relevelMap);
+			productDao.deleteQnA_all(ref);
+			System.out.println("원글부터 삭제완료");
+		}
+		else{
+			productDao.deleteQnA(idx);
+			System.out.println("해당글만 삭제됨");
 		}
 		
 		int prdNum = Integer.parseInt(request.getParameter("prdNum"));
+		System.out.println("prdNum:"+prdNum);
 		bean.setPrdNum(prdNum);
-		
-		productDao.insertPrdAnswer(bean);
 		List<ProductQnABean> QnALists = productDao.QnALists(prdNum);
 		mav.addObject("QnALists",QnALists);
 		mav.setViewName("prdQnA");

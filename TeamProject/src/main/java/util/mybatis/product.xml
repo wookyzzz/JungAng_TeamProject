@@ -49,7 +49,7 @@
 	</insert>
 	
 	<select id="getContents" resultType="QnABean">
-		select * from prdQnA where ref=#{ref}
+		select * from prdQnA where ref=#{ref} order by ref desc, re_step asc
 	</select>
 	
 	
@@ -61,9 +61,12 @@
 			insert into prdQnA values(prd_qna_seq.nextval,#{prdNum},#{memId},#{contents},#{passwd},#{ref},#{restep},#{relevel},default)
 	</insert>
 
+	<delete id="delQnARefAll">
+		delete  from prdQnA where ref=#{ref}
+	</delete>
+	
 	<delete id="delQnA">
-		delete * from prdQnA where
-		<if test="relevel=='0'"></if>
+		delete  from prdQnA where  idx=#{idx}
 	</delete>
 </mapper>
 

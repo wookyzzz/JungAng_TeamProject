@@ -68,33 +68,34 @@
 						<c:if test="${prdView.memId eq loginfo.id}">  <!-- 판매자 아이디가 로그인 했을 때 -->
 						<c:if test="${q.passwd eq null }">
 										<c:if test="${q.relevel ==0 }">
-										<h5 id="h5"><c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  onclick="answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id }')" id="labelll">답변</a>
-										<c:if test="${q.memId eq loginfo.id }">| <a  onclick="delQnA('${q.prdNum }','${q.ref }','${q.relevel }')" >삭제</a></c:if></h5>
+										<h5 id="h5"><c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  href="javascript:answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id }')" id="labelll">답변</a>
+										<c:if test="${q.memId eq loginfo.id }">| <a  href="javascript:delQnA('${q.prdNum }','${q.ref }','${q.relevel }','${q.idx }')" >삭제</a></c:if></h5>
 											<p>${q.contents }</p>
-										<div id="answerMessage_${q.ref}_${q.relevel}"></div>
+										<div id="answerMessage_${q.ref}_${q.restep}"></div>
 										</c:if>
 									<c:if test="${q.relevel >0 }">
 										<h5 id="h5"><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img  src="${pageContext.request.contextPath }/resources/images/reply_new_head.gif" >
-										<c:if test="${q.memId eq prdView.memId}">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  onclick="answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id }','${q.memId }')" id="labelll">답변</a>
-										<c:if test="${q.memId eq loginfo.id }">| <a  onclick="delQnA('${q.prdNum }','${q.ref }','${q.relevel }')" >삭제</a></c:if></h5>
+										<c:if test="${q.memId eq prdView.memId}">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  href="javascript:answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id }','${q.memId }')" id="labelll">답변</a>
+										<c:if test="${q.memId eq loginfo.id }">| <a href="javascript:delQnA('${q.prdNum }','${q.ref }','${q.relevel }','${q.idx }')" >삭제</a></c:if></h5>
 										<p><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }">${q.contents }</p>
-									<div id="answerMessage_${q.ref}_${q.relevel}"></div>
+									<div id="answerMessage_${q.ref}_${q.restep}"></div>
 										</c:if>
 								</c:if>
 							<c:if test="${q.passwd ne null }">
 										<c:if test="${q.relevel ==0 }">
-										<h5 id="h5"><c:if test="${q.memId eq prdView.memId}">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  onclick="answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id }','${q.memId }')" id="labelll">답변</a>
-										<c:if test="${q.memId eq loginfo.id }">| <a  onclick="delQnA('${q.prdNum }','${q.ref }','${q.relevel }')" >삭제</a></c:if></h5>
-											<p id="contents_${q.ref}_${q.relevel}"><img src="<%=request.getContextPath()%>/images/lock.png" width=10 height=10>${q.contents }</p>
-										<div id="answerMessage_${q.ref}_${q.relevel}"></div>
+										<h5 id="h5"><c:if test="${q.memId eq prdView.memId}">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  href="javascript:answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id }','${q.memId }')" id="labelll">답변</a>
+										<c:if test="${q.memId eq loginfo.id }">| <a  href="javascript:delQnA('${q.prdNum }','${q.ref }','${q.relevel }','${q.idx }')" >삭제</a></c:if></h5>
+											<p id="contents_${q.ref}_${q.restep}"><img src="<%=request.getContextPath()%>/images/lock.png" width=15
+											 height=15>${q.contents }</p>
+										<div id="answerMessage_${q.ref}_${q.restep}"></div>
 											<form name="passwordcheck"><div id="pwchch"></div></form>
 										</c:if>
 									<c:if test="${q.relevel >0 }">
 										<h5 id="h5">
 										<img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img  src="${pageContext.request.contextPath }/resources/images/reply_new_head.gif" >
-										<c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  onclick="answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id }')" id="labelll">답변</a></h5>
-										<p id="contents_${q.ref}_${q.relevel}"><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img src="<%=request.getContextPath()%>/images/lock.png" width=10 height=10>${q.contents}</p>
-										<div id="answerMessage_${q.ref}_${q.relevel}"></div>
+										<c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  href="javascript:answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id }')" id="labelll">답변</a></h5>
+										<p id="contents_${q.ref}_${q.restep}"><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img src="<%=request.getContextPath()%>/images/lock.png" width=15 height=15>${q.contents}</p>
+										<div id="answerMessage_${q.ref}_${q.restep}"></div>
 											<form name="passwordcheck"><div id="pwchch"></div></form>
 											
 										</c:if>
@@ -103,37 +104,36 @@
 						<c:if test="${prdView.memId ne loginfo.id }"> <!-- 로그인한 아이디랑 판매자 아이디가 같지 않을 때 -->
 									<c:if test="${q.passwd eq null }">
 										<c:if test="${q.relevel ==0 }">
-										<h5 id="h5"><c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if><small>${q.inputdate }</small>&nbsp;&nbsp;<a  onclick="answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id}')" id="labelll">답변</a>
-										<c:if test="${q.memId eq loginfo.id }">| <a  onclick="delQnA('${q.prdNum }','${q.ref }','${q.relevel }')" >삭제</a></c:if></h5>
+										<h5 id="h5"><c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if><small>${q.inputdate }</small>&nbsp;&nbsp;<a  href="javascript:answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id}')" id="labelll">답변</a>
+										<c:if test="${q.memId eq loginfo.id }">| <a  href="javascript:delQnA('${q.prdNum }','${q.ref }','${q.relevel }','${q.idx }')" >삭제</a></c:if></h5>
 											<p>${q.contents }</p>
-										<div id="answerMessage_${q.ref}_${q.relevel}"></div>
+										<div id="answerMessage_${q.ref}_${q.restep}"></div>
 										</c:if>
 									<c:if test="${q.relevel >0 }">
 										<h5 id="h5"><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img  src="${pageContext.request.contextPath }/resources/images/reply_new_head.gif" >
-										<c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  onclick="answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id}')" id="labelll">답변</a>
-										<c:if test="${q.memId eq loginfo.id }">| <a  onclick="delQnA('${q.prdNum }','${q.ref }','${q.relevel }')" >삭제</a></c:if></h5>
+										<c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<a  href="javascript:answer('${q.prdNum}','${q.ref }','${q.restep}','${q.relevel }','${q.passwd}','${loginfo.id}')" id="labelll">답변</a>
+										<c:if test="${q.memId eq loginfo.id }">| <a  href="javascript:delQnA('${q.prdNum }','${q.ref }','${q.relevel }','${q.idx }')" >삭제</a></c:if></h5>
 										<p><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }">${q.contents }</p>
-									<div id="answerMessage_${q.ref}_${q.relevel}"></div>
+									<div id="answerMessage_${q.ref}_${q.restep}"></div>
 										</c:if>
 								</c:if>
 								<c:if test="${q.passwd ne null }">
 										<c:if test="${q.relevel ==0 }">
-										<h5 id="h5"><c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;</h5>
-											<c:if test="${q.memId eq loginfo.id }"><p id="contents_${q.ref}_${q.relevel}"><label onclick="fff('${q.passwd}','${q.ref}','${q.relevel}')" id="labelll"><img src="<%=request.getContextPath()%>/images/lock.png" width=15 height=15>&nbsp;비밀글입니다.</label></p>
-										<div id="answerMessage_${q.ref}_${q.relevel}"></div>
+										<h5 id="h5"><c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<span id="ahref_${q.ref}_${q.relevel}"></span></h5>
+											<c:if test="${q.memId eq loginfo.id }"><p id="contents_${q.ref}_${q.restep}"><label onclick="fff('${q.idx}','${q.restep}','${q.passwd}','${q.prdNum}','${q.ref}','${q.relevel}','${q.memId }','${loginfo.id }')" id="labelll"><img src="<%=request.getContextPath()%>/images/lock.png" width=15 height=15>&nbsp;비밀글입니다.</label></p>
+										<div id="answerMessage_${q.ref}_${q.restep}"></div>
 											<form name="passwordcheck"><div id="pwchch"></div></form></c:if>
-											<c:if test="${q.memId ne loginfo.id }"><p id="contents_${q.ref}_${q.relevel}"><label id="labelll"><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img src="<%=request.getContextPath()%>/images/lock.png" width=15 height=15>&nbsp;비밀글입니다.</label></p>
-										<div id="answerMessage_${q.ref}_${q.relevel}"></div></c:if>
+											<c:if test="${q.memId ne loginfo.id }"><p id="contents_${q.ref}_${q.restep}"><label id="labelll"><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img src="<%=request.getContextPath()%>/images/lock.png" width=15 height=15>&nbsp;비밀글입니다.</label></p>
+										<div id="answerMessage_${q.ref}_${q.restep}"></div></c:if>
 										</c:if>
 									<c:if test="${q.relevel >0 }">
 										<h5 id="h5"><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img  src="${pageContext.request.contextPath }/resources/images/reply_new_head.gif" >
-										<c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;</h5>
-										<c:if test="${q.memId eq loginfo.id }"><p id="contents_${q.ref}_${q.relevel}">
-										<img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><label onclick="fff('${q.passwd}','${q.ref}','${q.relevel}')" id="labelll"><img src="<%=request.getContextPath()%>/images/lock.png" width=15 height=15>&nbsp;비밀글입니다.</label></p>
-										<div id="answerMessage_${q.ref}_${q.relevel}"></div>
+										<c:if test="${q.memId eq prdView.memId }">판매자</c:if><c:if test="${q.memId ne prdView.memId }">${q.memId}</c:if>&nbsp;&nbsp;<small>${q.inputdate }</small>&nbsp;&nbsp;<span id="ahref_${q.ref}_${q.relevel}"></span></h5>
+										<c:if test="${q.memId eq loginfo.id }"><p id="contents_${q.ref}_${q.restep}">
+										<img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><label onclick="fff('${q.restep}','${q.restep}','${q.passwd}','${q.prdNum}','${q.ref}','${q.relevel}','${q.memId }','${loginfo.id }')" id="labelll"><img src="<%=request.getContextPath()%>/images/lock.png" width=15 height=15>&nbsp;비밀글입니다.</label></p>
+										<div id="answerMessage_${q.ref}_${q.restep}"></div>
 											<form name="passwordcheck"><div id="pwchch"></div></form></c:if>
-											<c:if test="${q.memId ne loginfo.id }"><p id="contents_${q.ref}_${q.relevel}"><label id="labelll"><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img src="<%=request.getContextPath()%>/images/lock.png" width=15 height=15>&nbsp;비밀글입니다.</label></p></c:if>
-											
+											<c:if test="${q.memId ne loginfo.id }"><p id="contents_${q.ref}_${q.restep}"><label id="labelll"><img src="${pageContext.request.contextPath }/images/110.png" width="${q.relevel *15 }"><img src="<%=request.getContextPath()%>/images/lock.png" width=15 height=15>&nbsp;비밀글입니다.</label></p></c:if>
 										</c:if>
 								</c:if>
 					</c:if>

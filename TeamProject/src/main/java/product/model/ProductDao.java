@@ -94,8 +94,13 @@ return strIdx;
 		return totalCount ;
 	}
 
-	public void deleteQnA_all(Map<String, Integer> relevelMap) {
-		sqlSessionTemplate.delete(namespace+".delQnA",relevelMap);
+	public void deleteQnA_all(int ref) {
+		sqlSessionTemplate.delete(namespace+".delQnARefAll",ref);
+	}
+
+	public void deleteQnA(int idx) {
+		sqlSessionTemplate.delete(namespace+".delQnA",idx);
+		
 	}
 	
 }

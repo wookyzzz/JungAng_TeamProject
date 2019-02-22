@@ -1,11 +1,11 @@
-function fff(q_pass,ref,relevel){
-
+function fff(idx,restep,q_pass,prdNum,ref,relevel,memId,logId){
 	pwchch = document.getElementById("pwchch");
 	if(pwchch.style.display=='none' || pwchch.style.display==''){
 		pwchch.style.display='block';
 		pwchch.innerHTML="&nbsp;&nbsp;"+
 		"<input type='password' name='chpass' id='p' maxvalue='8'>"+
-		" <input type='button' id='labelll' onclick='return passcheck("+q_pass+","+ref+","+relevel+")' value='확인'>";
+		" <input type='button' id='labelll' onclick='return passcheck("+idx+","+restep+","+q_pass+","+prdNum+","+ref+","+relevel+","+"\""+memId+"\""+",\""+logId+"\")' value='확인'>";
+	
 	}
 	else{
 		pwchch.style.display='none';
@@ -13,22 +13,21 @@ function fff(q_pass,ref,relevel){
 }
 
 function answer(prdNum,ref,restep,relevel,passwd,logId){
-	alert(ref+","+relevel);
+	if(logId==""){
+		alert('접근 권한이 없습니다.');
+		return;
+	}
 	if(passwd==""){
 		passwd="";
 	}
-	if(passwd!=""){
-		if(logId==""){
-			location.href="LoginForm.mem";
-		}
-	}
-	answerMessage = document.getElementById("answerMessage_"+ref+"_"+relevel);
+	
+	answerMessage = document.getElementById("answerMessage_"+ref+"_"+restep);
 	if(answerMessage.style.display=='none' || answerMessage.style.display==''){
 		answerMessage.style.display='block';
 	if(passwd==null){
 		passwd="";
 	}
-	answerMessage = document.getElementById("answerMessage_"+ref+"_"+relevel);
+	answerMessage = document.getElementById("answerMessage_"+ref+"_"+restep);
 	answerMessage.innerHTML="<form method='post' action='prdAnswer.prd'>"+
 	"<textarea name='answerContents' id='answerContents' class='form-control'  cols='70' rows='10' ></textarea>"+
 	"<input type='hidden' name='ref' value='"+ref+"'>"+"<input type='hidden' name='restep' value='"+restep+"'>"+
@@ -64,8 +63,7 @@ function checkPass() {
 		}
 	}
 	
-	function passcheck(q_pass,ref,relevel){
-	
+	function passcheck(idx,restep,q_pass,prdNum,ref,relevel,memId,logId){
 		if(document.getElementById("p").value==""){
 			alert("비밀번호를 입력하세요.");
 			return false;
@@ -84,18 +82,30 @@ function checkPass() {
 			success:function(data){
 				
 				$.each(data,function(idx,item){		
-					alert(idx+"의 글 "+item.value);
 					pwchch = document.getElementById("pwchch");
 					pwchch.style.display='none';
-					if(idx==0){
-						relevel=idx;
-						contents = document.getElementById("contents_"+ref+"_"+relevel);
-						contents.innerHTML=item.value;
+					if(item.step==0){
+						if(memId==logId){
+							alert("restep: "+item.step);
+						ahref = document.getElementById("ahref_"+ref+"_"+item.step);
+						ahref.innerHTML="<a href='javascript:answer("+prdNum+","+ref+","+item.step+","+relevel+",\""+q_pass+"\""+",\""+logId+"\")'>답변</a> | <a href='javascript:delQnA("+prdNum+","+ref+","+relevel+","+idx+")'>삭제</a>  ";
+						contents = document.getElementById("contents_"+ref+"_"+item.step);
+						contents.innerHTML=item.contents;
+						}
+						else{
+							ahref = document.getElementById("ahref_"+ref+"_"+restep);
+							ahref.innerHTML="<a href=''>답변</a>"
+							contents = document.getElementById("contents_"+ref+"_"+restep);
+							contents.innerHTML=item.contents;
+							}
 					}
 					else{
-						relevel=idx;
-						contents = document.getElementById("contents_"+ref+"_"+relevel);
-						contents.innerHTML='<img src="'+location.protocol+"//"+location.host+'/ex/images/110.png" width="'+relevel*15+' ">'+item.value;
+							alert(item.step);
+								ahref = document.getElementById("ahref_"+ref+"_"+item.step);
+								ahref.innerHTML="<a href='javascript:answer("+prdNum+","+ref+","+item.step+","+relevel+",\""+q_pass+"\""+",\""+logId+"\")'>답변</a> ";
+								contents = document.getElementById("contents_"+ref+"_"+item.step);
+								contents.innerHTML='<img src="'+location.protocol+"//"+location.host+'/ex/images/110.png" width="'+item.level*15+' ">'+item.contents;
+								
 					}			
 				})
 			}
@@ -119,8 +129,19 @@ function checkPass() {
 			alert('판매자는 질문글을 올릴 수 없습니다.');
 		}
 	}
-	function delQnA(prdNum,ref,relevel){
-		location.href="delQnA.prd?prdNum="+prdNum+"&ref="+ref+"&relevel="+relevel;
+	function delQnA(prdNum,ref,relevel,idx){
+		if(relevel==0){
+			var con = confirm('질문글 삭제시 답변들도 자동으로 삭제됩니다.\n정말 삭제하시겠습니까?');
+			if(con==true){
+				location.href="delQnA.prd?prdNum="+prdNum+"&ref="+ref+"&relevel="+relevel+"&idx="+idx;
+			}
+		}
+		if(relevel!=0){
+			var con = confirm('정말 삭제하시겠습니까?');
+			if(con==true){
+				location.href="delQnA.prd?prdNum="+prdNum+"&ref="+ref+"&relevel="+relevel+"&idx="+idx;
+			}
+		}
 	}
 
 
