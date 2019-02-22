@@ -100,4 +100,20 @@
 	<select id="getReplyCountByreBbsRef" resultType="int">
 		select count(*) from bbs_re where re_bbs_ref = #{reBbsRef}
 	</select>
+	
+	<delete id="deleteAllReply">
+		delete from bbs_re  where re_bbs_ref = #{idx}
+	</delete>
+	<delete id="deleteLetter">
+		delete from bbs where idx = #{idx}
+	</delete>
+	<update id="deleteReply">
+		update bbs_re set memNum=0, contents='삭제된 댓글입니다.' where idx=#{idx}
+	</update>
+	<update id="updateReply">
+		update bbs_re set contents = #{contents} where idx = #{idx}
+	</update>
+	<update id="updateLetter">
+		update bbs set subject=#{subject}, contents=#{contents} where idx = #{idx}
+	</update>
 </mapper>

@@ -37,10 +37,28 @@ nav{
  }
 </style>
 </head>
+<<<<<<< HEAD
 <body>
 
+=======
+<body>
+>>>>>>> branch 'master' of https://github.com/wookyzzz/JungAng_TeamProject.git
 	<div class="container" style="background-color:red;">
-		<h1 style="color:white; font-weight: bold;"><a href="list.main">웹사이트 이미지 or 이름</a></h1>
+		<div class="row">
+			<div class="col-md-6">
+				<h1 style="color:white; font-weight: bold;"><a href="list.main">웹사이트 이미지 or 이름</a></h1>
+			</div>
+			<div class="col-md-6">
+				<h1>
+				<form class="form-inline">
+					<input type="text" class="form-control">
+					<button type="submit" class="btn btn-default">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</button>
+				</form>
+				</h1>
+			</div>
+		</div>
 	</div>
 	<nav class="navbar navbar-defult" data-spy="affix" data-offset-top="70">
 	 <!--  <div class="container-fluid"> -->
@@ -53,7 +71,11 @@ nav{
 		        <ul class="dropdown-menu">
 		         <c:forEach var="detail" items="${detailList }">
 					<c:if test="${detail.catNum eq cate.idx }">
+<<<<<<< HEAD
 						<li><a href="javascript:urlCheck('${detail.url}','${detail.idx}')">${detail.name }/${detail.url }</a></li>
+=======
+						<li><a href="${detail.url }">${detail.name }/${detail.url }</a></li>
+>>>>>>> branch 'master' of https://github.com/wookyzzz/JungAng_TeamProject.git
 					</c:if>
 				</c:forEach>
 		        </ul>

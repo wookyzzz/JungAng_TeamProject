@@ -10,6 +10,9 @@
 .form-control{
 width:auto;
 }
+#subject{
+	text-align : center;
+}
 </style>
 </head>
 <body>
@@ -54,16 +57,16 @@ width:auto;
 					<col width="10%"/>
 					<col width="5%"/>
 					<col width="55%"/>
-					<col width="10%"/>
+					<col width="8%"/>
 					<col width="10%"/>
 					<col width="5%"/>
-					<col width="5%"/>
+					<col width="7%"/>
 				</colgroup>
 				<thead>
 					<tr>
 						<th>게시판</th>
 						<th>번호</th>
-						<th>제목</th>
+						<th id="subject">제목</th>
 						<th>글쓴이</th>
 						<th>작성일</th>
 						<th>추천</th>

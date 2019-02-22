@@ -61,7 +61,7 @@
 						<div class="form-group">
 							<table align=center >
 								<tr>
-									<td><c:if test="${whatColumn eq null}"></c:if> <c:if
+									<td><c:if test="${whatColumn eq null}"></c:if> <c:if 
 											test="${whatColumn ne null}">
 											<c:choose>
 												<c:when test="${whatColumn eq 'null'}"></c:when>
