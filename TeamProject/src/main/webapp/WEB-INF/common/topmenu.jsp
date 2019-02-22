@@ -3,6 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript">
+	function urlCheck(url,idx){
+		if(url=="list.prd"){
+			location.href=url+"?catNum="+idx;
+		}
+		else{
+			location.href=url;
+		}
+	}
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -17,7 +27,7 @@
 									<ul class="dropdown-menu">
 							<c:forEach var="detail" items="${detailList }">
 								<c:if test="${detail.catNum eq cate.idx }">
-										<li><a href="${detail.url }">${detail.name }/${detail.url }</a></li>
+										<li><a href="javascript:urlCheck('${detail.url}','${detail.idx }')" >${detail.name }/${detail.url }</a></li>
 								</c:if>
 							</c:forEach>
 									</ul>

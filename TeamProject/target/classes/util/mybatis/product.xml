@@ -1,7 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product.model.ProductBean">
+	<select id="getTotalCount" resultType="int">
+		select count(*) from (select * from products where catNum_detail = #{catNumdetail})
+		<if test="whatColumn=='전체'"> where memId like #{keyword} or name like #{keyword} or contents like #{keyword}</if>
+		<if test="whatColumn=='판매자'"> where memId like #{keyword}</if>
+		<if test="whatColumn=='상품이름'"> where name like #{keyword}</if>
+		<if test="whatColumn=='상품설명'"> where contents like #{keyword}</if>
+		
+	</select>
 	
-<mapper namespace="product.model.productbean">
+		<select id="getLists" resultType="ProductBean">
+		 select * from  (select * from products where catNum_detail = #{catNumdetail})
+		<if test="whatColumn=='전체'"> where memId like #{keyword} or name like #{keyword} or contents like #{keyword}</if>
+		<if test="whatColumn=='판매자'"> where memId like #{keyword}</if> 
+		<if test="whatColumn=='상품이름'">  where name like #{keyword}</if>
+		<if test="whatColumn=='상품설명'">  where contents like #{keyword}</if>
+		    order by inputdate desc
+	</select>
+	
+	<select id="catLists" resultType="MyCategory">
+		 select * from categories_detail where catNum=2000
+	</select>
+	
+	<insert id="insertPrd">
+		insert  into products (idx,catnum_detail,memid,name,contents,price,quantity,inputdate,point)  
+		 values (prd_seq.nextval,#{catNumdetail},#{memId},#{name},#{contents},#{price},#{quantity},default,#{point})
+	</insert>
+	
+		<select id="prdView" resultType="ProductBean">
+		 select * from products where idx=#{idx}
+	</select>
+	
+	
+		<select id="prdReviewList" resultType="ReviewBean">
+		 select * from review where prdNum=#{prdNum}
+	</select>
+	
+	<select id="prdQnAList" resultType="QnABean">
+		select * from prdQnA where prdNum=#{prdNum}
+		order by ref desc, re_step asc
+	</select>
+	
+	<insert id="insertPrdQnA">
+		insert into prdQnA values(prd_qna_seq.nextval,#{prdNum},#{memId},#{contents},#{passwd},prd_qna_seq.currval,0,0,default)
+	</insert>
+	
+	<select id="getContents" resultType="QnABean">
+		select * from prdQnA where ref=#{ref}
+	</select>
+	
+	
+	<update id="updateRestep">
+		update prdQnA set re_step = re_step+1 where ref=#{ref} and re_step>#{restep}
+	</update>
+	
+	<insert id="insertAnswer">
+			insert into prdQnA values(prd_qna_seq.nextval,#{prdNum},#{memId},#{contents},#{passwd},#{ref},#{restep},#{relevel},default)
+	</insert>
 
 </mapper>
+

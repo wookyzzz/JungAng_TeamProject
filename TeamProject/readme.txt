@@ -1,38 +1,38 @@
 
 
-È¸¿ø°ü·Ã ±â´É 
+È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
 	--> url-mapping : *.mem
-	--> member.model // member.controller package¿¡ class »ı¼º.
-	-->/WEB-INF/member Æú´õ¿¡ jsp ÆÄÀÏ »ı¼º
+	--> member.model // member.controller packageï¿½ï¿½ class ï¿½ï¿½ï¿½ï¿½.
+	-->/WEB-INF/member ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ jsp ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-°Ô½ÃÆÇ °ü·Ã ±â´É
+ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	--> url-mapping : *.bbs
-	--> board.model // board.controller package¿¡ class»ı¼º
-	-->/WEB-INF/board Æú´õ¿¡ jsp ÆÄÀÏ »ı¼º
+	--> board.model // board.controller packageï¿½ï¿½ classï¿½ï¿½ï¿½ï¿½
+	-->/WEB-INF/board ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ jsp ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-»óÇ° °ü·Ã ±â´É
+ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	--> url-mapping : *.prd
-	--> product.model // product.controller package¿¡ class »ı¼º
-	-->/WEB-INF/product Æú´õ¿¡ jsp ÆÄÀÏ »ı¼º
+	--> product.model // product.controller packageï¿½ï¿½ class ï¿½ï¿½ï¿½ï¿½
+	-->/WEB-INF/product ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ jsp ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-Ä«Å×°í¸® °ü·Ã ±â´É
+Ä«ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	--> url-mapping : *.ct
-	--> category.model // category.controller package¿¡ class »ı¼º
-	-->/WEB-INF/category Æú´õ¿¡ jsp ÆÄÀÏ »ı¼º
+	--> category.model // category.controller packageï¿½ï¿½ class ï¿½ï¿½ï¿½ï¿½
+	-->/WEB-INF/category ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ jsp ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 **
 
-util.paging package  --> ÆäÀÌÂ¡ class
-util.mybatis --> mybatis °ü·Ã config && mapper xml file
+util.paging package  --> ï¿½ï¿½ï¿½ï¿½Â¡ class
+util.mybatis --> mybatis ï¿½ï¿½ï¿½ï¿½ config && mapper xml file
 
 **
 
-»ç¿ëÇÒ session 
+ï¿½ï¿½ï¿½ï¿½ï¿½ session 
 
-·Î±×ÀÎ Á¤º¸ 
+ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
 
-session.setAttribute("loginfo") --> È¸¿ø Á¤º¸¸¦ ´ã´Â session °´Ã¼
-				--> ·Î±×ÀÎ ÇÒ ¶§ ¼³Á¤ÇØ¾ßÇÔ.
+session.setAttribute("loginfo") --> È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ session ï¿½ï¿½Ã¼
+				--> ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½.
 
 
 
@@ -44,17 +44,17 @@ create table members(
         passwd varchar2(20) not null,
         passwd2 varchar2(20) ,
         name nvarchar2(30) not null,
-        tel varchar2(20) null,   --ÀÏ¹İÀüÈ­
-        hp varchar2(20) not null,   --ÇÚµåÆù¹øÈ£
+        tel varchar2(20) null,   --ï¿½Ï¹ï¿½ï¿½ï¿½È­
+        hp varchar2(20) not null,   --ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½È£
         nick nvarchar2(30),      
         email varchar2(40),
-        postcode1 varchar2(20),      --¿ìÆí¹øÈ£1
-        address1 nvarchar2(50),      --±âº»ÁÖ¼Ò1 (ÀÚÅÃ)
-        detailaddress1 nvarchar2(30),   --(ÀÚÅÃ)»ó¼¼ÁÖ¼Ò
-        postcode2 varchar2(20),      --¿ìÆí¹øÈ£2
-        address2 nvarchar2(50),      --Ãß°¡ÁÖ¼Ò2 (È¸»ç)
-        detailaddress2 nvarchar2(30),   --(È¸»ç)»ó¼¼ÁÖ¼Ò
-        salesauthority nvarchar2(30), -- »ç¾÷ÀÚ µî·Ï ¿©ºÎ 0(false) / 1(true)  
+        postcode1 varchar2(20),      --ï¿½ï¿½ï¿½ï¿½ï¿½È£1
+        address1 nvarchar2(50),      --ï¿½âº»ï¿½Ö¼ï¿½1 (ï¿½ï¿½ï¿½ï¿½)
+        detailaddress1 nvarchar2(30),   --(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½Ö¼ï¿½
+        postcode2 varchar2(20),      --ï¿½ï¿½ï¿½ï¿½ï¿½È£2
+        address2 nvarchar2(50),      --ï¿½ß°ï¿½ï¿½Ö¼ï¿½2 (È¸ï¿½ï¿½)
+        detailaddress2 nvarchar2(30),   --(È¸ï¿½ï¿½)ï¿½ï¿½ï¿½Ö¼ï¿½
+        salesauthority nvarchar2(30), -- ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 0(false) / 1(true)  
         cash number,
         point number,
         birthdayyeardate varchar2(20),
@@ -85,7 +85,7 @@ col point for a8
 col birthday for a10
 col mem_level for a8
 
-    --¸â¹ö ½Å°í
+    --ï¿½ï¿½ï¿½ ï¿½Å°ï¿½
     drop table mem_report;
     create table mem_report(
     idx number primary key not null,
@@ -95,7 +95,7 @@ col mem_level for a8
     foreign key (memNum) references members(idx)
     )
     
-    --Ä«Å×°í¸®
+    --Ä«ï¿½×°ï¿½
     drop table categories cascade CONSTRAINTS;
     create table categories(
         idx number primary key not null,
@@ -111,40 +111,37 @@ col mem_level for a8
         foreign key(catNum) references categories(idx)
     );
     
-    --»óÇ°
+    --ï¿½ï¿½Ç°
     drop table products CASCADE CONSTRAINTS;
      create table products(
         idx number primary key not null,
-        catNum number not null,
-        memNum number not null,
+        catNum_detail number not null,
+        memId varchar2(20) not null,
         name nvarchar2(50) not null,
-        contents nvarchar2(200) not null,
+        contents nvarchar2(1000),
         price number not null,
+        point number default 0,
         quantity number,
         image varchar2(50),
-        foreign key (catNum) references categories(idx),
-        foreign key (memNum) references members(idx)
+        inputdate date default sysdate,
+        foreign key (catNum_detail) references categories_detail(idx)
     );
     
-    --»óÇ°QnA
+    --ï¿½ï¿½Ç°QnA
         drop table prdQnA cascade CONSTRAINTS; 
-        create table prdQnA(
+           create table prdQnA(
         idx number primary key not null,
         prdNum number not null,
-        memNum number not null,
-        subject nvarchar2(50) not null,
+        memId varchar2(20) not null,
         contents nvarchar2(200) not null,
-        image varchar2(50),
         passwd varchar2(20),
         ref number,
         re_step number,
         re_level number,
-        readCount number,
         inputdate date default sysdate,
-        foreign key(prdNum) references products(idx),
-        foreign key(memNum) references members(idx)
-    );    
-    --ÈÄ±â
+        foreign key(prdNum) references products(idx)
+        );   
+    --ï¿½Ä±ï¿½
     drop table review cascade CONSTRAINTS;
     create table review(
     idx number primary key,
@@ -157,7 +154,7 @@ col mem_level for a8
      foreign key(memNum) references members(idx)
     );
 
-    --Àå¹Ù±¸´Ï
+    --ï¿½ï¿½Ù±ï¿½ï¿½ï¿½
     drop table shoppingCart cascade CONSTRAINTS;
     create table shoppingCart(
         memNum number not null,
@@ -169,7 +166,7 @@ col mem_level for a8
     );
 
 
-    --°Ô½ÃÆÇ
+    --ï¿½Ô½ï¿½ï¿½ï¿½
     drop table bbs cascade CONSTRAINTS;
     create table bbs(
      idx number not null primary key,
@@ -183,11 +180,11 @@ col mem_level for a8
      re_level number,
     readCount number,
     inputdate date default sysdate,
-    best_letter number, --ÃßÃµ¼ö?
+    best_letter number, --ï¿½ï¿½Ãµï¿½ï¿½?
       foreign key(memNum) references members(idx),
       foreign key(sortNum) references categories_detail(idx)
 );
-   --°Ô½ÃÆÇ (ÁÁ¾Æ¿ä/½È¾î¿ä)
+   --ï¿½Ô½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½Æ¿ï¿½/ï¿½È¾ï¿½ï¿½)
    drop table bbs_bad_good cascade CONSTRAINTS;
    drop table bbs_good;
 	create table bbs_good(
@@ -199,12 +196,12 @@ col mem_level for a8
 	);
 
 
---´ñ±Û
+--ï¿½ï¿½ï¿½
     drop table bbs_re cascade CONSTRAINTS;
     create table bbs_re(
         idx number not null primary key,
-        re_bbs_ref number not null, --> reference °Ô½ÃÆÇ(bbs_number)
-        memNum number not null, --> reference È¸¿ø(member_number)
+        re_bbs_ref number not null, --> reference ï¿½Ô½ï¿½ï¿½ï¿½(bbs_number)
+        memNum number not null, --> reference È¸ï¿½ï¿½(member_number)
         re_ref number,
         re_re_step number,
         re_re_level number,
@@ -216,7 +213,7 @@ col mem_level for a8
     select * from bbs_re;
     commit;
 
-    --Ä«Å×°í¸® ¸Ş´º ½ÃÄö½º 
+    --Ä«ï¿½×°ï¿½ ï¿½Ş´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
     drop sequence menu_num_seq;
     create sequence menu_num_seq
         minvalue 1000
@@ -231,7 +228,7 @@ col mem_level for a8
         increment by 1
         nocache;
     
-    --¸â¹ö ½ÃÄö½º
+    --ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     drop sequence mem_seq;
     create sequence mem_seq
         minvalue 1
@@ -239,7 +236,7 @@ col mem_level for a8
         increment by 1
         nocache;
     
-    --»óÇ° ½ÃÄö½º
+    --ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     drop sequence prd_seq;
     create sequence prd_seq
         minvalue 1
@@ -247,7 +244,7 @@ col mem_level for a8
         increment by 1
         nocache;
     
-    --»óÇ° QnA ½ÃÄö½º
+    --ï¿½ï¿½Ç° QnA ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     drop sequence prd_qna_seq;
     create sequence prd_qna_seq
         minvalue 1
@@ -256,7 +253,7 @@ col mem_level for a8
         nocache;
         commit;
         
-    --¸®ºä ½ÃÄö½º
+    --ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     drop sequence review_seq;
     create sequence review_seq
         minvalue 1
@@ -265,7 +262,7 @@ col mem_level for a8
         nocache;
         commit;
         
-    --°Ô½ÃÆÇ ½ÃÄö½º
+    --ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     drop sequence bbs_seq;
     create sequence bbs_seq
         minvalue 1
@@ -274,7 +271,7 @@ col mem_level for a8
         nocache;
         commit;
         
-    --°Ô½ÃÆÇ ºĞ·ù ½ÃÄö½º
+    --ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Ğ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     drop sequence bbs_sort_seq;
     create sequence bbs_sort_seq
         minvalue 1
@@ -283,7 +280,7 @@ col mem_level for a8
         nocache;
         commit;
         
-  --°Ô½ÃÆÇ ´ñ±Û ½ÃÄö½º
+  --ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   drop sequence bbs_re_seq;
     create sequence bbs_re_seq
         minvalue 1
@@ -294,15 +291,18 @@ col mem_level for a8
         
         
  --insert data--
- insert into categories (idx, name) values (menu_num_seq.nextval, 'Ä¿¹Â´ÏÆ¼');
-insert into categories (idx, name) values (menu_num_seq.nextval, 'ÀåÅÍ');
-insert into categories_detail(idx, catNum, name, url) values(cat_detail_seq.nextval, 1000, 'ÀüÃ¼°Ô½ÃÆÇ', 'list.bbs');
-insert into members (idx, id, passwd, name, hp,tel) values(mem_seq.nextval, 'admin', 'admin', '°ü¸®ÀÚ','010-0000-0000','010-0000-0000');
-insert into categories (idx, name) values (99999, 'È¨ÆäÀÌÁö °ü¸®');
+ insert into categories (idx, name) values (menu_num_seq.nextval, 'Ä¿ï¿½Â´ï¿½Æ¼');
+insert into categories (idx, name) values (menu_num_seq.nextval, 'ï¿½ï¿½ï¿½ï¿½');
+insert into categories_detail(idx, catNum, name, url) values(cat_detail_seq.nextval, 1000, 'ï¿½ï¿½Ã¼ï¿½Ô½ï¿½ï¿½ï¿½', 'list.bbs');
+insert into members (idx, id, passwd, name, hp,tel) values(mem_seq.nextval, 'admin', 'admin', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','010-0000-0000','010-0000-0000');
+insert into categories (idx, name) values (99999, 'È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½');
 select * from categories;
 commit;
-insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, 'Ä«Å×°í¸® °ü¸®', 'manage.ct');
-insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, 'È¸¿ø °ü¸®', 'list.mem');
+insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 2000, 'ê°€ì „ì œí’ˆ', 'list.prd');
+insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 2000, 'ìƒí™œìš©í’ˆ', 'list.prd');
+insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, 'ì¹´í…Œê³ ë¦¬ ê´€ë¦¬', 'manage.ct');
+insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, 'íšŒì› ê´€ë¦¬', 'list.mem');
+insert into categories_detail  (idx, catNum, name, url) values (cat_detail_seq.nextval, 1000, 'ì „ì²´ê²Œì‹œíŒ', 'list.bbs');
 select * from categories_detail;
 commit;
 select * from categories;
