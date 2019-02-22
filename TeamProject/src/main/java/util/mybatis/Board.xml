@@ -24,7 +24,7 @@
 		</if>
 		order by rank desc
 	</select>
-	
+
 	<insert id="insertNewLetter">
 		insert into bbs(idx, memNum, sortNum, subject, contents, ref, re_step, re_level, readCount, inputdate) 
 		values(bbs_seq.nextval, #{memNum}, #{sortNum}, #{subject}, #{contents}, bbs_seq.nextval, 0, 0, 0, sysdate )
@@ -91,5 +91,13 @@
 	
 	<select id="getThumbCount" resultType="int">
 		select count(*) from bbs_good where bbs_ref = #{bbsRef}
+	</select>
+	
+	<select id="getBoardName" resultType="String">
+		select name from categories_detail where idx = #{idx}
+	</select>
+	
+	<select id="getReplyCountByreBbsRef" resultType="int">
+		select count(*) from bbs_re where re_bbs_ref = #{reBbsRef}
 	</select>
 </mapper>

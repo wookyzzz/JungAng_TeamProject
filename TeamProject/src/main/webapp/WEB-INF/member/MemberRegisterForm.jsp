@@ -232,7 +232,7 @@ margin-left: 20%;width: 60%;
                             사업자 등록 여부 :</div>
                         
 						<div class="col-sm-7 col-md-7 col-lg-6 col-xs-9 input-group mobilePad" style="font-weight:600;">
-						<input type="radio" name="salesauthority"  value="일반">일반
+						<input type="radio" name="salesauthority"  value="일반" checked>일반
 						<input type="radio" name="salesauthority"  value="사업가">사업가
 						<form:errors cssClass="err" path="salesauthority"></form:errors>
                         

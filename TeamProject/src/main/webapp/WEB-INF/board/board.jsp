@@ -50,6 +50,15 @@ width:auto;
 		</div>
 		<div class="section">
 			<table class="table table-striped table-hover">
+				<colgroup>
+					<col width="10%"/>
+					<col width="5%"/>
+					<col width="55%"/>
+					<col width="10%"/>
+					<col width="10%"/>
+					<col width="5%"/>
+					<col width="5%"/>
+				</colgroup>
 				<thead>
 					<tr>
 						<th>게시판</th>
@@ -96,15 +105,20 @@ width:auto;
 								<td>${bd.name }</td>
 								<td>${bd.idx }</td>
 								<td>
-									<a href="contentview.bbs?idx=${bd.idx }">
+									<a href="contentview.bbs?idx=${bd.idx }&boardPage=${paging.pageNumber}">
 										<c:forEach var="i" begin="1" end="${bd.relevel }">
 											[Re:]
 										</c:forEach>
 										${bd.subject }
+										<c:if test="${bd.replycount > 0 }">
+											<span class="label label-info">${bd.replycount }</span>
+										</c:if>
 									</a>
 								</td>
 								<td>${bd.nickname }</td>
-								<td>${bd.inputdate }</td>
+								<td>
+									<fmt:formatDate value="${bd.inputdate }" pattern="yy/MM/dd"/>
+								</td>
 								<td>${bd.thumbs }</td>
 								<td>${bd.readCount }</td>
 							</tr>

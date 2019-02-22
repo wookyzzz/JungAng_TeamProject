@@ -23,13 +23,14 @@ public class AddReReplyController {
 	
 	@RequestMapping(value=command, method=RequestMethod.POST)
 	public String addReReply(@RequestParam("parentId") int parentId,
-			@RequestParam("contents") String contents, Model model, HttpSession session){
+			@RequestParam("contents") String contents, Model model, HttpSession session, @RequestParam("boardPage") String boardPage){
 		System.out.println(parentId);
 		MemberBean memBean = (MemberBean)session.getAttribute("loginfo");
 		int memidx = memBean.getIdx();
 		BoardReplyBean bean = boardDao.getReplyByIdx(parentId);
 		boardDao.writeReReply(bean, contents, memidx);
 		model.addAttribute("idx", bean.getReBbsRef());
+		model.addAttribute("boardPage", boardPage);
 		return getPage;
 	}
 }

@@ -9,6 +9,23 @@
 </head>
 <body>
 	<%@ include file="../common/topmenu.jsp" %>
+	<div>
 	
+	</div>
+	<div class="row">
+		<div class="col-md-12" style="background: rgba(255, 0, 0, 0.5); width: 100%; height:350px;">
+			
+		</div>
+	</div>
+	<div class="container">
+		<div class="section">
+			<div class="col-md-8" style="background: red; height:100px;">
+				
+			</div>
+			<div class="col-md-4" style="background: blue; height:100px;">
+				
+			</div>
+		</div>
+	</div>
 </body>
 </html>

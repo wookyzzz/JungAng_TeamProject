@@ -25,13 +25,13 @@ public class ContentViewController {
 	BoardDao boardDao;
 	
 	@RequestMapping(command)
-	public ModelAndView getContent(HttpSession session, @RequestParam("idx") int idx){
+	public ModelAndView getContent(HttpSession session, @RequestParam("idx") int idx, @RequestParam("boardPage") String boardPage){
 		ModelAndView mav =  new ModelAndView();
 		if(session.getAttribute("ctList")==null){
 			session.setAttribute("destination", "redirect:/contentview.bbs?idx="+idx);
 			mav.setViewName("redirect:/list.ct");
 		}
-		session.setAttribute("destination", "redirect:/contentview.bbs?idx="+idx);
+		session.setAttribute("destination", "redirect:/contentview.bbs?idx="+idx+"&boardPage="+boardPage);
 		BoardBean bean = new BoardBean();
 		List<BoardReplyBean> list = new ArrayList<BoardReplyBean>();
 		boardDao.raiseReadCount(idx);
@@ -45,6 +45,7 @@ public class ContentViewController {
 		bean = boardDao.getContentByIdx(idx);
 		int thumbCount = boardDao.getThumbCount(idx);
 		System.out.println("´ñ±Û ¸®½ºÆ® : " + list.size());
+		mav.addObject("boardPage", boardPage);
 		mav.addObject("paging", paging);
 		mav.addObject("bean", bean);
 		mav.addObject("list", list);
