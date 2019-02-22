@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.inputreply, .inputreply > .footer{
+.inputreply, .footer{
 background-color: lightgray;
 }
 .add:HOVER, .delete:hover, .pageNumber:hover{
@@ -16,6 +16,7 @@ cursor: pointer;
 textarea{
 	resize:none;
 }
+
 </style>
 <script type="text/javascript">
 	function showPage(info){
@@ -80,11 +81,13 @@ textarea{
 		console.log(data);
 		var id = $(data).attr("id");
 		var loginfo = "${loginfo.idx}";
+		var boardPage = "${boardPage}";
 		if($(data).hasClass("add")){
 			var id = $(data).parent().parent().parent().attr("id");
 			var html = "<tr><td colspan=2><form action='addrereply.bbs' method='post'>";
 			html+="<textarea name='contents' class='form-control' rows='3' onClick='checkLogin()'></textarea>";
 			html+="<input type='hidden' name='parentId' value='"+id+"'>";
+			html+="<input type='hidden' name='boardPage' value='"+boardPage+"'>";
 			html+="<p class='text-right'><button type='submit' class='btn btn-default btn-sm'>등록</button></p></form>";
 			html += "</td></tr>";
 			$('#'+id).after(html);
@@ -105,7 +108,8 @@ textarea{
 		$.ajax({
 			url:'thumb.bbs',
 			data : {
-				bbsRef : "${bean.idx}"
+				bbsRef : "${bean.idx}",
+				boardPage : "${boardPage}"
 			},
 			method : 'post',
 			datatype : 'json',
@@ -123,6 +127,7 @@ textarea{
 	function checkLogin(){
 		var loginfo = "${loginfo}";
 		var idx = "${bean.idx}";
+		var boardPage = "${boardPage}"
 		console.log("loginfo : " + loginfo);
 		if(loginfo == "" || loginfo == null){
 			var flag = confirm("댓글은 로그인 후 이용할 수 있습니다.")
@@ -130,7 +135,7 @@ textarea{
 				location.href='LoginForm.mem';
 				return;
 			}else{
-				location.href='contentview.bbs?idx='+idx;
+				location.href='contentview.bbs?idx='+idx+"&boardPage="+boardPage;
 				return;
 			}
 		}
@@ -152,7 +157,7 @@ textarea{
 									<button id="thumb" type="button" class="btn btn-default" onClick="thumb()">
 									 	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;좋아요
 									</button> 
-									<button id="thumbcount" type="button" class="btn btn-default">${thumbCount }</button>
+									<button id="thumbcount" type="button" class="btn btn-default" disabled="disabled">${thumbCount }</button>
 								</div>
 							</div>
 							<div class="col-md-3" align="right">
@@ -161,7 +166,7 @@ textarea{
 									<a href=""><button type="button" class="btn btn-default btn-sm">삭제</button></a>
 								</c:if>
 									<a href="writeRep.bbs?idx=${bean.idx }"><button type="button" class="btn btn-default btn-sm">답글달기</button></a>
-									<a href=""><button type="button" class="btn btn-default btn-sm">목록보기</button></a>
+									<a href="list.bbs?pageNumber=${boardPage }"><button type="button" class="btn btn-default btn-sm">목록보기</button></a>
 							</div>
 						</td>
 					</tr>
@@ -171,12 +176,12 @@ textarea{
 						<td colspan=3 align=center><h5><strong>${bean.subject }</strong></h5></td>
 					</tr>
 					<tr>
-						<td>${bean.memNum }</td>
-						<td align=center>${bean.inputdate }</td>
+						<td>${bean.nickname }</td>
+						<td align=center><fmt:formatDate value="${bean.inputdate }" pattern="yy/MM/dd"/></td>
 						<td>${bean.readCount }</td>
 					</tr>
 					<tr>
-						<td colspan=3 align=center>${bean.contents }</td>
+						<td colspan=3>${bean.contents }</td>
 					</tr>
 				</tbody>
 			</table>
@@ -235,18 +240,17 @@ textarea{
 				</tbody>
 			</table>
 			<div class="panel panel-default inputreply">
-			<form action="writereply.bbs" method="post">
-			  <div class="panel-body">
-			    ${loginfo.nick }(${loginfo.id })/${loginfo.idx }
-			    <input type="hidden" name="reBbsRef" value="${bean.idx }">
-			    <input type="hidden" name="memNum" value="${loginfo.idx }">
-			    <hr>
-			    <textarea name="contents" class="form-control" rows="5" onClick="checkLogin()"></textarea>
-			  </div>
-			  <div class="panel-footer footer" align="right">
-				  <button type="submit" class="btn btn-default btn-sm">확인</button>
-			  </div>
-			  </form>
+				<form action="writereply.bbs" method="post">
+					  <div class="panel-body">
+					    <input type="hidden" name="reBbsRef" value="${bean.idx }">
+					    <input type="hidden" name="memNum" value="${loginfo.idx }">
+					    <input type="hidden" name="boardPage" value="${boardPage }">
+					    <textarea name="contents" class="form-control" rows="5" onClick="checkLogin()"></textarea>
+					  </div>
+					  <div class="panel-footer footer" align="right">
+						  <button type="submit" class="btn btn-default btn-sm">확인</button>
+					  </div>
+				  </form>
 			</div>
 			<hr>
 			

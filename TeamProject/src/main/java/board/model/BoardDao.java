@@ -45,6 +45,8 @@ private String namespace="board.model.BoardBean";
 	public BoardBean getContentByIdx(int idx) {
 		BoardBean bean = new BoardBean();
 		bean = sqlSessionTemplate.selectOne(namespace+".getContentByIdx", idx);
+		MemberBean memBean = memDao.getInfoByIdx(bean.getMemNum());
+		bean.setNickname(memBean.getNick());
 		return bean;
 	}
 
@@ -212,5 +214,37 @@ private String namespace="board.model.BoardBean";
 		System.out.println("getThumbCount:"+bbsRef);
 		count = sqlSessionTemplate.selectOne(namespace+".getThumbCount", bbsRef);
 		return count;
+	}
+
+	public List<BoardBean> setThumbcount(List<BoardBean> list) {
+		for(int i = 0 ; i < list.size() ; i++){
+			int count = getThumbCount(list.get(i).getIdx());
+			list.get(i).setThumbs(count);
+		}
+		return list;
+	}
+
+	public List<BoardBean> setBoardName(List<BoardBean> list) {
+		for(int i = 0 ; i < list.size() ; i++){
+			int idx = list.get(i).getSortNum();
+			String name = sqlSessionTemplate.selectOne(namespace+".getBoardName", idx);
+			list.get(i).setName(name);;
+		}
+		return list;
+	}
+
+	public List<BoardBean> setReplycount(List<BoardBean> list) {
+		for(int i = 0 ; i < list.size() ; i++){
+			int reBbsRef = list.get(i).getIdx();
+			int replycount = getReplyCountByreBbsRef(reBbsRef);
+			list.get(i).setReplycount(replycount);
+		}
+		return list;
+	}
+
+	private int getReplyCountByreBbsRef(int reBbsRef) {
+		int replycount = 0;
+		replycount = sqlSessionTemplate.selectOne(namespace+".getReplyCountByreBbsRef", reBbsRef);
+		return replycount;
 	}
 }

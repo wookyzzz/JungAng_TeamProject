@@ -45,6 +45,9 @@ public class GetBoardListController {
 		Paging paging = new Paging(totalCount, pageNumber, limit, pagingSize);
 		List<BoardBean> list = boardDao.getData(paging, map);
 		list = boardDao.setNickName(list);
+		list = boardDao.setBoardName(list);
+		list = boardDao.setThumbcount(list);
+		list = boardDao.setReplycount(list);
 		mav.addObject("map", map);
 		mav.addObject("list", list);
 		mav.addObject("paging", paging);
