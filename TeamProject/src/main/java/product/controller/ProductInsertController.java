@@ -48,6 +48,7 @@ public class ProductInsertController {
 		System.out.println("bean.getCatNum_detail(): "+bean.getCatNumdetail());
 		System.out.println("bean.getContents(): "+bean.getContents());
 		System.out.println("bean.getPoint(): "+bean.getPoint());
+		System.out.println("bean.getDeliverycharge(): "+bean.getDeliverycharge());
 		productDao.insertPrd(bean);
 		mav.addObject("catNum",catNumdetail);
 		mav.setViewName("redirect:/list.prd");

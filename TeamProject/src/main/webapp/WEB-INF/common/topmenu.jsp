@@ -33,6 +33,7 @@ nav{
 </style>
 </head>
 <body>
+
 	<div class="container" style="background-color:red;">
 		<div class="row">
 			<div class="col-md-offset-3 col-md-6">
@@ -94,6 +95,8 @@ nav{
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="update.mem">내 정보 수정</a></li>
 						<li><a href="logout.mem">로그아웃</a></li>
+						<li><a href="orderList.prd?memId=${loginfo.id}">구매내역</a></li>
+						<li><a href="cartList.prd?memId=${loginfo.id}">장바구니</a></li>
 					</ul>
 				</div>
 	      	</c:if>

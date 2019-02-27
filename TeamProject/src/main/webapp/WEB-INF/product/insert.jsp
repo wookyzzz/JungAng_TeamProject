@@ -25,46 +25,41 @@
 				<table class="table table-defalut">
 					<thead>
 		<tr>
-			<td>카테고리</td>
-			<td colspan=3>
-				<select name="categories">
+			<td>
+				카테고리&nbsp;<select name="categories"  class="form-control" >
 					<c:forEach var="cat" items="${catLists}">
 					<option value="${cat.idx },${cat. name}" <c:if test="${cat.idx == catNum}">selected</c:if>>${cat.name}</option>
 					</c:forEach>
 				</select> 
 			</td>
 		</tr>
+		
 		<tr>
-			<td colspan=4>
+			<td colspan=2>
 				<div class="form-group">
 					<input type="text"  class="form-control"  name="name" id="name" onkeypress="spanDel()" placeholder="제목"><span id="NameErr"></span>
 				</div>
 			</td>
-			</tr>
+			</tr>	
 			</thead>
 			<tfoot>
 			<tr>
-							<td colspan=4><textarea id="editor1" name="contents" rows=100 cols=50  placeholder="상품 상세설명"></textarea></td>
+							<td colspan=2><textarea id="editor1" name="contents" rows=70 cols=50  placeholder="상품 상세설명"></textarea></td>
 		</tr> 
-		
 		<tr>
-		<td>가격</td>
-		<td>
-				<div class="form-group">
-					<input type="text" name="price" id="price" placeholder="가격"><span id="PriceErr"></span>
+				<td width=90%><div class="form-group">배송비
+					<input type="radio" name="deliverycharge" id="deliverycharge" value="유" checked>유
+					<input type="radio" name="deliverycharge" id="deliverycharge" value="무" >무 &nbsp;|&nbsp;
+						
+					<input type="text" name="price" id="price" placeholder="가격" style="width:80px"><span id="PriceErr"></span>&nbsp;|&nbsp;
+					<input type="text" name="quantity" id="quantity" placeholder="수량"  style="width:80px"><span id="QuantityErr"></span>
 				</div>
-			</td>
-			<td>수량</td>
-		<td>
-				<div class="form-group">
-					<input type="text" name="quantity" id="quantity" placeholder="수량"><span id="QuantityErr"></span>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td align=right colspan=4>
-				<input type="submit" class="btn btn-default" value="상품등록" onclick="return errCheck()">
-			</td>
+				</td>
+				<td>
+					<div class="form-group">
+					<input type="submit" class="btn btn-default" value="상품등록" onclick="return errCheck()">
+					</div></td>
+				
 		</tr>
 	</table>
 	<input type="hidden" value="${loginfo.id }" name="memId"> <%-- session 값을 이용! --%>

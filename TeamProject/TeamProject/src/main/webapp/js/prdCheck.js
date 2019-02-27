@@ -6,7 +6,7 @@
 		PriceErr = document.getElementById("PriceErr");
 		reg = /^[0-9]*$/;
 		QuantityErr = document.getElementById("QuantityErr");
-		if(name=="" || editor1==""||price=="" || quantity==""){
+		if(name=="" ||price=="" || quantity==""){
 			if(name==""){
 					NameErr.innerHTML="<font color=red>필수 입력사항입니다.</font>";
 			}
@@ -38,4 +38,3 @@
 			return false;	
 		}
 }
-	

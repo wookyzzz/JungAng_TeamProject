@@ -124,6 +124,7 @@ col mem_level for a8
         quantity number,
         image varchar2(50),
         inputdate date default sysdate,
+        delivery_charge nvarchar2(10),
         foreign key (catNum_detail) references categories_detail(idx)
     );
     
@@ -145,26 +146,39 @@ col mem_level for a8
     drop table review cascade CONSTRAINTS;
     create table review(
     idx number primary key,
-    memNum number not null,
+    memId varchar2(20) not null,
     prdNum number not null,
     subject nvarchar2(50) not null,
-    contents nvarchar2(200) not null,
+    contents nvarchar2(1000) not null,
     grade number,
      foreign key(prdNum) references products(idx),
-     foreign key(memNum) references members(idx)
     );
 
     --��ٱ���
-    drop table shoppingCart cascade CONSTRAINTS;
-    create table shoppingCart(
-        memNum number not null,
+    drop table prdOrders cascade CONSTRAINTS;
+    create table prdOrders(
+    	idx number not null primary key,
+        memId varchar(20) not null,
         prdNum number not null,
         quantity number,
         totalPrice number,
-        foreign key (memNum) references members(idx),
+        memo nvarchar2(100),
+        postcode1 varchar2(20),      --�����ȣ1
+        address1 nvarchar2(50), 
+        detailaddress1 nvarchar2(30),
+        inputdate date default sysdate,
         foreign key (prdNum) references products(idx)
     );
 
+create table shoppingcart(
+    idx number primary key,
+    prdNum number,
+    memId varchar(20),
+    quantity number,
+    totalPrice number,
+    inputdate date default sysdate,
+    FOREIGN key(prdNum) REFERENCES products(idx)
+);
 
     --�Խ���
     drop table bbs cascade CONSTRAINTS;
@@ -280,6 +294,12 @@ col mem_level for a8
         nocache;
         commit;
         
+         create sequence cart_seq
+        minvalue 1
+        start with 1
+        increment by 1
+        nocache;
+        
   --�Խ��� ��� ������
   drop sequence bbs_re_seq;
     create sequence bbs_re_seq
@@ -288,6 +308,12 @@ col mem_level for a8
         increment by 1
         nocache;
         commit;
+        
+         create sequence order_seq
+        minvalue 1
+        start with 1
+        increment by 1
+        nocache;
         
         
  --insert data--

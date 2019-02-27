@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import product.model.ProductBean;
 import product.model.ProductDao;
+import product.model.ProductReviewBean;
 import util.paging.Paging;
 import util.paging.Paging_prd;
 
@@ -45,12 +46,6 @@ public class ProductListController {
 			String url = request.getContextPath()+this.command;
 			Paging_prd pageInfo = new Paging_prd(pageNumber,pageSize,totalCount,url,whatColumn,keyword);
 			List<ProductBean> lists = productDao.getLists(pageInfo,map);
-			String imgTag =null;
-			for(ProductBean imglists : lists){
-					imgTag = imglists.getContents().split("/>")[0];
-					System.out.println("/>: "+imgTag );
-				
-			}
 			System.out.println("*************************<img>************************");
 			mav.addObject("lists",lists);
 			mav.addObject("pageInfo",pageInfo);
@@ -59,6 +54,7 @@ public class ProductListController {
 			mav.addObject("whatColumn",whatColumn);
 			mav.addObject("keyword",keyword);
 			mav.addObject("totalCount",totalCount);
+			
 			return mav;
 		}
 }
