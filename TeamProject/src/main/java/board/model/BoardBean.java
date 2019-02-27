@@ -2,6 +2,9 @@ package board.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardBean {
@@ -9,8 +12,13 @@ public class BoardBean {
 	private int idx;
 	private int memNum;
 	private int sortNum;
+	
+	@NotNull(message="제목을 입력하세요.")
 	private String subject;
+	
+	@NotEmpty(message="내용을 입력하세요.")
 	private String contents;
+	
 	private String image;
 	private int ref;
 	private int restep;

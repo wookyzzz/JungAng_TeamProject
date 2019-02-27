@@ -15,9 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import board.model.BoardBean;
 import board.model.BoardDao;
 import util.paging.Paging;
+
 @Controller
-public class GetBoardListController {
-	private static final String command = "/list.bbs";
+public class GetBestListController {
+	private static final String command = "/best.bbs";
 	private static final String getPage = "board";
 	
 	@Autowired
@@ -38,16 +39,14 @@ public class GetBoardListController {
 			return mav;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		String wholeBoard = boardDao.getWholeBoardNum();
 		map.put("column", column);
 		map.put("search", "%"+search+"%");
 		map.put("sortNum", sortNum);
-		map.put("wholeBoard", wholeBoard);
-		map.put("searchKeyWord", search);
+		map.put("seachKeyWord", search);
 		int totalCount = boardDao.getTotalCount(map);
 		System.out.println("totalCount : " + totalCount);
 		Paging paging = new Paging(totalCount, pageNumber, limit, pagingSize);
-		List<BoardBean> list = boardDao.getData(paging, map);
+		List<BoardBean> list = boardDao.getBestData(paging, map);
 		list = boardDao.setNickName(list);
 		list = boardDao.setBoardName(list);
 		list = boardDao.setThumbcount(list);
@@ -60,5 +59,4 @@ public class GetBoardListController {
 		session.removeAttribute("bean");
 		return mav;
 	}
-
 }

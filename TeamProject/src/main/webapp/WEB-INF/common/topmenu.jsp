@@ -5,12 +5,7 @@
 <head>
 <script type="text/javascript">
 	function urlCheck(url,idx){
-		if(url=="list.prd"){
 			location.href=url+"?catNum="+idx;
-		}
-		else{
-			location.href=url;
-		}
 	}
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,23 +32,12 @@ nav{
  }
 </style>
 </head>
-
 <body>
 
 	<div class="container" style="background-color:red;">
 		<div class="row">
-			<div class="col-md-6">
-				<h1 style="color:white; font-weight: bold;"><a href="list.main">웹사이트 이미지 or 이름</a></h1>
-			</div>
-			<div class="col-md-6">
-				<h1>
-				<form class="form-inline">
-					<input type="text" class="form-control">
-					<button type="submit" class="btn btn-default">
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					</button>
-				</form>
-				</h1>
+			<div class="col-md-offset-3 col-md-6">
+				<h1 style="text-align:center;color:white; font-weight: bold;"><a href="list.main">웹사이트 이미지 or 이름</a></h1>
 			</div>
 		</div>
 	</div>
@@ -70,7 +54,6 @@ nav{
 					<c:if test="${detail.catNum eq cate.idx }">
 
 						<li><a href="javascript:urlCheck('${detail.url}','${detail.idx}')">${detail.name }/${detail.url }</a></li>
-
 					</c:if>
 				</c:forEach>
 		        </ul>
