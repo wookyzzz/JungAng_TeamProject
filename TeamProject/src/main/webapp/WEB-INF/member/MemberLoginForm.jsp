@@ -15,6 +15,13 @@
 	function memberList() {
 		location.href = "list.mem"; // MemberListController 
 	}
+	function findid() {
+		location.href = "findidForm.mem"; // MemberFindidController 
+	}
+	function findpw() {
+		location.href = "findpwForm.mem"; // MemberFindpwController 
+	}
+	
 </script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
@@ -87,6 +94,10 @@ margin-top:30px;
                 </div>
                 <div class="panel-footer">
                    	회원이 아니신가요? <input type="button" value="회원가입" onClick="register();"></div>
+                 <div class="panel-footer">
+                   	<input type="button" value="아이디 찾기" onClick="findid();">
+                   	<input type="button" value="비밀번호 찾기" onClick="findpw();"></div>  	
+               
             </div>
         </div>
     </div>

@@ -60,6 +60,17 @@ values(mem_seq.nextval, #{id}, #{passwd}, #{name}, #{tel}, #{hp}, #{nick},#{emai
 	<select id="getInfoByIdx" resultType="MyMember">
 		select * from members where idx = #{memNum}
 	</select>
+	
+	<select id="FindidData" resultType="MyMember">
+		select * from members
+		where name = #{name} and hp = #{hp}
+	</select>
+	
+	<select id="GetData2" resultType="MyMember">
+		select * from members
+		where name = #{name} and hp = #{hp}
+	</select>
+	
 </mapper>
 
 

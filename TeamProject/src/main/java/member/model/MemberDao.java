@@ -72,6 +72,22 @@ public class MemberDao {
 		bean = sqlSessionTemplate.selectOne(namespace+".getInfoByIdx", memNum);
 		return bean;
 	}
+
+
+	public MemberBean FindidData(MemberBean member) {
+		MemberBean bean =  new MemberBean();
+		bean = sqlSessionTemplate.selectOne(namespace+".FindidData", member);
+		return bean;
+		
+	}
+
+	public MemberBean GetData2(String name,String hp) {
+		MemberBean bean = new MemberBean();
+		bean.setName(name);
+		bean.setHp(hp);
+		bean = sqlSessionTemplate.selectOne(namespace + ".GetData2", bean);
+		return bean;
+	}
 	
 	
 
