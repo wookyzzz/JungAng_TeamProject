@@ -15,7 +15,7 @@ nav{
 	padding-left: 20px;
 	padding-right: 20px;
 	margin-top:40x;
-	background-color: orange;
+	background-color: #5bc0de;
 	color:#FFFFFF;
 }
 .affix {
@@ -44,19 +44,42 @@ nav{
 	 <!--  <div class="container-fluid"> -->
 	    <ul class="nav navbar-nav">
 	      <li class="active"><a href="list.main">Home</a></li>
-	      <c:forEach var="cate" items="${ctList }">
-		      <li class="dropdown">
-		        <a class="dropdown-toggle" data-toggle="dropdown" href="#">${cate.name }
-		        <span class="caret"></span></a>
-		        <ul class="dropdown-menu">
-		         <c:forEach var="detail" items="${detailList }">
-					<c:if test="${detail.catNum eq cate.idx }">
-						<li><a href="javascript:urlCheck('${detail.url}','${detail.idx}')">${detail.name }/${detail.url }</a></li>
-					</c:if>
-				</c:forEach>
-		        </ul>
-		      </li>
-	      </c:forEach>
+	      	<c:choose>
+	      		<c:when test="${loginfo == null}">
+	      			<c:forEach var="cate" items="${ctList }">
+	      					<c:if test="${cate.idx != 99999 }">
+	      						<li class="dropdown">
+							        <a class="dropdown-toggle" data-toggle="dropdown" href="#">${cate.name }
+							        <span class="caret"></span></a>
+							        <ul class="dropdown-menu">
+							         <c:forEach var="detail" items="${detailList }">
+										<c:if test="${detail.catNum eq cate.idx }">
+											<li><a href="javascript:urlCheck('${detail.url}','${detail.idx}')">${detail.name }/${detail.url }</a></li>
+										</c:if>
+									</c:forEach>
+							        </ul>
+							      </li>
+	      					</c:if>
+	      				</c:forEach>
+	      		</c:when>
+	      		<c:when test="${loginfo != null }">
+	      			<c:if test="${loginfo.id =='admin' }">
+				      <c:forEach var="cate" items="${ctList }">
+					      <li class="dropdown">
+					        <a class="dropdown-toggle" data-toggle="dropdown" href="#">${cate.name }
+					        <span class="caret"></span></a>
+					        <ul class="dropdown-menu">
+					         <c:forEach var="detail" items="${detailList }">
+								<c:if test="${detail.catNum eq cate.idx }">
+									<li><a href="javascript:urlCheck('${detail.url}','${detail.idx}')">${detail.name }/${detail.url }</a></li>
+								</c:if>
+							</c:forEach>
+					        </ul>
+					      </li>
+				      </c:forEach>
+	      			</c:if>
+	      		</c:when>
+	      	</c:choose>
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
 	    	<c:if test="${loginfo == null }">
