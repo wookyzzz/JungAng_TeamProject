@@ -5,12 +5,7 @@
 <head>
 <script type="text/javascript">
 	function urlCheck(url,idx){
-		if(url=="list.prd"){
 			location.href=url+"?catNum="+idx;
-		}
-		else{
-			location.href=url;
-		}
 	}
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,12 +32,7 @@ nav{
  }
 </style>
 </head>
-<<<<<<< HEAD
 <body>
-
-=======
-<body>
->>>>>>> branch 'master' of https://github.com/wookyzzz/JungAng_TeamProject.git
 	<div class="container" style="background-color:red;">
 		<div class="row">
 			<div class="col-md-6">
@@ -71,11 +61,7 @@ nav{
 		        <ul class="dropdown-menu">
 		         <c:forEach var="detail" items="${detailList }">
 					<c:if test="${detail.catNum eq cate.idx }">
-<<<<<<< HEAD
 						<li><a href="javascript:urlCheck('${detail.url}','${detail.idx}')">${detail.name }/${detail.url }</a></li>
-=======
-						<li><a href="${detail.url }">${detail.name }/${detail.url }</a></li>
->>>>>>> branch 'master' of https://github.com/wookyzzz/JungAng_TeamProject.git
 					</c:if>
 				</c:forEach>
 		        </ul>

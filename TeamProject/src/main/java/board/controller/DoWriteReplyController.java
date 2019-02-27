@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,7 +41,7 @@ public class DoWriteReplyController {
 	}
 	
 	@RequestMapping(value=command, method=RequestMethod.POST)
-	public String gotoList(BoardBean bean, HttpSession session){
+	public String gotoList(BoardBean bean, HttpSession session, Model model){
 		
 		System.out.println("sortNum : " + bean.getSortNum());
 		System.out.println("ref : " + bean.getRef());
@@ -49,6 +50,7 @@ public class DoWriteReplyController {
 		MemberBean memBean = (MemberBean)session.getAttribute("loginfo");
 		bean.setMemNum(memBean.getIdx());
 		boardDao.insertNewReply(bean);
+		model.addAttribute("catNum", bean.getSortNum());
 		return "redirect:/list.bbs";
 	}
 }

@@ -110,6 +110,7 @@ textarea{
 			html+="<textarea name='contents' class='form-control' rows='3' onClick='checkLogin()'></textarea>";
 			html+="<input type='hidden' name='parentId' value='"+id+"'>";
 			html+="<input type='hidden' name='boardPage' value='"+boardPage+"'>";
+			html+="<input type='hidden' name='catNum' value='${bean.sortNum}''>";
 			html+="<p class='text-right'><button type='submit' class='btn btn-default btn-sm'>등록</button></p></form>";
 			html += "</td></tr>";
 			$('#'+id).after(html);
@@ -168,7 +169,9 @@ textarea{
 		if(check){
 			var idx = "${bean.idx}";
 			var boardPage = "${boardPage}";
-			location.href="delete.bbs?idx="+idx+"&boardPage="+boardPage;
+			var catNum="${bean.sortNum}";
+			console.log(catNum);
+			location.href="delete.bbs?idx="+idx+"&boardPage="+boardPage+"&catNum="+catNum;
 		}
 	}
 	
@@ -233,7 +236,7 @@ textarea{
 									<a onClick="deleteLetter()"><button type="button" class="btn btn-default btn-sm">삭제</button></a>
 								</c:if>
 									<a href="writeRep.bbs?idx=${bean.idx }"><button type="button" class="btn btn-default btn-sm">답글달기</button></a>
-									<a href="list.bbs?pageNumber=${boardPage }"><button type="button" class="btn btn-default btn-sm">목록보기</button></a>
+									<a href="list.bbs?pageNumber=${boardPage }&catNum=${bean.sortNum}"><button type="button" class="btn btn-default btn-sm">목록보기</button></a>
 							</div>
 						</td>
 					</tr>
@@ -298,9 +301,11 @@ textarea{
 								</tr>
 							</c:if>
 							<c:if test="${replist.memNum == 0 }">
-								<td colspan=2 id="td">
-									<p>${replist.contents }</p>
-								</td>
+								<tr id="${replist.idx }">
+									<td colspan=2 id="td">
+										<p>${replist.contents }</p>
+									</td>
+								</tr>
 							</c:if>
 						</c:if>
 						<c:if test="${replist.reReLevel == 1 }">
@@ -338,6 +343,7 @@ textarea{
 					    <input type="hidden" name="reBbsRef" value="${bean.idx }">
 					    <input type="hidden" name="memNum" value="${loginfo.idx }">
 					    <input type="hidden" name="boardPage" value="${boardPage }">
+					    <input type="hidden" name="catNum" value="${bean.sortNum }">
 					    <textarea name="contents" class="form-control" rows="5" onClick="checkLogin()"></textarea>
 					  </div>
 					  <div class="panel-footer footer" align="right">

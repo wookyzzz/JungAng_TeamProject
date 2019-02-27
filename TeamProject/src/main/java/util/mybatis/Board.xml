@@ -5,22 +5,56 @@
 <mapper namespace="board.model.BoardBean">
 	<select id="getTotalCount" resultType="int">
 		select count(*) from bbs
-		<if test="column == 'title'">
+		<if test="sortNum != wholeBoard">
+			where sortNum = #{sortNum}
+			<if test="column == 'title'">
+				and subject like #{search}
+			</if>
+			<if test="column == 'content'">
+				and contents like #{search}
+			</if>
+		</if>
+		<if test="sortNum == wholeBoard">
+			<if test="column == 'title'">
+				where subject like #{search}
+			</if>
+			<if test="column == 'content'">
+				where contents like #{search}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getBestData" resultType="MyBoard">
+		select rownum as rank, idx, memNum, sortNum, subject, contents, image, ref, re_step, re_level, readCount, inputdate
+		 from(select * from bbs order by ref asc, re_step desc) where best_letter = 1
+		 <if test="column == 'title'">
 			where subject like #{search}
 		</if>
 		<if test="column == 'content'">
 			where contents like #{search}
 		</if>
+		order by rank desc
 	</select>
 	
 	<select id="getData" resultType="MyBoard">
 		select rownum as rank, idx, memNum, sortNum, subject, contents, image, ref, re_step, re_level, readCount, inputdate
 		 from(select * from bbs order by ref asc, re_step desc)
-		<if test="column == 'title'">
-			where subject like #{search}
+		 <if test="sortNum != wholeBoard">
+			where sortNum = #{sortNum}
+			<if test="column == 'title'">
+				and subject like #{search}
+			</if>
+			<if test="column == 'content'">
+				and contents like #{search}
+			</if>
 		</if>
-		<if test="column == 'content'">
-			where contents like #{search}
+		<if test="sortNum == wholeBoard">
+			<if test="column == 'title'">
+				where subject like #{search}
+			</if>
+			<if test="column == 'content'">
+				where contents like #{search}
+			</if>
 		</if>
 		order by rank desc
 	</select>
@@ -62,12 +96,7 @@
 	<select id="getReplyByIdx" resultType="MyBoardReply">
 		select * from bbs_re where idx = #{parentId}
 	</select>
-	<select id="getCountEqualsRe_REF" resultType="int">
-		select count(*) from bbs_re where re_ref = #{reRef} and re_re_step > #{reReStep}
-	</select>
-	<update id="updateLegacyLetterRE_ReStep">
-		update bbs_re set re_re_step = re_re_step +1 where re_ref=#{reRef} and re_re_step > #{reReStep}
-	</update>
+	
 	<insert id="writeReReply">
 		insert into bbs_re(idx, re_bbs_ref, memNum, re_ref, re_re_step, re_re_level, inputdate, contents) 
 		values (bbs_re_seq.nextval, #{reBbsRef},${memNum}, #{reRef}, #{reReStep}, #{reReLevel}, sysdate, #{contents})
@@ -115,5 +144,27 @@
 	</update>
 	<update id="updateLetter">
 		update bbs set subject=#{subject}, contents=#{contents} where idx = #{idx}
+	</update>
+	<select id="getWholeBoardNum" resultType="String">
+		select idx from categories_detail where name like '전체게시판'
+	</select>
+	<update id="setBestLetter">
+		update bbs set best_letter = 1 where idx = #{bbsRef}
+	</update>
+	<insert id="setBestComment">
+		insert into bbs_re(idx, re_bbs_ref, memNum, re_ref, contents) 
+		values (bbs_re_seq.nextval, #{bbsRef},0,bbs_re_seq.nextval,#{contents})
+	</insert>
+	<select id="setReReStep" resultType="int">
+		select max(re_re_step)+1 from bbs_re where re_ref = #{reRef}
+	</select>
+	<delete id="deleteThumbCount">
+		delete from bbs_good where bbs_ref = #{idx}
+	</delete>
+	<select id="checkBestLetter" resultType="int">
+		select best_letter from bbs where idx = #{bbsRef}
+	</select>
+	<update id="moveBoard">
+		update bbs set sortNum = #{sortNum} where idx = #{idx}
 	</update>
 </mapper>

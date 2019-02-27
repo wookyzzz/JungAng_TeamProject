@@ -1,6 +1,9 @@
 package board.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -127,28 +130,14 @@ private String namespace="board.model.BoardBean";
 	}
 
 	public void writeReReply(BoardReplyBean bean, String contents, int memidx) {
-		int count = 0;
-		count = getCountEqualsRe_REF(bean);
-		if(count>0){
-			updateLegacyLetterRE_ReStep(bean);
-		}
 		bean = setReply(bean, contents, memidx);
 		sqlSessionTemplate.insert(namespace+".writeReReply",bean);
 		
 	}
 
-	private void updateLegacyLetterRE_ReStep(BoardReplyBean bean) {
-		sqlSessionTemplate.update(namespace+".updateLegacyLetterRE_ReStep", bean);
-	}
-
-	private int getCountEqualsRe_REF(BoardReplyBean bean) {
-		int count = 0;
-		count = sqlSessionTemplate.selectOne(namespace+".getCountEqualsRe_REF", bean);
-		return count;
-	}
-
 	private BoardReplyBean setReply(BoardReplyBean bean, String contents, int memidx) {
-		bean.setReReStep(bean.getReReStep()+1);
+		int re_re_step = sqlSessionTemplate.selectOne(namespace+".setReReStep", bean);
+		bean.setReReStep(re_re_step);
 		bean.setReReLevel(1);
 		bean.setContents(contents);
 		bean.setMemNum(memidx);
@@ -248,18 +237,18 @@ private String namespace="board.model.BoardBean";
 		return replycount;
 	}
 
-	public int deleteAllReply(int idx) {
+	public int deleteAllReply(String idx) {
 		int count = -1;
 		count = sqlSessionTemplate.delete(namespace+".deleteAllReply", idx);
 		return count;
 	}
 
-	public void deleteLetter(int idx) {
+	public void deleteLetter(String idx) {
 		sqlSessionTemplate.delete(namespace+".deleteLetter",idx);
 		
 	}
 
-	public void deleteReply(int idx) {
+	public void deleteReply(String idx) {
 		sqlSessionTemplate.update(namespace+".deleteReply", idx);
 	}
 
@@ -269,5 +258,48 @@ private String namespace="board.model.BoardBean";
 
 	public void updateLetter(BoardBean bean) {
 		sqlSessionTemplate.update(namespace+".updateLetter", bean);
+	}
+
+	public String getWholeBoardNum() {
+		return sqlSessionTemplate.selectOne(namespace+".getWholeBoardNum");
+	}
+
+	public void setBestLetter(int bbsRef) {
+		sqlSessionTemplate.update(namespace+".setBestLetter", bbsRef);
+	}
+
+	public List<BoardBean> getBestData(Paging paging, Map<String, String> map) {
+		List<BoardBean> list = new ArrayList<BoardBean>();
+		RowBounds rowBounds = new RowBounds(paging.getOffset(),paging.getLimit());
+		list = sqlSessionTemplate.selectList(namespace+".getBestData", map, rowBounds);
+		return list;
+	}
+
+	public void setBestComment(int bbsRef) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("bbsRef", String.valueOf(bbsRef));
+		String contents = getToday();
+		contents+="에 베스트게시글로 등록되었습니다.";
+		map.put("contents", contents);
+		sqlSessionTemplate.insert(namespace+".setBestComment", map);
+	}
+
+	private String getToday() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd hh:mm:ss");
+		return sdf.format(new Date());
+	}
+
+	public void deleteThumbCount(String idx) {
+		sqlSessionTemplate.update(namespace+".deleteThumbCount", idx);
+	}
+
+	public int checkBestLetter(int bbsRef) {
+		int check = -1;
+		check = sqlSessionTemplate.selectOne(namespace+".checkBestLetter", bbsRef);
+		return check;
+	}
+
+	public void moveBoard(BoardBean bean) {
+		sqlSessionTemplate.update(namespace+".moveBoard", bean);
 	}
 }

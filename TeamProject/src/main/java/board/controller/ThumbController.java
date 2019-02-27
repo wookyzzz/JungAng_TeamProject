@@ -52,6 +52,13 @@ public class ThumbController {
 				boardDao.decreaseThumbCount(goodBean);
 			}
 			thumbCount = boardDao.getThumbCount(bbsRef);
+			if(thumbCount >= 10){
+				int bestLetter = boardDao.checkBestLetter(bbsRef);
+				if(bestLetter == 0){
+					boardDao.setBestLetter(bbsRef);
+					boardDao.setBestComment(bbsRef);
+				}
+			}
 			System.out.println(thumbCount);
 			rw.println(thumbCount);
 			rw.flush();
