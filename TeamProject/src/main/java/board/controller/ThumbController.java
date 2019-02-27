@@ -26,12 +26,13 @@ public class ThumbController {
 	
 
 	@RequestMapping(value=command, method=RequestMethod.POST)
-	public String thumb(@RequestParam("bbsRef") int bbsRef, HttpSession session, HttpServletResponse response, Model model ) throws IOException{
+	public String thumb(@RequestParam("bbsRef") int bbsRef,@RequestParam("boardPage") String boardPage,
+			HttpSession session, HttpServletResponse response, Model model ) throws IOException{
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter rw = response.getWriter();
 		if(session.getAttribute("loginfo") == null){
 			
-			session.setAttribute("destination", "redirect:/contentview.bbs?idx="+bbsRef);
+			session.setAttribute("destination", "redirect:/contentview.bbs?idx="+bbsRef+"&boardPage="+boardPage);
 			rw.println("-1");
 			rw.flush();
 			return null;
@@ -51,6 +52,13 @@ public class ThumbController {
 				boardDao.decreaseThumbCount(goodBean);
 			}
 			thumbCount = boardDao.getThumbCount(bbsRef);
+			if(thumbCount >= 10){
+				int bestLetter = boardDao.checkBestLetter(bbsRef);
+				if(bestLetter == 0){
+					boardDao.setBestLetter(bbsRef);
+					boardDao.setBestComment(bbsRef);
+				}
+			}
 			System.out.println(thumbCount);
 			rw.println(thumbCount);
 			rw.flush();

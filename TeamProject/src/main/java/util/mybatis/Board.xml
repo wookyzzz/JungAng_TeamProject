@@ -5,26 +5,77 @@
 <mapper namespace="board.model.BoardBean">
 	<select id="getTotalCount" resultType="int">
 		select count(*) from bbs
-		<if test="column == 'title'">
-			where subject like #{search}
+		<if test="sortNum != wholeBoard">
+			where sortNum = #{sortNum}
+			<if test="column == 'subjectAndContents'">
+				and subject like #{search} or contents like #{search}
+			</if>
+			<if test="column == 'subject'">
+				and subject like #{search}
+			</if>
+			<if test="column == 'contents'">
+				and contents like #{search}
+			</if>
+			
 		</if>
-		<if test="column == 'content'">
-			where contents like #{search}
+		<if test="sortNum == wholeBoard">
+			<if test="column == 'subjectAndContents'">
+				where subject like #{search} or contents like #{search}
+			</if>
+			<if test="column == 'subject'">
+				where subject like #{search}
+			</if>
+			<if test="column == 'contents'">
+				where contents like #{search}
+			</if>
 		</if>
 	</select>
 	
-	<select id="getData" resultType="MyBoard">
+	<select id="getBestData" resultType="MyBoard">
 		select rownum as rank, idx, memNum, sortNum, subject, contents, image, ref, re_step, re_level, readCount, inputdate
-		 from(select * from bbs order by ref asc, re_step desc)
-		<if test="column == 'title'">
+		 from(select * from bbs order by ref asc, re_step desc) where best_letter = 1
+		<if test="column == 'subjectAndContents'">
+			where subject like #{search} or contents like #{search}
+		</if>
+		<if test="column == 'subject'">
 			where subject like #{search}
 		</if>
-		<if test="column == 'content'">
+		<if test="column == 'contents'">
 			where contents like #{search}
 		</if>
 		order by rank desc
 	</select>
 	
+	<select id="getData" resultType="MyBoard">
+		select rownum as rank, idx, memNum, sortNum, subject, contents, image, ref, re_step, re_level, readCount, inputdate
+		 from(select * from bbs order by ref asc, re_step desc)
+		 <if test="sortNum != wholeBoard">
+			where sortNum = #{sortNum}
+			<if test="column == 'subjectAndContents'">
+				and subject like #{search} or contents like #{search}
+			</if>
+			<if test="column == 'subject'">
+				and subject like #{search}
+			</if>
+			<if test="column == 'contents'">
+				and contents like #{search}
+			</if>
+		</if>
+		
+		<if test="sortNum == wholeBoard">
+			<if test="column == 'subjectAndContents'">
+				where subject like #{search} or contents like #{search}
+			</if>
+			<if test="column == 'subject'">
+				where subject like #{search}
+			</if>
+			<if test="column == 'contents'">
+				where contents like #{search}
+			</if>
+		</if>
+		order by rank desc
+	</select>
+
 	<insert id="insertNewLetter">
 		insert into bbs(idx, memNum, sortNum, subject, contents, ref, re_step, re_level, readCount, inputdate) 
 		values(bbs_seq.nextval, #{memNum}, #{sortNum}, #{subject}, #{contents}, bbs_seq.nextval, 0, 0, 0, sysdate )
@@ -62,12 +113,7 @@
 	<select id="getReplyByIdx" resultType="MyBoardReply">
 		select * from bbs_re where idx = #{parentId}
 	</select>
-	<select id="getCountEqualsRe_REF" resultType="int">
-		select count(*) from bbs_re where re_ref = #{reRef} and re_re_step > #{reReStep}
-	</select>
-	<update id="updateLegacyLetterRE_ReStep">
-		update bbs_re set re_re_step = re_re_step +1 where re_ref=#{reRef} and re_re_step > #{reReStep}
-	</update>
+	
 	<insert id="writeReReply">
 		insert into bbs_re(idx, re_bbs_ref, memNum, re_ref, re_re_step, re_re_level, inputdate, contents) 
 		values (bbs_re_seq.nextval, #{reBbsRef},${memNum}, #{reRef}, #{reReStep}, #{reReLevel}, sysdate, #{contents})
@@ -91,5 +137,76 @@
 	
 	<select id="getThumbCount" resultType="int">
 		select count(*) from bbs_good where bbs_ref = #{bbsRef}
+	</select>
+	
+	<select id="getBoardName" resultType="String">
+		select name from categories_detail where idx = #{idx}
+	</select>
+	
+	<select id="getReplyCountByreBbsRef" resultType="int">
+		select count(*) from bbs_re where re_bbs_ref = #{reBbsRef}
+	</select>
+	
+	<delete id="deleteAllReply">
+		delete from bbs_re  where re_bbs_ref = #{idx}
+	</delete>
+	<delete id="deleteLetter">
+		delete from bbs where idx = #{idx}
+	</delete>
+	<update id="deleteReply">
+		update bbs_re set memNum=0, contents='삭제된 댓글입니다.' where idx=#{idx}
+	</update>
+	<update id="updateReply">
+		update bbs_re set contents = #{contents} where idx = #{idx}
+	</update>
+	<update id="updateLetter">
+		update bbs set subject=#{subject}, contents=#{contents} where idx = #{idx}
+	</update>
+	<select id="getWholeBoardNum" resultType="String">
+		select idx from categories_detail where name like '전체게시판'
+	</select>
+	<update id="setBestLetter">
+		update bbs set best_letter = 1 where idx = #{bbsRef}
+	</update>
+	<insert id="setBestComment">
+		insert into bbs_re(idx, re_bbs_ref, memNum, re_ref, contents) 
+		values (bbs_re_seq.nextval, #{bbsRef},0,bbs_re_seq.nextval,#{contents})
+	</insert>
+	<select id="setReReStep" resultType="int">
+		select max(re_re_step)+1 from bbs_re where re_ref = #{reRef}
+	</select>
+	<delete id="deleteThumbCount">
+		delete from bbs_good where bbs_ref = #{idx}
+	</delete>
+	<select id="checkBestLetter" resultType="int">
+		select best_letter from bbs where idx = #{bbsRef}
+	</select>
+	<update id="moveBoard">
+		update bbs set sortNum = #{sortNum} where idx = #{idx}
+	</update>
+	
+	<!-- 메인 -->
+	<select id="getBestDataTop10" resultType="MyBoard">
+		select * from bbs where best_letter = 1 order by readcount desc
+	</select>
+	
+	<select id="getFreeData" resultType="MyBoard">
+		select * from bbs where sortNum = #{freeIdx} order by inputdate desc
+	</select>
+	
+	<select id="getHumorData" resultType="MyBoard">
+		select * from bbs where sortNum = #{humorIdx} order by inputdate desc
+	</select>
+	<select id="getLetterCountByMemNum" resultType="int">
+		select count(*) from bbs where memNum = #{memNum}
+	</select>
+	<select id="getLetterByMemNum" resultType="MyBoard">
+		select * from bbs where memNum = #{memNum} order by inputdate desc
+	</select>
+	<select id="getReplyCountByMemNum" resultType="int">
+		select count(*) from bbs_re where memNum = #{memNum}
+	</select>
+	<select id="getReplyByMemNum" resultType="MyBoardReply">
+		select * from bbs_re where memNum = #{memNum} order by inputdate desc
 	</select>
 </mapper>

@@ -26,4 +26,10 @@
 	<delete id="deleteCategoryDetail">
 		delete from categories_detail where idx = #{idx}
 	</delete>
+	<select id="getFreeIdx" resultType="int">
+		select idx from categories_detail where name like '%자유%'
+	</select>
+	<select id="getHumorIdx" resultType="int">
+		select idx from categories_detail where name like '%유머%'
+	</select>
 </mapper>

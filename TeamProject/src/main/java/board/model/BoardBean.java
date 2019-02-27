@@ -1,5 +1,10 @@
 package board.model;
 
+import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BoardBean {
@@ -7,42 +12,45 @@ public class BoardBean {
 	private int idx;
 	private int memNum;
 	private int sortNum;
+	
+	@NotNull(message="제목을 입력하세요.")
 	private String subject;
+	
+	@NotEmpty(message="내용을 입력하세요.")
 	private String contents;
+	
 	private String image;
 	private int ref;
 	private int restep;
 	private int relevel;
 	private int readCount;
-	private String inputdate;
+	private Date inputdate;
 	private MultipartFile upload;
 	private String upload2;
 	private String name;
 	private int thumbs;
 	private String nickname;
+	private int bestLetter;
+	private int replycount;
+	
+	
+	public int getReplycount() {
+		return replycount;
+	}
+	public void setReplycount(int replycount) {
+		this.replycount = replycount;
+	}
+	public int getBestLetter() {
+		return bestLetter;
+	}
+	public void setBestLetter(int bestLetter) {
+		this.bestLetter = bestLetter;
+	}
 	public BoardBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BoardBean(int idx, int memNum, int sortNum, String subject, String contents, String image, int ref,
-			int restep, int relevel, int readCount, String inputdate, MultipartFile upload, String upload2, String name, int thumbs) {
-		super();
-		this.idx = idx;
-		this.memNum = memNum;
-		this.sortNum = sortNum;
-		this.subject = subject;
-		this.contents = contents;
-		this.image = image;
-		this.ref = ref;
-		this.restep = restep;
-		this.relevel = relevel;
-		this.readCount = readCount;
-		this.inputdate = inputdate;
-		this.upload = upload;
-		this.upload2 = upload2;
-		this.name = name;
-		this.thumbs = thumbs;
-	}
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -103,10 +111,10 @@ public class BoardBean {
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
-	public String getInputdate() {
+	public Date getInputdate() {
 		return inputdate;
 	}
-	public void setInputdate(String inputdate) {
+	public void setInputdate(Date inputdate) {
 		this.inputdate = inputdate;
 	}
 	public MultipartFile getUpload() {

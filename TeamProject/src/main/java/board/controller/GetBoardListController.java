@@ -28,7 +28,8 @@ public class GetBoardListController {
 			  @RequestParam(value="search", required=false) String search,
 			  @RequestParam(value="limit",required=false) String limit,
 			  @RequestParam(value="pageNumber", required=false) String pageNumber,
-			  @RequestParam(value="pagingSize", required=false) String pagingSize,HttpSession session){
+			  @RequestParam(value="pagingSize", required=false) String pagingSize,HttpSession session,
+			  @RequestParam("catNum") String sortNum){
 		
 		ModelAndView mav = new ModelAndView();
 		if(session.getAttribute("ctList") == null){
@@ -37,14 +38,20 @@ public class GetBoardListController {
 			return mav;
 		}
 		Map<String, String> map = new HashMap<String, String>();
+		String wholeBoard = boardDao.getWholeBoardNum();
 		map.put("column", column);
 		map.put("search", "%"+search+"%");
-		map.put("seachKeyWord", search);
+		map.put("sortNum", sortNum);
+		map.put("wholeBoard", wholeBoard);
+		map.put("searchKeyWord", search);
 		int totalCount = boardDao.getTotalCount(map);
 		System.out.println("totalCount : " + totalCount);
 		Paging paging = new Paging(totalCount, pageNumber, limit, pagingSize);
 		List<BoardBean> list = boardDao.getData(paging, map);
 		list = boardDao.setNickName(list);
+		list = boardDao.setBoardName(list);
+		list = boardDao.setThumbcount(list);
+		list = boardDao.setReplycount(list);
 		mav.addObject("map", map);
 		mav.addObject("list", list);
 		mav.addObject("paging", paging);

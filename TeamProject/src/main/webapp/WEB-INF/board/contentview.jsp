@@ -7,23 +7,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.inputreply, .inputreply > .footer{
+.inputreply, .footer{
 background-color: lightgray;
 }
-.add:HOVER, .delete:hover, .pageNumber:hover{
+.add:HOVER, .delete:hover, .pageNumber:hover, .collapseform:hover{
 cursor: pointer;
 }
 textarea{
 	resize:none;
 }
+
 </style>
 <script type="text/javascript">
+	var text;
 	function showPage(info){
 		console.log(info);
 		var imagePath = "${pageContext.request.contextPath }";
 		console.log(imagePath);
 		var pageNum = $(info).attr("id");
 		var rebbsref = "${bean.idx}";
+		var boardPage = "${boardPage}";
+		var idx = "${loginfo.idx}";
 		$.ajax({
 			url : "replypaging.bbs",
 			data : {
@@ -58,15 +62,35 @@ textarea{
 					console.log(list.list);
 					html+="<tr id="+list.list[i].idx+">";
 					if(list.list[i].reReLevel == 0){
-						html+="<td colspan=2 id='td'>";
-						html+="<h5 id='h5'>"+list.list[i].nickname+"<small>"+list.list[i].inputdate+"</small>";
-						html+="<a id='addreply' class='addreply add' onClick='replyForm(this)'>답글</a></h5>";
-						html+="<p>"+list.list[i].contents+"</p></td>"
+						if(list.list[i].memNum != 0){
+							html+="<td colspan=2 id='td'>";
+							html+="<h5 id='h5'>"+list.list[i].nickname+"<small>"+list.list[i].inputdate+"</small>";
+							html+="<a id='addreply' class='addreply add' onClick='replyForm(this)'>답글</a>";
+							if(list.list[i].memNum == idx){
+								html+="<a ><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span> </a>";
+								html+="<a onClick='deleteReply("+list.list[i].idx+")'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> </a>";
+							}
+							html+="</h5>";
+							html+="<p>"+list.list[i].contents+"</p></td>"
+						}else{
+							html+="<td colspan=2 id='td'>";
+							html+="<p>"+list.list[i].contents+"</p></td>"
+						}
 					}else{
-						html+="<td></td><td id='td'>";
-						html+="<h5 id='h5'><img src='"+imagePath+"/resources/images/reply_new_head.gif' alt='reply_new_head.gif'>"+list.list[i].nickname+"<small>"+list.list[i].inputdate+"</small>";
-						html+="<a id='addreply' class='addreply add' onClick='replyForm(this)'>답글</a></h5>";
-						html+="<p>"+list.list[i].contents+"</p></td>"
+						if(list.list[i].memNum != 0){
+							html+="<td></td><td id='td'>";
+							html+="<h5 id='h5'><img src='"+imagePath+"/resources/images/reply_new_head.gif' alt='reply_new_head.gif'>"+list.list[i].nickname+"<small>"+list.list[i].inputdate+"</small>";
+							html+="<a id='addreply' class='addreply add' onClick='replyForm(this)'>답글</a>";
+							if(list.list[i].memNum == idx){
+								html+="<a ><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span> </a>";
+								html+="<a onClick='deleteReply("+list.list[i].idx+")'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> </a>";
+							}
+							html+="</h5>";
+							html+="<p>"+list.list[i].contents+"</p></td>"
+						}else{
+							html+="<td></td><td id='td'>";
+							html+="<p>"+list.list[i].contents+"</p></td>"
+						}
 					}
 					html+="</tr>";
 				}
@@ -75,19 +99,22 @@ textarea{
 			}
 		})
 	}
-	
 	function replyForm(data){
 		console.log(data);
 		var id = $(data).attr("id");
 		var loginfo = "${loginfo.idx}";
+		var boardPage = "${boardPage}";
 		if($(data).hasClass("add")){
 			var id = $(data).parent().parent().parent().attr("id");
+			alert(id);
 			var html = "<tr><td colspan=2><form action='addrereply.bbs' method='post'>";
 			html+="<textarea name='contents' class='form-control' rows='3' onClick='checkLogin()'></textarea>";
 			html+="<input type='hidden' name='parentId' value='"+id+"'>";
+			html+="<input type='hidden' name='boardPage' value='"+boardPage+"'>";
+			html+="<input type='hidden' name='catNum' value='${bean.sortNum}''>";
 			html+="<p class='text-right'><button type='submit' class='btn btn-default btn-sm'>등록</button></p></form>";
 			html += "</td></tr>";
-			$('#'+id).after(html);
+			$('tr[id='+id+']').after(html);
 			$(data).html("취소")
 			.removeAttr("class","add")
 			.attr("class","delete");
@@ -105,7 +132,8 @@ textarea{
 		$.ajax({
 			url:'thumb.bbs',
 			data : {
-				bbsRef : "${bean.idx}"
+				bbsRef : "${bean.idx}",
+				boardPage : "${boardPage}"
 			},
 			method : 'post',
 			datatype : 'json',
@@ -123,6 +151,7 @@ textarea{
 	function checkLogin(){
 		var loginfo = "${loginfo}";
 		var idx = "${bean.idx}";
+		var boardPage = "${boardPage}"
 		console.log("loginfo : " + loginfo);
 		if(loginfo == "" || loginfo == null){
 			var flag = confirm("댓글은 로그인 후 이용할 수 있습니다.")
@@ -130,10 +159,57 @@ textarea{
 				location.href='LoginForm.mem';
 				return;
 			}else{
-				location.href='contentview.bbs?idx='+idx;
+				location.href='contentview.bbs?idx='+idx+"&boardPage="+boardPage;
 				return;
 			}
 		}
+	}
+	
+	function deleteLetter(){
+		var check = confirm("글을 삭제하시겠습니까?");
+		if(check){
+			var idx = "${bean.idx}";
+			var boardPage = "${boardPage}";
+			var catNum="${bean.sortNum}";
+			console.log(catNum);
+			location.href="delete.bbs?idx="+idx+"&boardPage="+boardPage+"&catNum="+catNum;
+		}
+	}
+	
+	function deleteReply(idx){
+		var check = confirm("댓글을 삭제하시겠습니까?");
+		var boardPage = "${boardPage}";
+		var rebbsref = "${bean.idx}";
+		if(check){
+			alert(idx+"/"+boardPage+"/"+rebbsref);
+			location.href="deletereply.bbs?idx="+idx+"&boardPage="+boardPage+"&boardIdx="+rebbsref;
+		}
+	}
+	function updateReply(data){
+		text = $(data).parent().parent().next().text();
+		var idx = $(data).parent().parent().parent().parent().attr("id");
+		var boardPage = "${boardPage}";
+		var rebbsref = "${bean.idx}";
+		alert(idx);
+		var html = "<a onClick='collapseUpdateReply(this)' class='collapseform'>수정 취소</a>";
+		var html2 = "<form action='updatereply.bbs' method='post'><textarea name='contents' class='form-control'>"+text+"</textarea>";
+		html2 += "<input type='hidden' name='idx' value='"+idx+"'>";
+		html2 += "<input type='hidden' name='boardPage' value='"+boardPage+"'>";
+		html2 += "<input type='hidden' name='reBbsRef' value='"+rebbsref+"'>";
+		html2 += "<button type='submit' class='btn btn-default'>수정</button></form>";
+		alert(text);
+		$(data).parent().parent().next().remove();
+		$(data).parent().parent().after(html2);
+		$(data).parent().html(html).next().remove();
+	}
+	
+	function collapseUpdateReply(data){
+		var html="<a onClick='updateReply(this)'><span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";
+		alert(text);
+		$(data).parent().parent().next().remove();
+		$(data).parent().parent().after("<p>"+text+"</p>");
+		$(data).parent().html(html)
+		.after("&nbsp;<small><a onClick='deleteReply(${replist.idx})'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></small>");
 	}
 
 </script>
@@ -152,16 +228,16 @@ textarea{
 									<button id="thumb" type="button" class="btn btn-default" onClick="thumb()">
 									 	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;좋아요
 									</button> 
-									<button id="thumbcount" type="button" class="btn btn-default">${thumbCount }</button>
+									<button id="thumbcount" type="button" class="btn btn-default" disabled="disabled">${thumbCount }</button>
 								</div>
 							</div>
 							<div class="col-md-3" align="right">
 								<c:if test="${loginfo.idx == bean.memNum }">
-									<a href=""><button type="button" class="btn btn-default btn-sm">수정</button></a>
-									<a href=""><button type="button" class="btn btn-default btn-sm">삭제</button></a>
+									<a href="update.bbs?idx=${bean.idx }&boardPage=${boardPage}"><button type="button" class="btn btn-default btn-sm">수정</button></a>
+									<a onClick="deleteLetter()"><button type="button" class="btn btn-default btn-sm">삭제</button></a>
 								</c:if>
 									<a href="writeRep.bbs?idx=${bean.idx }"><button type="button" class="btn btn-default btn-sm">답글달기</button></a>
-									<a href=""><button type="button" class="btn btn-default btn-sm">목록보기</button></a>
+									<a href="list.bbs?pageNumber=${boardPage }&catNum=${bean.sortNum}"><button type="button" class="btn btn-default btn-sm">목록보기</button></a>
 							</div>
 						</td>
 					</tr>
@@ -171,12 +247,12 @@ textarea{
 						<td colspan=3 align=center><h5><strong>${bean.subject }</strong></h5></td>
 					</tr>
 					<tr>
-						<td>${bean.memNum }</td>
-						<td align=center>${bean.inputdate }</td>
+						<td>${bean.nickname }</td>
+						<td align=center><fmt:formatDate value="${bean.inputdate }" pattern="yy/MM/dd"/></td>
 						<td>${bean.readCount }</td>
 					</tr>
 					<tr>
-						<td colspan=3 align=center>${bean.contents }</td>
+						<td colspan=3>${bean.contents }</td>
 					</tr>
 				</tbody>
 			</table>
@@ -193,7 +269,6 @@ textarea{
 							<c:if test="${paging.prev ne 0 }">
 								<a id=${paging.prev } class="pageNumber" onClick="showPage(this)">[이전]</a>
 							</c:if>
-							
 							<c:forEach begin="${paging.startPage }" end="${paging.endPage }" varStatus="status">
 								<c:if test="${paging.pageNumber eq status.index }">
 									[${status.index }]
@@ -209,44 +284,73 @@ textarea{
 					</tr>
 				</tfoot>
 				<tbody>
-					<c:forEach var="replist" items="${list }">
+					<c:forEach var="replist" items="${list}">
 						<c:if test="${replist.reReLevel == 0 }">
-						<tr id="${replist.idx }">
-							<td colspan=2 id="td">
-								<h5 id="h5">${replist.nickname }
-								<small>${replist.inputdate }</small>
-								<a id="addreply" class="addreply add" onClick="replyForm(this)" >답글</a></h5>
-								<p>${replist.contents }</p>
-							</td>
-						</tr>
+							<c:if test="${replist.memNum != 0 }">
+								<tr id="${replist.idx }">
+									<td colspan=2 id="td">
+										<h5 id="h5">${replist.nickname }
+										<small>${replist.inputdate }</small>
+										<a id="addreply" class="addreply add" onClick="replyForm(this)" >답글</a>
+										<c:if test="${replist.memNum == loginfo.idx }">
+											<small><a onClick="updateReply(this)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></small>
+											<small><a onClick="deleteReply(${replist.idx})"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></small>
+										</c:if>
+										</h5>
+										<p>${replist.contents }</p>
+									</td>
+								</tr>
+							</c:if>
+							<c:if test="${replist.memNum == 0 }">
+								<tr id="${replist.idx }">
+									<td colspan=2 id="td">
+										<p>${replist.contents }</p>
+									</td>
+								</tr>
+							</c:if>
 						</c:if>
 						<c:if test="${replist.reReLevel == 1 }">
-						<tr id="${replist.idx }">
-							<td></td>
-							<td id="td">
-								<h5 id="h5"><img src="${pageContext.request.contextPath }/resources/images/reply_new_head.gif">${replist.nickname }
-								<small>${replist.inputdate }</small>
-								<a id="addreply" class="addreply add" onClick="replyForm(this)">답글</a></h5>
-								<p>${replist.contents }</p>
-							</td>
-						</tr>
+							<c:if test="${replist.memNum != 0 }">
+								<tr id="${replist.idx }">
+									<td></td>
+									<td id="td">
+										<h5 id="h5"><img src="${pageContext.request.contextPath }/resources/images/reply_new_head.gif">${replist.nickname }
+										<small>${replist.inputdate }</small>
+										<a id="addreply" class="addreply add" onClick="replyForm(this)">답글</a>
+										<c:if test="${replist.memNum == loginfo.idx }">
+											<small><a onClick="updateReply(this)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></small>
+											<small><a onClick="deleteReply(${replist.idx})"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></small>
+										</c:if>
+										</h5>
+										<p>${replist.contents }</p>
+									</td>
+								</tr>
+							</c:if>
+							<c:if test="${replist.memNum == 0 }">
+								<tr id="${replist.idx }">
+									<td></td>
+									<td id="td">
+										<p>${replist.contents }</p>
+									</td>
+								</tr>
+							</c:if>
 						</c:if>
 					</c:forEach>
 				</tbody>
 			</table>
 			<div class="panel panel-default inputreply">
-			<form action="writereply.bbs" method="post">
-			  <div class="panel-body">
-			    ${loginfo.nick }(${loginfo.id })/${loginfo.idx }
-			    <input type="hidden" name="reBbsRef" value="${bean.idx }">
-			    <input type="hidden" name="memNum" value="${loginfo.idx }">
-			    <hr>
-			    <textarea name="contents" class="form-control" rows="5" onClick="checkLogin()"></textarea>
-			  </div>
-			  <div class="panel-footer footer" align="right">
-				  <button type="submit" class="btn btn-default btn-sm">확인</button>
-			  </div>
-			  </form>
+				<form action="writereply.bbs" method="post">
+					  <div class="panel-body">
+					    <input type="hidden" name="reBbsRef" value="${bean.idx }">
+					    <input type="hidden" name="memNum" value="${loginfo.idx }">
+					    <input type="hidden" name="boardPage" value="${boardPage }">
+					    <input type="hidden" name="catNum" value="${bean.sortNum }">
+					    <textarea name="contents" class="form-control" rows="5" onClick="checkLogin()"></textarea>
+					  </div>
+					  <div class="panel-footer footer" align="right">
+						  <button type="submit" class="btn btn-default btn-sm">확인</button>
+					  </div>
+				  </form>
 			</div>
 			<hr>
 			
