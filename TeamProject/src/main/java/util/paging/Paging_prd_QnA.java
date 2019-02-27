@@ -6,19 +6,30 @@ public class Paging_prd_QnA {
 		private int totalCount = 0 ; //총 레코드 건수
 		private int totalPage = 0 ; //전체 페이지 수
 		private int pageNumber = 0 ; //보여줄 페이지 넘버
-		private int pageSize = 0 ; //한 페이지에 보여줄 건수
+		private int pageSize = 6 ; //한 페이지에 보여줄 건수
 		private int beginRow = 0 ; //현재 페이지의 시작 행
 		private int endRow = 0 ; //현재 페이지의 끝 행
-		private int pageCount = 3 ; // 한 화면에 보여줄 페이지 링크 수 (페이지 갯수)
+		private int pageCount = 5 ; // 한 화면에 보여줄 페이지 링크 수 (페이지 갯수)
 		private int beginPage = 0 ; //페이징 처리 시작 페이지 번호
 		private int endPage = 0 ; //페이징 처리 끝 페이지 번호
 		private int offset = 0 ; // 1:0, 2:2 , 3:4
 		private int limit = 0 ;
 		private String url = "" ; 
 		private String pagingHtml = "";//하단의 숫자 페이지 링크
-
+		private int prdNum=0;
+		
 		public int getTotalCount() {
 			return totalCount;
+		}
+
+
+		public int getPrdNum() {
+			return prdNum;
+		}
+
+
+		public void setPrdNum(int prdNum) {
+			this.prdNum = prdNum;
 		}
 
 
@@ -138,11 +149,9 @@ public class Paging_prd_QnA {
 
 
 		public String getPagingHtml() {
-			System.out.println("pagingHtml:"+pagingHtml);
 			
 			return pagingHtml;
 //			pagingHtml:
-//				&nbsp;<font color='red'>1</font>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=2&pageSize=2&whatColumn=null&keyword=null'>2</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=3&pageSize=2&whatColumn=null&keyword=null'>3</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=4&pageSize=2&whatColumn=null&keyword=null'>4</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=5&pageSize=2&whatColumn=null&keyword=null'>5</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=6&pageSize=2&whatColumn=null&keyword=null'>6</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=7&pageSize=2&whatColumn=null&keyword=null'>7</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=8&pageSize=2&whatColumn=null&keyword=null'>8</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=9&pageSize=2&whatColumn=null&keyword=null'>9</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=10&pageSize=2&whatColumn=null&keyword=null'>10</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=11&pageSize=2&whatColumn=null&keyword=null'>다음</a>&nbsp;&nbsp;<a href='/ex/list.ab?pageNumber=22&pageSize=2&whatColumn=null&keyword=null'>맨 끝</a>&nbsp;
 
 		}
 
@@ -154,10 +163,9 @@ public class Paging_prd_QnA {
 				String _pageNumber, 
 				String _pageSize,  
 				int totalCount,
-				String url) {		
-
+				String url, int _prdNum) {		
+			this.prdNum = _prdNum;
 			if(  _pageNumber == null ){
-				System.out.println("_pageNumber:"+_pageNumber); // null
 				_pageNumber = "1" ;
 			}
 			this.pageNumber = Integer.parseInt( _pageNumber ) ; 
@@ -198,13 +206,11 @@ public class Paging_prd_QnA {
 			/*pageCount=10 : 한 화면에 보일 페이지 수
 			*/
 			
-			System.out.println("pageNumber:"+pageNumber+"/totalPage:"+totalPage);	
 			
 			if( this.endPage > this.totalPage ){
 				this.endPage = this.totalPage ;
 			}
 			
-			System.out.println("pageNumber2:"+pageNumber+"/totalPage2:"+totalPage);	
 			this.url = url ; //  /ex/list.ab
 			
 			this.pagingHtml = getPagingHtml(url) ;
@@ -217,10 +223,10 @@ public class Paging_prd_QnA {
 			String result = "" ;
 			
 			if (this.beginPage != 1) { 
-				result += "&nbsp;<a href='" + url  
-						+ "?pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize + "'>맨 처음</a>&nbsp;" ;
-				result += "&nbsp;<a href='" + url 
-						+ "?pageNumber=" + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize  + "'>이전</a>&nbsp;" ;
+				result += "&nbsp;<a href='" + url  +
+						"?prdNum="+this.prdNum+ "&pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize + "&des=qna#qna'> < <</a>&nbsp;" ;
+				result += "&nbsp;<a href='" + url +
+						"?prdNum="+this.prdNum+ "&pageNumber="  + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize  + "&des=qna#qna'> < </a>&nbsp;" ;
 			}
 			
 			//가운데
@@ -229,24 +235,22 @@ public class Paging_prd_QnA {
 					result += "&nbsp;<font color='red'>" + i + "</font>&nbsp;"	;
 							
 				} else {
-					result += "&nbsp;<a href='" + url   
-							+ "?pageNumber=" + i + "&pageSize=" + this.pageSize  + "'>" + i + "</a>&nbsp;" ;
+					result += "&nbsp;<a href='" + url   +
+							"?prdNum="+this.prdNum+ "&pageNumber=" + i + "&pageSize=" + this.pageSize  + "&des=qna#qna'>" + i + "</a>&nbsp;" ;
 					
 				}
 			}
 			
-			System.out.println("result:"+result); 
 			System.out.println();
 			
 			if ( this.endPage != this.totalPage) { 
 				
-				result += "&nbsp;<a href='" + url  
-						+ "?pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize + "'>다음</a>&nbsp;" ;
+				result += "&nbsp;<a href='" + url  +
+						"?prdNum="+this.prdNum+ "&pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize + "&des=qna#qna'> > </a>&nbsp;" ;
 				
-				result += "&nbsp;<a href='" + url  
-						+ "?pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize + "'>맨 끝</a>&nbsp;" ;
+				result += "&nbsp;<a href='" + url  +
+						"?prdNum="+this.prdNum+ "&pageNumber=" +  (this.totalPage ) + "&pageSize=" + this.pageSize + "&des=qna#qna'> >> </a>&nbsp;" ;
 			}		
-			System.out.println("result2:"+result);
 			
 			return result ;
 		}	

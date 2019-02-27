@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import category.model.CategoryBean;
+import member.model.MemberBean;
 import util.paging.Paging_prd;
 import util.paging.Paging_prd_QnA;
+import util.paging.Paging_prd_Review;
 
 @Component("ProductDao")
 public class ProductDao {
@@ -26,12 +28,6 @@ public class ProductDao {
 		return totalCount;
 	}
 
-	public String getMemberIdx(String id) {
-		int memIdx = sqlSessionTemplate.selectOne(namespace+".getMemberIdx",id);
-		String strIdx = Integer.toString(memIdx);
-		System.out.println("memIdx: "+strIdx);
-return strIdx;
-	}
 
 	public List<ProductBean> getLists(Paging_prd pageInfo, Map<String, String> map) {
 		List<ProductBean> lists = new ArrayList<ProductBean>();
@@ -57,13 +53,16 @@ return strIdx;
 		return prdView;
 	}
 
-	public List<ProductReviewBean> prdReviewList(int idx) {
-		List<ProductReviewBean> reviewLists = sqlSessionTemplate.selectList(namespace+".prdReviewList",idx);
-		return null;
+	public List<ProductReviewBean> prdReviewList(Paging_prd_Review pageInfo_review,int prdNum) {
+		System.out.println(pageInfo_review.getOffset()+","+pageInfo_review.getLimit());
+		RowBounds rowBounds = new RowBounds(pageInfo_review.getOffset(),pageInfo_review.getLimit());
+		List<ProductReviewBean> reviewLists = sqlSessionTemplate.selectList(namespace+".prdReviewList",prdNum,rowBounds);
+		return reviewLists;
 	}
 
-	public List<ProductQnABean> QnALists(int prdNum) {
-		List<ProductQnABean> QnALists = sqlSessionTemplate.selectList(namespace+".prdQnAList",prdNum);
+	public List<ProductQnABean> QnALists(Paging_prd_QnA pageInfo_QnA,int prdNum) {
+		RowBounds rowBounds = new RowBounds(pageInfo_QnA.getOffset(),pageInfo_QnA.getLimit());
+		List<ProductQnABean> QnALists = sqlSessionTemplate.selectList(namespace+".prdQnAList",prdNum,rowBounds);
 		return QnALists;
 	}
 
@@ -88,19 +87,91 @@ return strIdx;
 		sqlSessionTemplate.insert(namespace+".insertAnswer",bean);
 		
 	}
-
-	public int getTotalCount(int prdNum) {
-		int totalCount = sqlSessionTemplate.selectOne(namespace+".qnaCount",prdNum);
+	public int getReviewCount(int prdNum) {
+		int totalCount = sqlSessionTemplate.selectOne(namespace+".reviewCount",prdNum);
 		return totalCount ;
 	}
-
 	public void deleteQnA_all(int ref) {
 		sqlSessionTemplate.delete(namespace+".delQnARefAll",ref);
 	}
 
-	public void deleteQnA(int idx) {
-		sqlSessionTemplate.delete(namespace+".delQnA",idx);
+	public void deleteQnA(Map<String, Integer> refMap) {
+		sqlSessionTemplate.delete(namespace+".delQnA",refMap);
 		
+	}
+
+	public void insertReview(ProductReviewBean bean) {
+		System.out.println();
+		sqlSessionTemplate.insert(namespace+".insertReview",bean);
+	}
+
+	public int qnaCount(int prdNum) {
+		int totalCount = sqlSessionTemplate.selectOne(namespace+".QnAtotalCount",prdNum);
+		return totalCount;
+	}
+	public int reviewCount(int prdNum) {
+		int totalCount = sqlSessionTemplate.selectOne(namespace+".ReviewTotalCount",prdNum);
+		return totalCount;
+	}
+
+
+	public MemberBean getMember(String memId) {
+		MemberBean bean = sqlSessionTemplate.selectOne(namespace+".getMember",memId);
+		return bean;
+	}
+
+
+	public void orderPrd(ProductShoppingCartBean bean) {
+		 sqlSessionTemplate.insert(namespace+".orderPrd",bean);
+		
+	}
+
+
+	public void updateQuantity(Map<String, Integer> quanMap) {
+		sqlSessionTemplate.update(namespace+".updateQuantity",quanMap);
+		
+	}
+
+
+	public void memberUpdatePoint(Map<String, Integer> pointMap) {
+	sqlSessionTemplate.update(namespace+".updateMemPoint",pointMap);
+	}
+
+
+	public void select_delete_Quantity(int idx) {
+		int quantity = sqlSessionTemplate.selectOne(namespace+".selectQuantity",idx);
+		System.out.println("quantity: "+quantity);
+		if(quantity<=0){
+			sqlSessionTemplate.update(namespace+".soldoutPrd",idx);
+		}
+	}
+
+
+	public List<ProductShoppingCartBean> getOrderList(String memId) {
+		List<ProductShoppingCartBean> orderList = sqlSessionTemplate.selectList(namespace+".getOrderList",memId);
+		return orderList;
+	}
+
+
+	public void insertCart(ProductShoppingCartBean bean) {
+		ProductShoppingCartBean qbean = sqlSessionTemplate.selectOne(namespace+".CartQuantityCheck",bean);
+		System.out.println("카트받아온 수량: "+bean.getQuantity());
+		try{
+			if(qbean.getQuantity()!=0){
+				sqlSessionTemplate.update(namespace+".CartQuantityUp",qbean);
+			}
+			else{
+				sqlSessionTemplate.insert(namespace+".insertCart",bean);
+			}			
+		}catch(NullPointerException e){			
+			sqlSessionTemplate.insert(namespace+".insertCart",bean);
+		}
+	}
+
+
+	public List<ProductShoppingCartBean> cartLists(String memId) {
+		List<ProductShoppingCartBean> cartLists = sqlSessionTemplate.selectList(namespace+".cartLists",memId);
+		return cartLists;
 	}
 	
 }

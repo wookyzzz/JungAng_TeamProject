@@ -19,11 +19,11 @@
 		<!-- 회원 -->
 		<typeAlias alias="MyMember" type="member.model.MemberBean"/>
 		<typeAlias alias="MyMemberReport" type="member.model.Member_Report_Bean"/>
-		<typeAlias alias="MyShoppingCart" type="member.model.ShoppingCartBean"/>
 		<!-- 상품 -->
 	<typeAlias alias="ProductBean" type="product.model.ProductBean"/>
 		<typeAlias alias="ReviewBean" type="product.model.ProductReviewBean"/>
 		<typeAlias alias="QnABean" type="product.model.ProductQnABean"/>
+		<typeAlias alias="MyShoppingCart" type="product.model.ProductShoppingCartBean"/>
 		<!-- 카테고리 -->
 		<typeAlias alias="MyCategory" type="category.model.CategoryBean"/>
 		<typeAlias alias="MyCategoryDetail" type="category.model.CategoryDetailBean"/>

@@ -40,22 +40,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="section">
-				<div class="col-md-3">
-					<select name="limit">
-						<option value="5"
-							<c:if test="${pageInfo.limit == 5}">selected</c:if>>5개씩
-							보기
-						<option value="10"
-							<c:if test="${pageInfo.limit == 10}">selected</c:if>>10개씩
-							보기
-						<option value="20"
-							<c:if test="${pageInfo.limit == 20}">selected</c:if>>20개씩
-							보기
-						<option value="30"
-							<c:if test="${pageInfo.limit == 30}">selected</c:if>>30개씩
-							보기
-					</select>
-				</div>
 				<div class="col-md-6" align="center">
 					<form class="form-inline" action="list.prd">
 						<div class="form-group">

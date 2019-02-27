@@ -280,7 +280,7 @@ textarea{
 					</tr>
 				</tfoot>
 				<tbody>
-					<c:forEach var="replist" items="${list }">
+					<c:forEach var="replist" items="${list}">
 						<c:if test="${replist.reReLevel == 0 }">
 							<c:if test="${replist.memNum != 0 }">
 								<tr id="${replist.idx }">

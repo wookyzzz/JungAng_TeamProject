@@ -7,6 +7,14 @@ public class ProductReviewBean {
 	private String subject;
 	private String contents;
 	private int grade;
+	private String inputdate;
+
+	public String getInputdate() {
+		return inputdate;
+	}
+	public void setInputdate(String inputdate) {
+		this.inputdate = inputdate;
+	}
 	public ProductReviewBean() {
 		super();
 	}

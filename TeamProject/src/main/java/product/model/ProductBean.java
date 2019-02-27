@@ -17,10 +17,18 @@ public class ProductBean {
     private String image;
     private int point;
     private MultipartFile upload;
-    Date date = new Date();
+    private String deliverycharge;
+    
+	Date date = new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
 	public ProductBean() {
 		super();
+	}
+	public String getDeliverycharge() {
+		return deliverycharge;
+	}
+	public void setDeliverycharge(String deliverycharge) {
+		this.deliverycharge = deliverycharge;
 	}
 	public int getIdx() {
 		return idx;

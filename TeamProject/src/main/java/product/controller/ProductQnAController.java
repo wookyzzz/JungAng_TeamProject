@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,30 +33,10 @@ public class ProductQnAController {
 	@Autowired
 		private ProductDao productDao;
 	
-	@RequestMapping(value="/prdQnAList.prd", method=RequestMethod.GET)
-	public ModelAndView doAction(@RequestParam("prdNum") int prdNum,@RequestParam(value= "prdNum" , required=false) String pageNumber){
-		System.out.println("idx: "+prdNum);
-		System.out.println("pageNumber: "+pageNumber);
-		System.out.println("idx: "+prdNum);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("prdQnA");
-		int totalCount = productDao.getTotalCount(prdNum);
-		System.out.println("totalCount: "+totalCount);
-		List<ProductQnABean> QnALists = productDao.QnALists(prdNum);
-		System.out.println("QnALists_size: "+QnALists.size());
-		mav.addObject("QnALists",QnALists);
-		
-		ProductBean prdView = productDao.prdView(prdNum);
-		mav.addObject("pageNumber",pageNumber);
-		mav.addObject("prdView",prdView);
-		mav.setViewName("prdView");
-		
-		return mav;
-	}
+
 	@RequestMapping(value=command,method=RequestMethod.POST)
-	public ModelAndView doActionPost(HttpServletRequest request) throws UnsupportedEncodingException{
+	public String doActionPost(HttpServletRequest request,Model model) throws UnsupportedEncodingException{
 		request.setCharacterEncoding("utf-8");
-		ModelAndView mav = new ModelAndView();
 		int prdNum = Integer.parseInt(request.getParameter("prdNum"));
 		String passwd = request.getParameter("passwd");
 		String memId = request.getParameter("memId");
@@ -73,10 +54,8 @@ public class ProductQnAController {
 		bean.setPasswd(passwd);
 		}
 		productDao.insertPrdQnA(bean);
-		List<ProductQnABean> QnALists = productDao.QnALists(prdNum);
-		mav.addObject("QnALists",QnALists);
-		mav.setViewName("prdQnA");
-		return mav;
+		model.addAttribute("prdNum",prdNum);
+		return "redirect:/prodView.prd";
 	}
 	@ResponseBody 
 	@RequestMapping(value="/showContents.prd")
@@ -95,8 +74,8 @@ public class ProductQnAController {
 			System.out.println("step: "+getStep);
 			System.out.println("contents: "+ bean.getContents());
 
+			json.addProperty("step",getStep);
 				json.addProperty("level",getLevel);
-				json.addProperty("step",getStep);
 				json.addProperty("contents", getContents);
 				System.out.println(json);
 				System.out.println(json.size());
@@ -116,8 +95,7 @@ public class ProductQnAController {
 		
 		
 	@RequestMapping(value="/prdAnswer.prd")
-	public  ModelAndView doActionAnswer(HttpServletRequest request){
-		ModelAndView mav = new ModelAndView();
+	public  String doActionAnswer(HttpServletRequest request,Model model){
 		ProductQnABean bean = new ProductQnABean();
 		int relevel = Integer.parseInt(request.getParameter("relevel")); 
 		bean.setRelevel(relevel);
@@ -141,36 +119,34 @@ public class ProductQnAController {
 		System.out.println("답변내용: "+contents);
 		
 		productDao.insertPrdAnswer(bean);
-		List<ProductQnABean> QnALists = productDao.QnALists(prdNum);
-		mav.addObject("QnALists",QnALists);
-		mav.setViewName("prdQnA");
-		return mav;
+		model.addAttribute("prdNum",prdNum);
+
+		return "redirect:/prodView.prd";
 	}
 	@RequestMapping("/delQnA.prd")
-	public  ModelAndView deleteQnA(HttpServletRequest request){
-		ModelAndView mav = new ModelAndView();
+	public  String deleteQnA(HttpServletRequest request,Model model){
 		ProductQnABean bean = new ProductQnABean();
-		int relevel = Integer.parseInt(request.getParameter("relevel")); 
-		int idx = Integer.parseInt(request.getParameter("idx")); 
-		bean.setRelevel(relevel);
+		Map<String,Integer> refMap = new HashMap<String, Integer>();
+		int restep = Integer.parseInt(request.getParameter("restep")); 
 		int ref = Integer.parseInt(request.getParameter("ref")); 
+		System.out.println("restep:"+restep);
+		refMap.put("ref",ref);
+		refMap.put("restep",restep);
+		
 		bean.setRef(ref);
-		System.out.println("삭제목록:"+ref+","+relevel);
-		if(relevel==0){
+		if(restep==0){
 			productDao.deleteQnA_all(ref);
 			System.out.println("원글부터 삭제완료");
 		}
 		else{
-			productDao.deleteQnA(idx);
+			productDao.deleteQnA(refMap);
 			System.out.println("해당글만 삭제됨");
 		}
 		
 		int prdNum = Integer.parseInt(request.getParameter("prdNum"));
 		System.out.println("prdNum:"+prdNum);
 		bean.setPrdNum(prdNum);
-		List<ProductQnABean> QnALists = productDao.QnALists(prdNum);
-		mav.addObject("QnALists",QnALists);
-		mav.setViewName("prdQnA");
-		return mav;
+		model.addAttribute("prdNum",prdNum);
+		return "redirect:/prodView.prd";
 	}
 }

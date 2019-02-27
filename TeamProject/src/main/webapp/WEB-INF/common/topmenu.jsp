@@ -37,12 +37,9 @@ nav{
  }
 </style>
 </head>
-<<<<<<< HEAD
+
 <body>
 
-=======
-<body>
->>>>>>> branch 'master' of https://github.com/wookyzzz/JungAng_TeamProject.git
 	<div class="container" style="background-color:red;">
 		<div class="row">
 			<div class="col-md-6">
@@ -71,11 +68,9 @@ nav{
 		        <ul class="dropdown-menu">
 		         <c:forEach var="detail" items="${detailList }">
 					<c:if test="${detail.catNum eq cate.idx }">
-<<<<<<< HEAD
+
 						<li><a href="javascript:urlCheck('${detail.url}','${detail.idx}')">${detail.name }/${detail.url }</a></li>
-=======
-						<li><a href="${detail.url }">${detail.name }/${detail.url }</a></li>
->>>>>>> branch 'master' of https://github.com/wookyzzz/JungAng_TeamProject.git
+
 					</c:if>
 				</c:forEach>
 		        </ul>
@@ -95,6 +90,8 @@ nav{
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="update.mem">내 정보 수정</a></li>
 						<li><a href="logout.mem">로그아웃</a></li>
+						<li><a href="orderList.prd?memId=${loginfo.id}">구매내역</a></li>
+						<li><a href="cartList.prd?memId=${loginfo.id}">장바구니</a></li>
 					</ul>
 				</div>
 	      	</c:if>

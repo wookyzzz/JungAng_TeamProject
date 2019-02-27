@@ -26,8 +26,8 @@
 	</select>
 	
 	<insert id="insertPrd">
-		insert  into products (idx,catnum_detail,memid,name,contents,price,quantity,inputdate,point)  
-		 values (prd_seq.nextval,#{catNumdetail},#{memId},#{name},#{contents},#{price},#{quantity},default,#{point})
+		insert  into products (idx,catnum_detail,memid,name,contents,price,quantity,inputdate,point,delivery_charge)  
+		 values (prd_seq.nextval,#{catNumdetail},#{memId},#{name},#{contents},#{price},#{quantity},default,#{point},#{deliverycharge})
 	</insert>
 	
 		<select id="prdView" resultType="ProductBean">
@@ -36,13 +36,14 @@
 	
 	
 		<select id="prdReviewList" resultType="ReviewBean">
-		 select * from review where prdNum=#{prdNum}
+		 select * from review where prdNum=#{prdNum} order by inputdate desc
 	</select>
 	
 	<select id="prdQnAList" resultType="QnABean">
 		select * from prdQnA where prdNum=#{prdNum}
 		order by ref desc, re_step asc
 	</select>
+
 	
 	<insert id="insertPrdQnA">
 		insert into prdQnA values(prd_qna_seq.nextval,#{prdNum},#{memId},#{contents},#{passwd},prd_qna_seq.currval,0,0,default)
@@ -60,13 +61,69 @@
 	<insert id="insertAnswer">
 			insert into prdQnA values(prd_qna_seq.nextval,#{prdNum},#{memId},#{contents},#{passwd},#{ref},#{restep},#{relevel},default)
 	</insert>
+	
+	<insert id="insertReview">
+			insert into review values(review_seq.nextval,#{memId},#{prdNum},#{subject},#{contents},#{grade},default)
+	</insert>
+	
+	<insert id="orderPrd">
+			insert into prdOrders values(order_seq.nextval,#{memId},#{prdNum},#{quantity},#{totalPrice},#{memo},#{postcode1},#{address1},#{detailaddress1},default)
+	</insert>
 
 	<delete id="delQnARefAll">
 		delete  from prdQnA where ref=#{ref}
 	</delete>
 	
 	<delete id="delQnA">
-		delete  from prdQnA where  idx=#{idx}
+		delete  from prdQnA where  ref=#{ref} and re_step=#{restep}
 	</delete>
+	
+	<select id="QnAtotalCount" resultType="int">
+		select count(*) from prdQnA where prdNum=#{prdNum}
+	</select>
+	
+		<select id="ReviewTotalCount" resultType="int">
+		select count(*) from review where prdNum=#{prdNum}
+	</select>
+	
+		<select id="getMember" resultType="MyMember">
+		select * from members where id=#{id}
+	</select>
+	
+	<update id="updateQuantity">
+		update products set quantity=quantity-#{quantity} where idx=#{idx}
+	</update>
+	<select id="selectQuantity" resultType="int">
+		select  quantity from products where idx=#{idx}
+	</select>
+	<update id="updateMemPoint">
+		update members set point=#{point} where idx=#{idx}
+	</update>
+	<update id="soldoutPrd">
+		update products set quantity=0  where idx=#{idx}
+	</update>
+	
+
+	<insert id="insertCart">
+		insert into shoppingcart values(cart_seq.nextval,#{prdNum},#{memId},#{quantity},#{totalPrice},default)
+	</insert>
+
+	<select id="CartQuantityCheck" resultType="MyShoppingCart">
+		select * from shoppingcart where prdNum=#{prdNum} and memId=#{memId}
+	</select>
+	
+	<update id="CartQuantityUp">
+		update shoppingcart set quantity=quantity+#{quantity}  where idx=#{idx}
+	</update>
+	
+	<select id="getOrderList" resultType="MyShoppingCart">
+		select * from prdOrders join products on prdOrders.prdNum=products.idx 
+		where prdOrders.memId=#{memId}
+	</select>
+	
+	<select id="cartLists" resultType="MyShoppingCart">
+		select * from shoppingcart join products on shoppingcart.prdNum=products.idx 
+		where shoppingcart.memId=#{memId}
+	</select>
 </mapper>
 
