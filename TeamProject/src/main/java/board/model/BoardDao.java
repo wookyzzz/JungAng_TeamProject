@@ -323,4 +323,39 @@ private String namespace="board.model.BoardBean";
 		list = sqlSessionTemplate.selectList(namespace+".getFreeData",humorIdx, rowBounds);
 		return list;
 	}
+
+	public int getLetterCountByMemNum(int memNum) {
+		int count = 0;
+		count = sqlSessionTemplate.selectOne(namespace+".getLetterCountByMemNum", memNum);
+		return count;
+	}
+
+	public List<BoardBean> getLetterByMemNum(int memNum) {
+		List<BoardBean> list = new ArrayList<BoardBean>();
+		list = sqlSessionTemplate.selectList(namespace+".getLetterByMemNum", memNum);
+		return list;
+	}
+
+	public int getReplyCountByMemNum(int memNum) {
+		int count = 0;
+		count = sqlSessionTemplate.selectOne(namespace+".getReplyCountByMemNum", memNum);
+		return count;
+	}
+
+	public List<BoardReplyBean> getReplyByMemNum(int memNum) {
+		List<BoardReplyBean> list = new ArrayList<BoardReplyBean>();
+		list = sqlSessionTemplate.selectList(namespace+".getReplyByMemNum", memNum);
+		list = setBoardSubject(list);
+		return list;
+	}
+
+	private List<BoardReplyBean> setBoardSubject(List<BoardReplyBean> list) {
+		for(int i = 0 ; i <  list.size(); i++){
+			int idx = list.get(i).getReBbsRef();
+			BoardBean bean = new BoardBean();
+			bean=sqlSessionTemplate.selectOne(namespace+".getContentByIdx", idx);
+			list.get(i).setBoardsubject(bean.getSubject());
+		}
+		return list;
+	}
 }

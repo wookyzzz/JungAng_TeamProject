@@ -106,6 +106,7 @@ textarea{
 		var boardPage = "${boardPage}";
 		if($(data).hasClass("add")){
 			var id = $(data).parent().parent().parent().attr("id");
+			alert(id);
 			var html = "<tr><td colspan=2><form action='addrereply.bbs' method='post'>";
 			html+="<textarea name='contents' class='form-control' rows='3' onClick='checkLogin()'></textarea>";
 			html+="<input type='hidden' name='parentId' value='"+id+"'>";
@@ -113,7 +114,7 @@ textarea{
 			html+="<input type='hidden' name='catNum' value='${bean.sortNum}''>";
 			html+="<p class='text-right'><button type='submit' class='btn btn-default btn-sm'>등록</button></p></form>";
 			html += "</td></tr>";
-			$('#'+id).after(html);
+			$('tr[id='+id+']').after(html);
 			$(data).html("취소")
 			.removeAttr("class","add")
 			.attr("class","delete");

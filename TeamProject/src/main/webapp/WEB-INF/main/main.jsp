@@ -7,25 +7,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.outer-board{
+.outer-board, .zero-padding{
 	margin : 10px;
-	padding-top : 20px;
-	padding-left : 10px;
-	padding-right : 10px;
-	padding-bottom : 10px;
+	padding : 10px; 
 	border: 1px solid #BDBDBD;
 	border-radius : 10px;
 }
-.center-line{
-	board : 1px solid #BDBDBD;
+hr{
+	boarder-top : 1px solid #BDBDBD;
+	boarder-bottom : 1px solid #BDBDBD;
+}
+.zero-padding{
+	padding : 0px;
+}
+.navbar{
+	height : 52px;
 }
 </style>
 </head>
 <body>
 	<%@ include file="../common/topmenu.jsp" %>
-	<div>
-	
-	</div>
 	<div class="row">
 		<div class="col-md-12" style="background: rgba(255, 0, 0, 0.5); width: 100%; height:350px;">
 			
@@ -55,9 +56,9 @@
 					</div>
 				</div>
 				<div class="col-md-4" >
-					<div class="outer-board" style="height:185px;">
-						<c:choose>
-							<c:when test="${loginfo == null }">
+					<c:choose>
+						<c:when test="${loginfo == null }">
+							<div class="outer-board" style="height:185px;">
 								<form class="form-horizontal" action="LoginForm.mem" method="post">
 									<div class="form-group">
 										<div class="col-sm-offset-1 col-sm-10">
@@ -70,26 +71,56 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="col-sm-offset-1 col-sm-7">
-											<input type="submit" class="btn btn-success btn-sm" value="로그인">
-											&nbsp;&nbsp;
-											<input type="button" class="btn btn-info btn-sm" value="회원가입" onClick="location.href='registerForm.mem'">
-										</div>
+										<div class="col-sm-offset-1 col-sm-7"> 
+											<input type="submit" class="btn btn-success btn-block" value="로그인">
+										</div> 
 										<div class="col-sm-4">
-											<small><a href="">아이디찾기</a></small>
+											<small><a href="">아이디찾기</a></small><br>
+											<small><a href="">비밀번호찾기</a></small>
+											
 										</div>
 									</div>
 								</form>
-							</c:when>
-							<c:otherwise>
-								내정보
-							</c:otherwise>
-						</c:choose>
-					</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="panel panel-default outer-board" style="height:185px;">
+								<div class="panel-heading">
+									<strong>${loginfo.nick }</strong><small>(${loginfo.name })</small>님
+									<a href="myinfo.main" class="pull-right"><span style="font-size:12px;">내정보</span></a>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-offset-1 col-sm-10">
+										My Point &nbsp;<strong><fmt:formatNumber value="${loginfo.point }" type="number" pattern="#,##0"/></strong>
+										</div>
+									</div>
+									<p></p>
+									<div class="row">
+										<div class="col-sm-4">
+											<a href="myletter.main"><button type="button" class="btn btn-info">내가쓴글</button></a>
+										</div>
+										<div class="col-sm-4">
+											<a href="myreply.main"><button type="button" class="btn btn-info">나의댓글</button></a>
+										</div>
+										<div class="col-sm-4">
+											<button type="button" class="btn btn-info">주문내역</button>
+										</div>
+									</div>
+									<hr>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div class="col-md-4">
-					<div class="outer-board">
-						이건 어떻게?
+					<div class="outer-board zero-padding">
+						<c:if test="${loginfo == null }">
+							<input type="button" class="btn btn-info btn-lg btn-block" value="회원가입" onClick="location.href='registerForm.mem'">
+						</c:if>
+						<c:if test="${loginfo != null }">
+							<input type="button" class="btn btn-info btn-lg btn-block" value="로그아웃" onClick="location.href='logout.mem'">
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -126,7 +157,15 @@
 				</div>
 				<div class="col-md-4">
 					<div class="outer-board">
-						<span>여기에는 뭘 넣지 날씨?</span>
+						<form class="form-inline">
+							<div class="form-group">
+								<label class="sr-only" for="mainSearch">메인검색창</label>
+								<div class="col-md-12 input-group ">
+									<input type="text" class="form-control" name="search">
+									<div class="input-group-addon"><a href=""><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></div>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

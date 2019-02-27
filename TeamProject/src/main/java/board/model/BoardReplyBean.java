@@ -10,7 +10,14 @@ public class BoardReplyBean {
 	private String inputdate;
 	private String contents;
 	private String nickname;
+	private String boardsubject;
 	
+	public String getBoardsubject() {
+		return boardsubject;
+	}
+	public void setBoardsubject(String boardsubject) {
+		this.boardsubject = boardsubject;
+	}
 	public int getIdx() {
 		return idx;
 	}

@@ -197,4 +197,16 @@
 	<select id="getHumorData" resultType="MyBoard">
 		select * from bbs where sortNum = #{humorIdx} order by inputdate desc
 	</select>
+	<select id="getLetterCountByMemNum" resultType="int">
+		select count(*) from bbs where memNum = #{memNum}
+	</select>
+	<select id="getLetterByMemNum" resultType="MyBoard">
+		select * from bbs where memNum = #{memNum} order by inputdate desc
+	</select>
+	<select id="getReplyCountByMemNum" resultType="int">
+		select count(*) from bbs_re where memNum = #{memNum}
+	</select>
+	<select id="getReplyByMemNum" resultType="MyBoardReply">
+		select * from bbs_re where memNum = #{memNum} order by inputdate desc
+	</select>
 </mapper>
