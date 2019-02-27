@@ -52,4 +52,16 @@ public class CategoryDao {
 		sqlSessionTemplate.delete(namespace+".deleteCategoryDetail",idx);
 		
 	}
+
+	public int getFreeIdx() {
+		int idx = 0;
+		idx = sqlSessionTemplate.selectOne(namespace+".getFreeIdx");
+		return idx;
+	}
+
+	public int getHumorIdx() {
+		int idx = 0;
+		idx = sqlSessionTemplate.selectOne(namespace+".getHumorIdx");
+		return idx;
+	}
 }

@@ -57,6 +57,18 @@ input[type="checkbox"]{
 		//$('.modal-body').html(html).children().children().addClass("list-group-item");
 		$('#moveSelectLetter').modal();
 	}
+	$(function(){
+		$('#limit').on("change",function(){
+			alert("limit change");
+			var limit = this.value;
+			var catNum = "${map.sortNum}";
+			var column = "${map.column}";
+			var search = "${map.searchKeyWord}";
+			
+			//alert("limit = "+limit+" / catNum = "+catNum+" / column = "+column+" / search = "+search);
+			location.href="list.bbs?column="+column+"&search="+search+"&limit="+limit+"&catNum="+catNum;
+		})
+	})
 </script>
 </head>
 <body>
@@ -73,19 +85,19 @@ input[type="checkbox"]{
 					</select>
 				</div>
 				<div class="col-md-6" align="center">
-					<form class="form-inline">
+					<form class="form-inline" action="list.bbs" method="post">
 						<div class="form-group">
 						<label class="sr-only" for="column">칼럼</label>
-						<select class="form-control" id="column">
-							<option value="subjectAndContents">제목+내용
-							<option value="subject">제목
-							<option value="contents">내용
-							<option value="writer">글쓴이
+						<select class="form-control" id="column" name="column">
+							<option value="subjectAndContents" <c:if test="${map.column == 'subjectAndContents' }">selected</c:if>>제목+내용
+							<option value="subject" <c:if test="${map.column == 'subject' }">selected</c:if>>제목
+							<option value="contents" <c:if test="${map.column == 'contents' }">selected</c:if>>내용
 						</select>
 						</div>
 						<div class="form-group">
 						<label class="sr-only" id="search">검색</label>
-						<input type="text" name="search" id="search" class="form-control">
+						<input type="text" name="search" id="search" class="form-control" value="${map.searchKeyWord }">
+						<input type="hidden" name="catNum" value="${map.sortNum }">
 						<button type="submit" class="btn btn-default">검색</button>
 						</div>
 					</form>
@@ -149,7 +161,7 @@ input[type="checkbox"]{
 							</c:choose>
 						 align=center>
 							<c:if test="${paging.prev ne 0 }">
-								<a href="list.bbs?pageNumber=${paging.prev }&coloumn=${map.column}&search=${map.search}&limit=${paging.limit}">[이전]</a>
+								<a href="list.bbs?pageNumber=${paging.prev }&coloumn=${map.column}&search=${map.searchKeyWord}&limit=${paging.limit}&catNum=${map.sortNum}">[이전]</a>
 							</c:if>
 							
 							<c:forEach begin="${paging.startPage }" end="${paging.endPage }" varStatus="status">
@@ -157,11 +169,11 @@ input[type="checkbox"]{
 									[${status.index }]
 								</c:if>
 								<c:if test="${page.pageNumber ne status.count }">
-									<a href="list.bbs?pageNumber=${status.index }&coloumn=${map.column}&search=${map.search}&limit=${paging.limit}">[${status.index }]</a>
+									<a href="list.bbs?pageNumber=${status.index }&coloumn=${map.column}&search=${map.searchKeyWord}&limit=${paging.limit}&catNum=${map.sortNum}">[${status.index }]</a>
 								</c:if>
 							</c:forEach>
 							<c:if test="${paging.next ne 0 }">
-								<a href="list.bbs?pageNumber=${paging.next }&coloumn=${map.column}&search=${map.search}&limit=${paging.limit}">[다음]</a>
+								<a href="list.bbs?pageNumber=${paging.next }&coloumn=${map.column}&search=${map.searchKeyWord}&limit=${paging.limit}&catNum=${map.sortNum}">[다음]</a>
 							</c:if>
 						</td>
 					</tr>

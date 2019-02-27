@@ -7,18 +7,25 @@
 		select count(*) from bbs
 		<if test="sortNum != wholeBoard">
 			where sortNum = #{sortNum}
-			<if test="column == 'title'">
+			<if test="column == 'subjectAndContents'">
+				and subject like #{search} or contents like #{search}
+			</if>
+			<if test="column == 'subject'">
 				and subject like #{search}
 			</if>
-			<if test="column == 'content'">
+			<if test="column == 'contents'">
 				and contents like #{search}
 			</if>
+			
 		</if>
 		<if test="sortNum == wholeBoard">
-			<if test="column == 'title'">
+			<if test="column == 'subjectAndContents'">
+				where subject like #{search} or contents like #{search}
+			</if>
+			<if test="column == 'subject'">
 				where subject like #{search}
 			</if>
-			<if test="column == 'content'">
+			<if test="column == 'contents'">
 				where contents like #{search}
 			</if>
 		</if>
@@ -27,10 +34,13 @@
 	<select id="getBestData" resultType="MyBoard">
 		select rownum as rank, idx, memNum, sortNum, subject, contents, image, ref, re_step, re_level, readCount, inputdate
 		 from(select * from bbs order by ref asc, re_step desc) where best_letter = 1
-		 <if test="column == 'title'">
+		<if test="column == 'subjectAndContents'">
+			where subject like #{search} or contents like #{search}
+		</if>
+		<if test="column == 'subject'">
 			where subject like #{search}
 		</if>
-		<if test="column == 'content'">
+		<if test="column == 'contents'">
 			where contents like #{search}
 		</if>
 		order by rank desc
@@ -41,18 +51,25 @@
 		 from(select * from bbs order by ref asc, re_step desc)
 		 <if test="sortNum != wholeBoard">
 			where sortNum = #{sortNum}
-			<if test="column == 'title'">
+			<if test="column == 'subjectAndContents'">
+				and subject like #{search} or contents like #{search}
+			</if>
+			<if test="column == 'subject'">
 				and subject like #{search}
 			</if>
-			<if test="column == 'content'">
+			<if test="column == 'contents'">
 				and contents like #{search}
 			</if>
 		</if>
+		
 		<if test="sortNum == wholeBoard">
-			<if test="column == 'title'">
+			<if test="column == 'subjectAndContents'">
+				where subject like #{search} or contents like #{search}
+			</if>
+			<if test="column == 'subject'">
 				where subject like #{search}
 			</if>
-			<if test="column == 'content'">
+			<if test="column == 'contents'">
 				where contents like #{search}
 			</if>
 		</if>
@@ -167,4 +184,17 @@
 	<update id="moveBoard">
 		update bbs set sortNum = #{sortNum} where idx = #{idx}
 	</update>
+	
+	<!-- 메인 -->
+	<select id="getBestDataTop10" resultType="MyBoard">
+		select * from bbs where best_letter = 1 order by readcount desc
+	</select>
+	
+	<select id="getFreeData" resultType="MyBoard">
+		select * from bbs where sortNum = #{freeIdx} order by inputdate desc
+	</select>
+	
+	<select id="getHumorData" resultType="MyBoard">
+		select * from bbs where sortNum = #{humorIdx} order by inputdate desc
+	</select>
 </mapper>

@@ -302,4 +302,25 @@ private String namespace="board.model.BoardBean";
 	public void moveBoard(BoardBean bean) {
 		sqlSessionTemplate.update(namespace+".moveBoard", bean);
 	}
+
+	public List<BoardBean> getBestDataTop10() {
+		List<BoardBean> list = new ArrayList<BoardBean>();
+		RowBounds rowBounds = new RowBounds(0, 10);
+		list = sqlSessionTemplate.selectList(namespace+".getBestDataTop10", rowBounds);
+		return list;
+	}
+
+	public List<BoardBean> getFreeData(int freeIdx) {
+		List<BoardBean> list = new ArrayList<BoardBean>();
+		RowBounds rowBounds = new RowBounds(0, 5);
+		list = sqlSessionTemplate.selectList(namespace+".getFreeData",freeIdx, rowBounds);
+		return list;
+	}
+
+	public List<BoardBean> getHumorData(int humorIdx) {
+		List<BoardBean> list = new ArrayList<BoardBean>();
+		RowBounds rowBounds = new RowBounds(0, 5);
+		list = sqlSessionTemplate.selectList(namespace+".getFreeData",humorIdx, rowBounds);
+		return list;
+	}
 }

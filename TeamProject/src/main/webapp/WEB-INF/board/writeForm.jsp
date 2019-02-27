@@ -14,7 +14,7 @@
 	<div class="container">
 		<div class="row"></div>
 		<div class="section">
-			<form action="write.bbs" method="post">
+			<form:form commandName="board" action="write.bbs" method="post">
 				<table class="table table-defalut">
 					<thead>
 						<tr>
@@ -23,10 +23,20 @@
 									<option value="">게시판 선택
 									<c:forEach items="${detailList }" var="detail">
 										<c:if test="${detail.catNum eq 1000 }">
-										<option value="${detail.idx }">${detail.name }
+											<c:choose>
+												<c:when test="${fn:contains(detail.name,'전체') }">
+												</c:when>
+												<c:when test="${fn:contains(detail.name,'베스트') }">
+												</c:when>
+												<c:otherwise>
+													<option value="${detail.idx }">${detail.name }
+												</c:otherwise>
+											</c:choose>
 										</c:if>
 									</c:forEach>
 								</select>
+								<form:errors path="contents" cssClass="err"/>
+								<form:errors path="subject" cssClass="err"/>
 							</td>
 						</tr>
 						<tr>
@@ -46,7 +56,7 @@
 					</tfoot>
 					<tbody>
 						<tr>
-							<td><textarea id="editor1" name="contents" rows=100 cols=50 >This is my ckeditor</textarea></td>
+							<td><textarea id="editor1" name="contents" rows=100 cols=50 ></textarea></td>
 						</tr>
 					</tbody>
 				</table>
@@ -59,7 +69,7 @@
 					});
 				
 				</script>
-			</form>
+			</form:form>
 		</div>
 	</div>
 </body>

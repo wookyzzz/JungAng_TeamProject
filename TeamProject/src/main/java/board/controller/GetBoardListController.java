@@ -43,7 +43,7 @@ public class GetBoardListController {
 		map.put("search", "%"+search+"%");
 		map.put("sortNum", sortNum);
 		map.put("wholeBoard", wholeBoard);
-		map.put("seachKeyWord", search);
+		map.put("searchKeyWord", search);
 		int totalCount = boardDao.getTotalCount(map);
 		System.out.println("totalCount : " + totalCount);
 		Paging paging = new Paging(totalCount, pageNumber, limit, pagingSize);
