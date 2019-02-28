@@ -176,12 +176,9 @@ public class ProductDao {
 		return cartLists;
 	}
 
-
-
 	public void deletCart(int idx) {
 		sqlSessionTemplate.delete(namespace+".deleteCartPrd",idx);  
 	}
-		
 
 	public List<ProductBean> getHotItmes() {
 		List<ProductBean> list = new ArrayList<ProductBean>();

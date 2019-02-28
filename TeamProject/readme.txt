@@ -1,5 +1,4 @@
 DROP TABLE members CASCADE CONSTRAINTS;
-
 create table members(
         idx number primary key,
         id varchar2(20) unique,
@@ -109,6 +108,7 @@ col mem_level for a8
     subject nvarchar2(50) not null,
     contents nvarchar2(1000) not null,
     grade number,
+    inputdate date default sysdate,
      foreign key(prdNum) references products(idx)
     );
 
@@ -151,7 +151,7 @@ create table shoppingcart(
      re_level number,
     readCount number,
     inputdate date default sysdate,
-    best_letter number, 
+    best_letter number default 0, 
       foreign key(memNum) references members(idx),
       foreign key(sortNum) references categories_detail(idx)
 );
@@ -164,7 +164,6 @@ create table shoppingcart(
        foreign key(bbs_ref) references bbs(idx),
        foreign key(bbs_good_member) references members(idx)
    );
-
 
     drop table bbs_re cascade CONSTRAINTS;
     create table bbs_re(
@@ -268,6 +267,26 @@ create table shoppingcart(
 insert into categories (idx, name) values (menu_num_seq.nextval, '장터');
 insert into members (idx, id, passwd, name, hp,tel) values(0, 0, 0, 0,0,0);
 insert into members (idx, id, passwd, name, hp,tel) values(mem_seq.nextval, 'admin', 'admin', '관리자','010-0000-0000','010-0000-0000');
+insert into members values(mem_seq.nextval, 'test1', '1234','1234','김테스트1', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
+insert into members values(mem_seq.nextval, 'test2', '1234','1234','김테스트2', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
+insert into members values(mem_seq.nextval, 'test3', '1234','1234','김테스트3', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
+insert into members values(mem_seq.nextval, 'test4', '1234','1234','김테스트4', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
+insert into members values(mem_seq.nextval, 'test5', '1234','1234','김테스트5', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
+insert into members values(mem_seq.nextval, 'test6', '1234','1234','김테스트6', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
+insert into members values(mem_seq.nextval, 'test7', '1234','1234','김테스트7', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
+insert into members values(mem_seq.nextval, 'test8', '1234','1234','김테스트8', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
+insert into members values(mem_seq.nextval, 'test9', '1234','1234','김테스트9', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
+insert into members values(mem_seq.nextval, 'test10', '1234','1234','김테스트10', '000-0000-0000', '000-0000-0000'
+, '테스터', 'abc@abc', '000-000', '서울','1층','000-000', '서울','2층','일반',0,15000,'1990','01','01','0' );
 insert into categories (idx, name) values (99999, '홈페이지 관리');
 select * from categories;
 commit;
