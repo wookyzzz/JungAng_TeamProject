@@ -1,41 +1,3 @@
-
-
-회占쏙옙占쏙옙占쏙옙 占쏙옙占� 
-	--> url-mapping : *.mem
-	--> member.model // member.controller package占쏙옙 class 占쏙옙占쏙옙.
-	-->/WEB-INF/member 占쏙옙占쏙옙占쏙옙 jsp 占쏙옙占쏙옙 占쏙옙占쏙옙
-
-占쌉쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占�
-	--> url-mapping : *.bbs
-	--> board.model // board.controller package占쏙옙 class占쏙옙占쏙옙
-	-->/WEB-INF/board 占쏙옙占쏙옙占쏙옙 jsp 占쏙옙占쏙옙 占쏙옙占쏙옙
-
-占쏙옙품 占쏙옙占쏙옙 占쏙옙占�
-	--> url-mapping : *.prd
-	--> product.model // product.controller package占쏙옙 class 占쏙옙占쏙옙
-	-->/WEB-INF/product 占쏙옙占쏙옙占쏙옙 jsp 占쏙옙占쏙옙 占쏙옙占쏙옙
-
-카占쌓곤옙 占쏙옙占쏙옙 占쏙옙占�
-	--> url-mapping : *.ct
-	--> category.model // category.controller package占쏙옙 class 占쏙옙占쏙옙
-	-->/WEB-INF/category 占쏙옙占쏙옙占쏙옙 jsp 占쏙옙占쏙옙 占쏙옙占쏙옙
-
-**
-
-util.paging package  --> 占쏙옙占쏙옙징 class
-util.mybatis --> mybatis 占쏙옙占쏙옙 config && mapper xml file
-
-**
-
-占쏙옙占쏙옙占� session 
-
-占싸깍옙占쏙옙 占쏙옙占쏙옙 
-
-session.setAttribute("loginfo") --> 회占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� session 占쏙옙체
-				--> 占싸깍옙占쏙옙 占쏙옙 占쏙옙 占쏙옙占쏙옙占쌔억옙占쏙옙.
-
-
-
 DROP TABLE members CASCADE CONSTRAINTS;
 
 create table members(
@@ -44,22 +6,22 @@ create table members(
         passwd varchar2(20) not null,
         passwd2 varchar2(20) ,
         name nvarchar2(30) not null,
-        tel varchar2(20) null,   --占싹뱄옙占쏙옙화
-        hp varchar2(20) not null,   --占쌘듸옙占쏙옙占쏙옙호
+        tel varchar2(20) null,   
+        hp varchar2(20) not null,  
         nick nvarchar2(30),      
         email varchar2(40),
-        postcode1 varchar2(20),      --占쏙옙占쏙옙占싫�1
-        address1 nvarchar2(50),      --占썩본占쌍쇽옙1 (占쏙옙占쏙옙)
-        detailaddress1 nvarchar2(30),   --(占쏙옙占쏙옙)占쏙옙占쌍쇽옙
-        postcode2 varchar2(20),      --占쏙옙占쏙옙占싫�2
-        address2 nvarchar2(50),      --占쌩곤옙占쌍쇽옙2 (회占쏙옙)
-        detailaddress2 nvarchar2(30),   --(회占쏙옙)占쏙옙占쌍쇽옙
-        salesauthority nvarchar2(30), -- 占쏙옙占쏙옙占� 占쏙옙占� 占쏙옙占쏙옙 0(false) / 1(true)  
+        postcode1 varchar2(20),      
+        address1 nvarchar2(50),      
+        detailaddress1 nvarchar2(30),   
+        postcode2 varchar2(20),      
+        address2 nvarchar2(50),      
+        detailaddress2 nvarchar2(30),   
+        salesauthority nvarchar2(30),  
         cash number,
         point number,
         birthdayyeardate varchar2(20),
-		birthdaymonth varchar2(20),
-		birthdaydate varchar2(20),
+      birthdaymonth varchar2(20),
+      birthdaydate varchar2(20),
         memlevel varchar2(15)
     );
 
@@ -152,7 +114,7 @@ col mem_level for a8
 
     drop table prdOrders cascade CONSTRAINTS;
     create table prdOrders(
-    	idx number not null primary key,
+       idx number not null primary key,
         memId varchar(20) not null,
         prdNum number not null,
         quantity number,
@@ -165,6 +127,7 @@ col mem_level for a8
         foreign key (prdNum) references products(idx)
     );
 
+drop table shoppingcart;
 create table shoppingcart(
     idx number primary key,
     prdNum number,
@@ -188,26 +151,26 @@ create table shoppingcart(
      re_level number,
     readCount number,
     inputdate date default sysdate,
-    best_letter number, --占쏙옙천占쏙옙?
+    best_letter number, 
       foreign key(memNum) references members(idx),
       foreign key(sortNum) references categories_detail(idx)
 );
    drop table bbs_bad_good cascade CONSTRAINTS;
    drop table bbs_good;
-	create table bbs_good(
-	    bbs_ref number not null,
-	    bbs_good_member number not null,
-	    checkdate date default sysdate,
-	    foreign key(bbs_ref) references bbs(idx),
-	    foreign key(bbs_good_member) references members(idx)
-	);
+   create table bbs_good(
+       bbs_ref number not null,
+       bbs_good_member number not null,
+       checkdate date default sysdate,
+       foreign key(bbs_ref) references bbs(idx),
+       foreign key(bbs_good_member) references members(idx)
+   );
 
 
     drop table bbs_re cascade CONSTRAINTS;
     create table bbs_re(
         idx number not null primary key,
-        re_bbs_ref number not null, --> reference 占쌉쏙옙占쏙옙(bbs_number)
-        memNum number not null, --> reference 회占쏙옙(member_number)
+        re_bbs_ref number not null, 
+        memNum number not null, 
         re_ref number,
         re_re_step number,
         re_re_level number,
@@ -303,18 +266,19 @@ create table shoppingcart(
  --insert data--
  insert into categories (idx, name) values (menu_num_seq.nextval, '커뮤니티');
 insert into categories (idx, name) values (menu_num_seq.nextval, '장터');
+insert into members (idx, id, passwd, name, hp,tel) values(0, 0, 0, 0,0,0);
 insert into members (idx, id, passwd, name, hp,tel) values(mem_seq.nextval, 'admin', 'admin', '관리자','010-0000-0000','010-0000-0000');
 insert into categories (idx, name) values (99999, '홈페이지 관리');
 select * from categories;
 commit;
-insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 2000, '가전제품', 'list.prd');
-insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 2000, '생활용품', 'list.prd');
-insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, '카테고리관리', 'manage.ct');
-insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, '회원관리', 'list.mem');
-insert into categories_detail  (idx, catNum, name, url) values (cat_detail_seq.nextval, 1000, '전체게시판', 'list.bbs');
-insert into categories_detail  (idx, catNum, name, url) values (cat_detail_seq.nextval, 1000, '베스트게시판', 'best.bbs');
-insert into categories_detail  (idx, catNum, name, url) values (cat_detail_seq.nextval, 1000, '자유게시판', 'list.bbs');
-insert into categories_detail  (idx, catNum, name, url) values (cat_detail_seq.nextval, 1000, '유머게시판', 'list.bbs');
+insert into categories_detail (idx, catNum, name, url) values (100, 2000, '가전제품', 'list.prd');
+insert into categories_detail (idx, catNum, name, url) values (200, 2000, '생활용품', 'list.prd');
+insert into categories_detail (idx, catNum, name, url) values (300, 99999, '카테고리관리', 'manage.ct');
+insert into categories_detail (idx, catNum, name, url) values (400, 99999, '회원관리', 'list.mem');
+insert into categories_detail  (idx, catNum, name, url) values (500, 1000, '전체게시판', 'list.bbs');
+insert into categories_detail  (idx, catNum, name, url) values (600, 1000, '베스트게시판', 'best.bbs');
+insert into categories_detail  (idx, catNum, name, url) values (700, 1000, '자유게시판', 'list.bbs');
+insert into categories_detail  (idx, catNum, name, url) values (800, 1000, '유머게시판', 'list.bbs');
 select * from categories_detail;
 commit;
 select * from categories;

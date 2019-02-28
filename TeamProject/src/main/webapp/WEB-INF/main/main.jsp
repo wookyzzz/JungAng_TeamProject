@@ -154,21 +154,21 @@ img{
     <div class="slide-box">
       <div class="slide" style="background-image: url(${pageContext.request.contextPath }/resources/images/community.jpg);">
         <div class="slide-content">
-          <H1><a href="" class="sliderA">Community</a></H1>
+          <H1><a href="list.bbs?catNum=500" class="sliderA">Community</a></H1>
           <p>자유롭게 유용한 정보를 공유하는 곳입니다.</p>
         </div>
       </div>
       
       <div class="slide" style="background-image: url(${pageContext.request.contextPath }/resources/images/home_appliances.jpg);">
       <div class="slide-content">
-          <H1><a href="" class="sliderA">장터(가전제품)</a></H1>
+          <H1><a href="list.prd?catNum=100" class="sliderA">장터(가전제품)</a></H1>
           <p>가전제품코너에서 신상품을 만나보세요!</p>
         </div>
       </div>
       
       <div class="slide" style="background-image: url(${pageContext.request.contextPath }/resources/images/daily_supplies.jpg);">
       <div class="slide-content">
-          <H1><a href="" class="sliderA">장터(생활용품)</a></H1>
+          <H1><a href="list.prd?catNum=200" class="sliderA">장터(생활용품)</a></H1>
           <p>생활용품에서 안전한 거래를!</p>
         </div>
       </div>

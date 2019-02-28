@@ -151,8 +151,8 @@ h3 {
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-offset-3 col-md-6">
-				<h3>site name</h3>
+			<div class="col-md-offset-2 col-md-8">
+				<h3><a href="list.main">Project</a></h3>
 			</div>
 		</div>
 	</div>
