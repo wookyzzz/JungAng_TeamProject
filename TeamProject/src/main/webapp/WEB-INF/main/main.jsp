@@ -23,13 +23,197 @@ hr{
 .navbar{
 	height : 52px;
 }
+
+@import url(https://fonts.googleapis.com/css?family=Lato:100,900);
+html, body {
+  height: 100%;
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 900;
+}
+
+.slider {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+.slider .slider-control {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  margin-top: -24px;
+  z-index: 1;
+  border-radius: 50%;
+  background: #FFF;
+  opacity: .8;
+  cursor: pointer;
+  line-height: 48px;
+  text-align: center;
+}
+.slider .slider-control:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+  background: #222;
+}
+.slider .slider-control.slide-left {
+  left: 24px;
+}
+.slider .slider-control.slide-right {
+  right: 24px;
+}
+.slider .slider-control i {
+  color: #ccc;
+  line-height: 48px;
+}
+.slider .slide-box {
+  -webkit-transition: all 0.8s ease-out;
+  -moz-transition: all 0.8s ease-out;
+  transition: all 0.8s ease-out;
+  height: 100%;
+  width: 999999px;
+}
+.slider .slide-box img {
+  width: 100%;
+}
+.slider .slide-box .slide {
+  -webkit-transition: all 0.8s ease-out;
+  -moz-transition: all 0.8s ease-out;
+  transition: all 0.8s ease-out;
+  background-size: cover;
+  background-position: center center;
+  float: left;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 20000px #000;
+  z-index: 10;
+}
+.slider .slide-box .slide .slide-content {
+  height: 40%;
+  font-size: 22px;
+  min-height: 200px;
+  width: 40%;
+  min-width: 300px;
+  color: #FFF;
+  background: rgba(51, 77, 153, 0.5);
+  text-align: center;
+}
+.sliderA{
+	color:#FFFFFF;
+
+img{
+ width : 242px;
+ height : 200px;
+
+}
 </style>
+<script type="text/javascript">
+	function imgSrc(size){
+		for(i=1;i<=size;i++){
+			name = $("#img_"+i+" span").html();
+			console.log(name)
+			imgSrc = $("#img_"+i+" img").attr("src");
+			$("#img_"+i).empty();
+			var html = '<img  src="'+imgSrc+'" id="upImg_'+i+'"/>'
+			html += "<div class='caption'><h4 id='name_"+i+"'>"+name+"</h4><div>";
+			 img = $("#img_"+i).append(html);
+			imgX = $("#upImg_"+i).attr('src');
+			console.log(imgX);
+			if(imgX=='...'){
+				$("#upImg_"+i).attr("src","${pageContext.request.contextPath }/resources/images/no_image.png");
+			}
+		}
+	}
+	function mainsearch(){
+		alert("구현중 XD")
+	}
+</script>
 </head>
-<body>
+<body onload="imgSrc('${prdList.size()}')">
 	<%@ include file="../common/topmenu.jsp" %>
 	<div class="row">
 		<div class="col-md-12" style="background: rgba(255, 0, 0, 0.5); width: 100%; height:350px;">
-			
+			<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">  
+<div class="slider">
+    <div class="slider-control slide-left"><i class="fa fa-minus fa-2x"></i></div>
+  <div class="slider-control slide-right"><i class="fa fa-plus fa-2x"></i></div>
+    <div class="slide-box">
+      <div class="slide" style="background-image: url(${pageContext.request.contextPath }/resources/images/community.jpg);">
+        <div class="slide-content">
+          <H1><a href="" class="sliderA">Community</a></H1>
+          <p>자유롭게 유용한 정보를 공유하는 곳입니다.</p>
+        </div>
+      </div>
+      
+      <div class="slide" style="background-image: url(${pageContext.request.contextPath }/resources/images/home_appliances.jpg);">
+      <div class="slide-content">
+          <H1><a href="" class="sliderA">장터(가전제품)</a></H1>
+          <p>가전제품코너에서 신상품을 만나보세요!</p>
+        </div>
+      </div>
+      
+      <div class="slide" style="background-image: url(${pageContext.request.contextPath }/resources/images/daily_supplies.jpg);">
+      <div class="slide-content">
+          <H1><a href="" class="sliderA">장터(생활용품)</a></H1>
+          <p>생활용품에서 안전한 거래를!</p>
+        </div>
+      </div>
+    </div>
+</div>
+<script>
+      var $slider = $('.slider');
+  var $slideBox = $slider.find('.slide-box');
+  var $leftControl = $slider.find('.slide-left');
+  var $rightControl = $slider.find('.slide-right');
+  var $slides = $slider.find('.slide');
+  var numItems = $slider.find('.slide').length;
+  var position = 0;
+
+
+  var windowWidth = $(window).width();
+  $slides.width(windowWidth);
+  $leftControl.on('click', function(){
+    var width = $slider.width();
+    position = position - 1 >= 0 ? position - 1 : numItems - 1;
+    if(position != numItems-1){
+      $slider.find('.slide').eq(position + 1).css('margin-left', 0);
+    }
+    else{
+      $slider.find('.slide:gt(0)').each(function(index){
+        $(this).css('margin-left', width * -1 + 'px');
+      });
+    }
+  });
+
+  $rightControl.on('click', function(){
+    var width = $slider.width();
+    position = position + 1 < numItems ? position + 1 : 0;
+    if(position != 0){
+      $slider.find('.slide').eq(position).css('margin-left',  width * -1 + 'px');
+    }
+    else{
+      $slider.find('.slide').css('margin-left', 0);
+    }
+  });
+
+  $(window).resize(function(){
+   $slides.width($(window).width()).height($(window).height);
+  });
+</script>
 		</div>
 	</div>
 	<div class="container">
@@ -75,8 +259,8 @@ hr{
 											<input type="submit" class="btn btn-success btn-block" value="로그인">
 										</div> 
 										<div class="col-sm-4">
-											<small><a href="">아이디찾기</a></small><br>
-											<small><a href="">비밀번호찾기</a></small>
+											<small><a href="findidForm.mem">아이디찾기</a></small><br>
+											<small><a href="findpwForm.mem">비밀번호찾기</a></small>
 											
 										</div>
 									</div>
@@ -104,7 +288,7 @@ hr{
 											<a href="myreply.main"><button type="button" class="btn btn-info">나의댓글</button></a>
 										</div>
 										<div class="col-sm-4">
-											<button type="button" class="btn btn-info">주문내역</button>
+											<a href="orderList.prd?memId=${loginfo.id}"><button type="button" class="btn btn-info">주문내역</button></a>
 										</div>
 									</div>
 									<hr>
@@ -156,17 +340,15 @@ hr{
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="outer-board">
-						<form class="form-inline">
-							<div class="form-group">
-								<label class="sr-only" for="mainSearch">메인검색창</label>
-								<div class="col-md-12 input-group ">
-									<input type="text" class="form-control" name="search">
-									<div class="input-group-addon"><a href=""><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></div>
-								</div>
+					<form class="form-inline">
+						<div class="form-group">
+							<label class="sr-only" for="mainSearch">메인검색창</label>
+							<div class="col-md-12 input-group ">
+								<input type="text" class="form-control" name="search" id="search">
+								<div class="input-group-addon"><a href="javascript:mainsearch()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></div>
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -175,48 +357,27 @@ hr{
 	<div class="container">
 		<div class="section2">
 			<div class="row">
-				<h2>추천상품</h2>
+				<h2>인기상품</h2>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="outer-board">
 						<div class="row">
-							<div class="col-md-3">
-								<div class="thumbnail">
-									<img src="..." alt="...">
-									<div class="caption">
-										<h4>상품이름</h4>
-										<p>상품설명</p>
-									</div>
+							<c:forEach var="prd" items="${prdList }" varStatus="i">
+								<div class="col-md-3">
+									<a href="prodView.prd?prdNum=${prd.idx }">
+										<div class="thumbnail" id="img_${i.count }">
+											${prd.contents }
+											<img src="..." alt="...">
+											<span>${prd.name }</span>
+											<div class="caption">
+												<p>${prd.contents }</p>
+												<h4>${prd.name }</h4>
+											</div>
+										</div>
+									</a>
 								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="thumbnail">
-									<img src="..." alt="...">
-									<div class="caption">
-										<h4>상품이름</h4>
-										<p>상품설명</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="thumbnail">
-									<img src="..." alt="...">
-									<div class="caption">
-										<h4>상품이름</h4>
-										<p>상품설명</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="thumbnail">
-									<img src="..." alt="...">
-									<div class="caption">
-										<h4>상품이름</h4>
-										<p>상품설명</p>
-									</div>
-								</div>
-							</div>
+							</c:forEach>
 						</div>	
 					</div>
 				</div>

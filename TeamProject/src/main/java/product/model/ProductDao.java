@@ -38,7 +38,7 @@ public class ProductDao {
 
 	public List<CategoryBean> catLists() {
 		List<CategoryBean> catLists = sqlSessionTemplate.selectList(namespace+".catLists");
-		System.out.println("카테고리 갯수:" + catLists.size());
+		System.out.println("移댄뀒怨좊━ 媛��닔:" + catLists.size());
 		return catLists;
 	}
 
@@ -155,7 +155,7 @@ public class ProductDao {
 
 	public void insertCart(ProductShoppingCartBean bean) {
 		ProductShoppingCartBean qbean = sqlSessionTemplate.selectOne(namespace+".CartQuantityCheck",bean);
-		System.out.println("카트받아온 수량: "+bean.getQuantity());
+		System.out.println("移댄듃諛쏆븘�삩 �닔�웾: "+bean.getQuantity());
 		try{
 			if(qbean.getQuantity()!=0){
 				qbean.setQuantity(bean.getQuantity()+qbean.getQuantity());
@@ -177,9 +177,39 @@ public class ProductDao {
 	}
 
 
+
 	public void deletCart(int idx) {
-		sqlSessionTemplate.delete(namespace+".deleteCartPrd",idx);
+		sqlSessionTemplate.delete(namespace+".deleteCartPrd",idx);  
+	}
 		
+
+	public List<ProductBean> getHotItmes() {
+		List<ProductBean> list = new ArrayList<ProductBean>();
+		List<ProductShoppingCartBean> salesList = new ArrayList<ProductShoppingCartBean>();
+		salesList = getTotalsales();
+		for(int i = 0 ; i < salesList.size() ; i++){
+			int idx = salesList.get(i).getPrdNum();
+			ProductBean bean = new ProductBean();
+			bean = sqlSessionTemplate.selectOne(namespace+".prdView", idx);
+			list.add(bean);
+		}
+		return list;
+	}
+
+
+	private List<ProductShoppingCartBean> getTotalsales() {
+		List<ProductShoppingCartBean> list = new ArrayList<ProductShoppingCartBean>();
+		RowBounds rowBounds = new RowBounds(0, 4);
+		list = sqlSessionTemplate.selectList(namespace+".getTotalsales", rowBounds);
+		return list;
+	}
+
+
+	public int getBuyCountByMemId(String memId) {
+		int count = 0;
+		count = sqlSessionTemplate.selectOne(namespace+".getBuyCountByMemId", memId);
+		return count;
+
 	}
 	
 }

@@ -87,7 +87,7 @@
 					<c:forEach items="${lists}" var="prd" varStatus="i">
 						<tr>
 							<td width=100px height=100px align=center><div
-									id="img_${i.count}">${prd.contents}</div></td>
+									id="img_${i.count}">${prd.contents}></div></td>
 							<td><a
 								href="prodView.prd?prdNum=${prd.idx}&pageNumber=${pageInfo.pageNumber}">${prd.name}</a></td>
 							<td>${prd.price}</td>

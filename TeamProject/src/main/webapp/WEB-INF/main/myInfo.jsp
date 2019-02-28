@@ -106,13 +106,13 @@
 				      		</tr>
 				      		<tr>
 				      			<th>작성댓글</th>
-				      			<td></td>
-				      			<td><input type="button" class="btn btn-info btn-sm" value="보기"></td>
+				      			<td>${replyCount }개</td>
+				      			<td><input type="button" class="btn btn-info btn-sm" value="보기" onClick="location.href='myreply.main'"></td>
 				      		</tr>
 				      		<tr>
-				      			<th>주문내역</th>
-				      			<td></td>
-				      			<td><input type="button" class="btn btn-info btn-sm" value="보기"></td>
+				      			<th>구매한 상품</th>
+				      			<td>${buyCount }</td>
+				      			<td><input type="button" class="btn btn-info btn-sm" value="보기" onClick="location.href='orderList.prd?memId=${loginfo.id}'"></td>
 				      		</tr>
 				      	</table>
 				      </div>

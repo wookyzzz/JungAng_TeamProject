@@ -71,6 +71,16 @@ values(mem_seq.nextval, #{id}, #{passwd}, #{name}, #{tel}, #{hp}, #{nick},#{emai
 		where name = #{name} and hp = #{hp}
 	</select>
 	
+	<select id="FindpwData" resultType="MyMember">
+		select * from members
+		where name = #{name} and id = #{id}
+	</select>
+	
+	<select id="GetData3" resultType="MyMember">
+		select * from members
+		where name = #{name} and id = #{id}
+	</select>
+	
 </mapper>
 
 

@@ -1,6 +1,5 @@
 package member.controller;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,11 @@ import member.model.MemberBean;
 import member.model.MemberDao;
 
 @Controller
-public class MemberRegisterController {
+public class MemberFindpwController {
 	
-	private static final String getPage= "MemberRegisterForm";// 회원등록화면 
-	private static final String gotoPage = "redirect:/list.main"; 
-	private static final String command = "/registerForm.mem";
+	private static final String getPage= "MemberFindpwForm"; 
+	private static final String gotoPage = "redirect:/resultpw.mem"; 
+	private static final String command = "/findpwForm.mem";
 	
 	@Autowired
 	@Qualifier("myMemberDao")
@@ -37,7 +36,7 @@ public class MemberRegisterController {
 	@RequestMapping(value = command, method = RequestMethod.POST)  
 	public ModelAndView doActionPost(
 			@ModelAttribute("member") @Valid MemberBean member,   
-			BindingResult bindingResult,HttpSession session) {
+			BindingResult bindingResult) {
 
 		System.out.println(this.getClass() + " POST 방식 들어옴");
 		ModelAndView mav = new ModelAndView();
@@ -45,13 +44,13 @@ public class MemberRegisterController {
 		
 		if (bindingResult.hasErrors()) {
 			System.out.println("유효성 검사 오류입니다");
-			mav.setViewName(getPage);  // MemberRegisterForm
+			mav.setViewName(getPage); 
 			return mav;
 		} 
 
-		// 데이터베이스에 추가하는 코드
-		memberDao.InsertData(member);
-		mav.setViewName(gotoPage); //"redirect:/list.main" 
+		MemberBean mem = memberDao.FindpwData(member);
+		mav.addObject("member",mem);
+		mav.setViewName(gotoPage); 
 		return mav;
 	}
 			
