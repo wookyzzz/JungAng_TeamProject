@@ -1,38 +1,38 @@
 
 
-ȸ������ ��� 
+회占쏙옙占쏙옙占쏙옙 占쏙옙占� 
 	--> url-mapping : *.mem
-	--> member.model // member.controller package�� class ����.
-	-->/WEB-INF/member ������ jsp ���� ����
+	--> member.model // member.controller package占쏙옙 class 占쏙옙占쏙옙.
+	-->/WEB-INF/member 占쏙옙占쏙옙占쏙옙 jsp 占쏙옙占쏙옙 占쏙옙占쏙옙
 
-�Խ��� ���� ���
+占쌉쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占�
 	--> url-mapping : *.bbs
-	--> board.model // board.controller package�� class����
-	-->/WEB-INF/board ������ jsp ���� ����
+	--> board.model // board.controller package占쏙옙 class占쏙옙占쏙옙
+	-->/WEB-INF/board 占쏙옙占쏙옙占쏙옙 jsp 占쏙옙占쏙옙 占쏙옙占쏙옙
 
-��ǰ ���� ���
+占쏙옙품 占쏙옙占쏙옙 占쏙옙占�
 	--> url-mapping : *.prd
-	--> product.model // product.controller package�� class ����
-	-->/WEB-INF/product ������ jsp ���� ����
+	--> product.model // product.controller package占쏙옙 class 占쏙옙占쏙옙
+	-->/WEB-INF/product 占쏙옙占쏙옙占쏙옙 jsp 占쏙옙占쏙옙 占쏙옙占쏙옙
 
-ī�װ� ���� ���
+카占쌓곤옙 占쏙옙占쏙옙 占쏙옙占�
 	--> url-mapping : *.ct
-	--> category.model // category.controller package�� class ����
-	-->/WEB-INF/category ������ jsp ���� ����
+	--> category.model // category.controller package占쏙옙 class 占쏙옙占쏙옙
+	-->/WEB-INF/category 占쏙옙占쏙옙占쏙옙 jsp 占쏙옙占쏙옙 占쏙옙占쏙옙
 
 **
 
-util.paging package  --> ����¡ class
-util.mybatis --> mybatis ���� config && mapper xml file
+util.paging package  --> 占쏙옙占쏙옙징 class
+util.mybatis --> mybatis 占쏙옙占쏙옙 config && mapper xml file
 
 **
 
-����� session 
+占쏙옙占쏙옙占� session 
 
-�α��� ���� 
+占싸깍옙占쏙옙 占쏙옙占쏙옙 
 
-session.setAttribute("loginfo") --> ȸ�� ������ ��� session ��ü
-				--> �α��� �� �� �����ؾ���.
+session.setAttribute("loginfo") --> 회占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� session 占쏙옙체
+				--> 占싸깍옙占쏙옙 占쏙옙 占쏙옙 占쏙옙占쏙옙占쌔억옙占쏙옙.
 
 
 
@@ -44,17 +44,17 @@ create table members(
         passwd varchar2(20) not null,
         passwd2 varchar2(20) ,
         name nvarchar2(30) not null,
-        tel varchar2(20) null,   --�Ϲ���ȭ
-        hp varchar2(20) not null,   --�ڵ�����ȣ
+        tel varchar2(20) null,   --占싹뱄옙占쏙옙화
+        hp varchar2(20) not null,   --占쌘듸옙占쏙옙占쏙옙호
         nick nvarchar2(30),      
         email varchar2(40),
-        postcode1 varchar2(20),      --�����ȣ1
-        address1 nvarchar2(50),      --�⺻�ּ�1 (����)
-        detailaddress1 nvarchar2(30),   --(����)���ּ�
-        postcode2 varchar2(20),      --�����ȣ2
-        address2 nvarchar2(50),      --�߰��ּ�2 (ȸ��)
-        detailaddress2 nvarchar2(30),   --(ȸ��)���ּ�
-        salesauthority nvarchar2(30), -- ����� ��� ���� 0(false) / 1(true)  
+        postcode1 varchar2(20),      --占쏙옙占쏙옙占싫�1
+        address1 nvarchar2(50),      --占썩본占쌍쇽옙1 (占쏙옙占쏙옙)
+        detailaddress1 nvarchar2(30),   --(占쏙옙占쏙옙)占쏙옙占쌍쇽옙
+        postcode2 varchar2(20),      --占쏙옙占쏙옙占싫�2
+        address2 nvarchar2(50),      --占쌩곤옙占쌍쇽옙2 (회占쏙옙)
+        detailaddress2 nvarchar2(30),   --(회占쏙옙)占쏙옙占쌍쇽옙
+        salesauthority nvarchar2(30), -- 占쏙옙占쏙옙占� 占쏙옙占� 占쏙옙占쏙옙 0(false) / 1(true)  
         cash number,
         point number,
         birthdayyeardate varchar2(20),
@@ -85,7 +85,6 @@ col point for a8
 col birthday for a10
 col mem_level for a8
 
-    --��� �Ű�
     drop table mem_report;
     create table mem_report(
     idx number primary key not null,
@@ -95,7 +94,6 @@ col mem_level for a8
     foreign key (memNum) references members(idx)
     )
     
-    --ī�װ�
     drop table categories cascade CONSTRAINTS;
     create table categories(
         idx number primary key not null,
@@ -111,7 +109,6 @@ col mem_level for a8
         foreign key(catNum) references categories(idx)
     );
     
-    --��ǰ
     drop table products CASCADE CONSTRAINTS;
      create table products(
         idx number primary key not null,
@@ -128,9 +125,8 @@ col mem_level for a8
         foreign key (catNum_detail) references categories_detail(idx)
     );
     
-    --��ǰQnA
         drop table prdQnA cascade CONSTRAINTS; 
-           create table prdQnA(
+        create table prdQnA(
         idx number primary key not null,
         prdNum number not null,
         memId varchar2(20) not null,
@@ -142,7 +138,7 @@ col mem_level for a8
         inputdate date default sysdate,
         foreign key(prdNum) references products(idx)
         );   
-    --�ı�
+        
     drop table review cascade CONSTRAINTS;
     create table review(
     idx number primary key,
@@ -151,10 +147,9 @@ col mem_level for a8
     subject nvarchar2(50) not null,
     contents nvarchar2(1000) not null,
     grade number,
-     foreign key(prdNum) references products(idx),
+     foreign key(prdNum) references products(idx)
     );
 
-    --��ٱ���
     drop table prdOrders cascade CONSTRAINTS;
     create table prdOrders(
     	idx number not null primary key,
@@ -163,7 +158,7 @@ col mem_level for a8
         quantity number,
         totalPrice number,
         memo nvarchar2(100),
-        postcode1 varchar2(20),      --�����ȣ1
+        postcode1 varchar2(20),      
         address1 nvarchar2(50), 
         detailaddress1 nvarchar2(30),
         inputdate date default sysdate,
@@ -180,7 +175,6 @@ create table shoppingcart(
     FOREIGN key(prdNum) REFERENCES products(idx)
 );
 
-    --�Խ���
     drop table bbs cascade CONSTRAINTS;
     create table bbs(
      idx number not null primary key,
@@ -194,11 +188,10 @@ create table shoppingcart(
      re_level number,
     readCount number,
     inputdate date default sysdate,
-    best_letter number, --��õ��?
+    best_letter number, --占쏙옙천占쏙옙?
       foreign key(memNum) references members(idx),
       foreign key(sortNum) references categories_detail(idx)
 );
-   --�Խ��� (���ƿ�/�Ⱦ��)
    drop table bbs_bad_good cascade CONSTRAINTS;
    drop table bbs_good;
 	create table bbs_good(
@@ -210,12 +203,11 @@ create table shoppingcart(
 	);
 
 
---���
     drop table bbs_re cascade CONSTRAINTS;
     create table bbs_re(
         idx number not null primary key,
-        re_bbs_ref number not null, --> reference �Խ���(bbs_number)
-        memNum number not null, --> reference ȸ��(member_number)
+        re_bbs_ref number not null, --> reference 占쌉쏙옙占쏙옙(bbs_number)
+        memNum number not null, --> reference 회占쏙옙(member_number)
         re_ref number,
         re_re_step number,
         re_re_level number,
@@ -227,7 +219,6 @@ create table shoppingcart(
     select * from bbs_re;
     commit;
 
-    --ī�װ� �޴� ������ 
     drop sequence menu_num_seq;
     create sequence menu_num_seq
         minvalue 1000
@@ -242,7 +233,6 @@ create table shoppingcart(
         increment by 1
         nocache;
     
-    --��� ������
     drop sequence mem_seq;
     create sequence mem_seq
         minvalue 1
@@ -250,7 +240,6 @@ create table shoppingcart(
         increment by 1
         nocache;
     
-    --��ǰ ������
     drop sequence prd_seq;
     create sequence prd_seq
         minvalue 1
@@ -258,7 +247,6 @@ create table shoppingcart(
         increment by 1
         nocache;
     
-    --��ǰ QnA ������
     drop sequence prd_qna_seq;
     create sequence prd_qna_seq
         minvalue 1
@@ -267,7 +255,6 @@ create table shoppingcart(
         nocache;
         commit;
         
-    --���� ������
     drop sequence review_seq;
     create sequence review_seq
         minvalue 1
@@ -276,7 +263,6 @@ create table shoppingcart(
         nocache;
         commit;
         
-    --�Խ��� ������
     drop sequence bbs_seq;
     create sequence bbs_seq
         minvalue 1
@@ -285,7 +271,6 @@ create table shoppingcart(
         nocache;
         commit;
         
-    --�Խ��� �з� ������
     drop sequence bbs_sort_seq;
     create sequence bbs_sort_seq
         minvalue 1
@@ -300,7 +285,6 @@ create table shoppingcart(
         increment by 1
         nocache;
         
-  --�Խ��� ��� ������
   drop sequence bbs_re_seq;
     create sequence bbs_re_seq
         minvalue 1
@@ -317,18 +301,20 @@ create table shoppingcart(
         
         
  --insert data--
- insert into categories (idx, name) values (menu_num_seq.nextval, 'Ŀ�´�Ƽ');
-insert into categories (idx, name) values (menu_num_seq.nextval, '����');
-insert into categories_detail(idx, catNum, name, url) values(cat_detail_seq.nextval, 1000, '��ü�Խ���', 'list.bbs');
-insert into members (idx, id, passwd, name, hp,tel) values(mem_seq.nextval, 'admin', 'admin', '������','010-0000-0000','010-0000-0000');
-insert into categories (idx, name) values (99999, 'Ȩ������ ����');
+ insert into categories (idx, name) values (menu_num_seq.nextval, '커뮤니티');
+insert into categories (idx, name) values (menu_num_seq.nextval, '장터');
+insert into members (idx, id, passwd, name, hp,tel) values(mem_seq.nextval, 'admin', 'admin', '관리자','010-0000-0000','010-0000-0000');
+insert into categories (idx, name) values (99999, '홈페이지 관리');
 select * from categories;
 commit;
 insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 2000, '가전제품', 'list.prd');
 insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 2000, '생활용품', 'list.prd');
-insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, '카테고리 관리', 'manage.ct');
-insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, '회원 관리', 'list.mem');
+insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, '카테고리관리', 'manage.ct');
+insert into categories_detail (idx, catNum, name, url) values (cat_detail_seq.nextval, 99999, '회원관리', 'list.mem');
 insert into categories_detail  (idx, catNum, name, url) values (cat_detail_seq.nextval, 1000, '전체게시판', 'list.bbs');
+insert into categories_detail  (idx, catNum, name, url) values (cat_detail_seq.nextval, 1000, '베스트게시판', 'best.bbs');
+insert into categories_detail  (idx, catNum, name, url) values (cat_detail_seq.nextval, 1000, '자유게시판', 'list.bbs');
+insert into categories_detail  (idx, catNum, name, url) values (cat_detail_seq.nextval, 1000, '유머게시판', 'list.bbs');
 select * from categories_detail;
 commit;
 select * from categories;

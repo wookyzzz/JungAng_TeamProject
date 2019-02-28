@@ -125,5 +125,11 @@
 		select * from shoppingcart join products on shoppingcart.prdNum=products.idx 
 		where shoppingcart.memId=#{memId}
 	</select>
+	<select id="getTotalsales" resultType="MyShoppingCart">
+		select prdNum, sum(quantity) as totalsales from prdOrders group by prdNum order by totalsales desc
+	</select>
+	<select id="getBuyCountByMemId" resultType="int">
+		select count(*) from prdOrders where memid = #{memId}
+	</select>
 </mapper>
 

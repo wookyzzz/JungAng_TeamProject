@@ -1,5 +1,6 @@
 package member.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import member.model.MemberDao;
 public class MemberRegisterController {
 	
 	private static final String getPage= "MemberRegisterForm";// 회원등록화면 
-	private static final String gotoPage = "redirect:/list.mem"; 
+	private static final String gotoPage = "redirect:/list.main"; 
 	private static final String command = "/registerForm.mem";
 	
 	@Autowired
@@ -36,7 +37,7 @@ public class MemberRegisterController {
 	@RequestMapping(value = command, method = RequestMethod.POST)  
 	public ModelAndView doActionPost(
 			@ModelAttribute("member") @Valid MemberBean member,   
-			BindingResult bindingResult) {
+			BindingResult bindingResult,HttpSession session) {
 
 		System.out.println(this.getClass() + " POST 방식 들어옴");
 		ModelAndView mav = new ModelAndView();
@@ -50,8 +51,7 @@ public class MemberRegisterController {
 
 		// 데이터베이스에 추가하는 코드
 		memberDao.InsertData(member);
-
-		mav.setViewName(gotoPage); //"redirect:/list.me" 
+		mav.setViewName(gotoPage); //"redirect:/list.main" 
 		return mav;
 	}
 			
