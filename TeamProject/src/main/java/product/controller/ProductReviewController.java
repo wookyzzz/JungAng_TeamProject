@@ -41,12 +41,12 @@ public class ProductReviewController {
 		ProductReviewBean bean = new ProductReviewBean();
 		int prdNum = Integer.parseInt(request.getParameter("prdNum"));
 		int grade = Integer.parseInt(request.getParameter("grade"));
-		String pageNumber = request.getParameter("pageNumber");
+		//String pageNumber = request.getParameter("pageNumber");
 		String subject=  request.getParameter("subject");
 		String contents = request.getParameter("contents");
 		String memId = request.getParameter("memId");
 		System.out.println("prdNum: "+prdNum);
-		System.out.println("pageNumber: "+pageNumber);
+
 		bean.setPrdNum(prdNum);
 		bean.setSubject(subject);
 		bean.setMemId(memId);
@@ -55,7 +55,7 @@ public class ProductReviewController {
 		productDao.insertReview(bean);
 //		MemberBean memBean = (MemberBean)session.getAttribute("loginfo");
 		model.addAttribute("prdNum",prdNum);
-		model.addAttribute("pageNumber",pageNumber);
+		//model.addAttribute("pageNumber",pageNumber);
 		return "redirect:/prodView.prd";
 	}
 	

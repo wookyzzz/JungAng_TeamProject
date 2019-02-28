@@ -175,7 +175,21 @@ public class ProductShoppingCartController {
 	public ModelAndView cartList(@RequestParam(value="memId", required=true) String memId){
 		ModelAndView mav = new ModelAndView();
 		List<ProductShoppingCartBean> cartLists = productDao.cartLists(memId);
+		MemberBean member = productDao.getMember(memId);
 		mav.addObject("cartLists",cartLists);
+		mav.addObject("member",member);
+		mav.setViewName("cartList");
+		return mav;
+	}
+	
+	@RequestMapping(value="/cartDelete.prd")
+	public ModelAndView deleteCartprd(@RequestParam(value="memId", required=true) String memId, @RequestParam(value="idx", required=true) int idx){
+		ModelAndView mav = new ModelAndView();
+		productDao.deletCart(idx);
+		List<ProductShoppingCartBean> cartLists = productDao.cartLists(memId);
+		MemberBean member = productDao.getMember(memId);
+		mav.addObject("cartLists",cartLists);
+		mav.addObject("member",member);
 		mav.setViewName("cartList");
 		return mav;
 	}

@@ -113,7 +113,7 @@
 	</select>
 	
 	<update id="CartQuantityUp">
-		update shoppingcart set quantity=quantity+#{quantity}  where idx=#{idx}
+		update shoppingcart set quantity=#{quantity}  where idx=#{idx}
 	</update>
 	
 	<select id="getOrderList" resultType="MyShoppingCart">
@@ -125,5 +125,9 @@
 		select * from shoppingcart join products on shoppingcart.prdNum=products.idx 
 		where shoppingcart.memId=#{memId}
 	</select>
+	
+	<delete id="deleteCartPrd">
+		delete from shoppingcart where idx=#{idx}
+	</delete>
 </mapper>
 

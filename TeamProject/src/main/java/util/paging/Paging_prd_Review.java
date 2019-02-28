@@ -170,6 +170,7 @@ public class Paging_prd_Review {
 			this.prdNum = _prdNum;
 			if(  _pageNumber == null ){
 				_pageNumber = "1" ;
+				System.out.println("_pageNumber "+_pageNumber );
 			}
 			this.pageNumber = Integer.parseInt( _pageNumber ) ; 
 			//pageNumber=3

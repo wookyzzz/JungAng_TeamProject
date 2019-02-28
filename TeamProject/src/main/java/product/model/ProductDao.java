@@ -158,7 +158,9 @@ public class ProductDao {
 		System.out.println("카트받아온 수량: "+bean.getQuantity());
 		try{
 			if(qbean.getQuantity()!=0){
+				qbean.setQuantity(bean.getQuantity()+qbean.getQuantity());
 				sqlSessionTemplate.update(namespace+".CartQuantityUp",qbean);
+				System.out.println("qbean의 수량: "+qbean.getQuantity());
 			}
 			else{
 				sqlSessionTemplate.insert(namespace+".insertCart",bean);
@@ -172,6 +174,12 @@ public class ProductDao {
 	public List<ProductShoppingCartBean> cartLists(String memId) {
 		List<ProductShoppingCartBean> cartLists = sqlSessionTemplate.selectList(namespace+".cartLists",memId);
 		return cartLists;
+	}
+
+
+	public void deletCart(int idx) {
+		sqlSessionTemplate.delete(namespace+".deleteCartPrd",idx);
+		
 	}
 	
 }

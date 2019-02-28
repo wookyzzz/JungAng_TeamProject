@@ -79,6 +79,23 @@ nav{
 					      </li>
 				      </c:forEach>
 	      			</c:if>
+	      		<c:if test="${loginfo.id !='admin' }">
+	      			<c:forEach var="cate" items="${ctList }">
+	      			<c:if test="${cate.idx != 99999 }">
+	      						<li class="dropdown">
+							        <a class="dropdown-toggle" data-toggle="dropdown" href="#">${cate.name }
+							        <span class="caret"></span></a>
+							        <ul class="dropdown-menu">
+							         <c:forEach var="detail" items="${detailList }">
+										<c:if test="${detail.catNum eq cate.idx }">
+											<li><a href="javascript:urlCheck('${detail.url}','${detail.idx}')">${detail.name }/${detail.url }</a></li>
+										</c:if>
+									</c:forEach>
+							        </ul>
+							      </li>
+	      					</c:if>
+	      				</c:forEach>
+	      				</c:if>
 	      		</c:when>
 	      	</c:choose>
 	    </ul>

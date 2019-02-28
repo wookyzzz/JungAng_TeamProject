@@ -26,6 +26,7 @@ public class CategoryGetListController {
 		List<CategoryDetailBean> detailList = ctDao.getDetailList();
 		session.setAttribute("ctList", ctList);
 		session.setAttribute("detailList", detailList);
+		System.out.println(detailList.size());
 		return des;
 	}
 }
