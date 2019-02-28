@@ -88,6 +88,20 @@ public class MemberDao {
 		bean = sqlSessionTemplate.selectOne(namespace + ".GetData2", bean);
 		return bean;
 	}
+
+	public MemberBean FindpwData(MemberBean member) {
+		MemberBean bean =  new MemberBean();
+		bean = sqlSessionTemplate.selectOne(namespace+".FindpwData", member);
+		return bean;
+	}
+
+	public MemberBean GetData3(String name, String id) {
+		MemberBean bean = new MemberBean();
+		bean.setName(name);
+		bean.setId(id);
+		bean = sqlSessionTemplate.selectOne(namespace + ".GetData3", bean);
+		return bean;
+	}
 	
 	
 

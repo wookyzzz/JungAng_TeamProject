@@ -75,8 +75,8 @@ hr{
 											<input type="submit" class="btn btn-success btn-block" value="로그인">
 										</div> 
 										<div class="col-sm-4">
-											<small><a href="">아이디찾기</a></small><br>
-											<small><a href="">비밀번호찾기</a></small>
+											<small><a href="findidForm.mem">아이디찾기</a></small><br>
+											<small><a href="findpwForm.mem">비밀번호찾기</a></small>
 											
 										</div>
 									</div>
