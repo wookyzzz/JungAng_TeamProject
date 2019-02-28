@@ -49,9 +49,14 @@ public class GetMainContentController {
 		bestList = boardDao.getBestDataTop10();
 		freeList = boardDao.getFreeData(freeIdx);
 		humorList = boardDao.getHumorData(humorIdx);
+		prdList = prdDao.getHotItmes();
+		for(int i = 0 ; i < prdList.size() ; i++){
+			System.out.println(prdList.get(i).getName());
+		}
 		mav.addObject("bestList", bestList);
 		mav.addObject("freeList", freeList);
 		mav.addObject("humorList", humorList);
+		mav.addObject("prdList", prdList);
 		mav.setViewName(getPage);
 		return mav;
 	}

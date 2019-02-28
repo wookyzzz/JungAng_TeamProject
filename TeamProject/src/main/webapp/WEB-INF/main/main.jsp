@@ -23,6 +23,7 @@ hr{
 .navbar{
 	height : 52px;
 }
+<<<<<<< HEAD
 @import url(https://fonts.googleapis.com/css?family=Lato:100,900);
 html, body {
   height: 100%;
@@ -113,10 +114,36 @@ h1, h2, h3, h4 {
 }
 .sliderA{
 	color:#FFFFFF;
+=======
+img{
+ width : 242px;
+ height : 200px;
+>>>>>>> branch 'master' of https://github.com/wookyzzz/JungAng_TeamProject.git
 }
 </style>
+<script type="text/javascript">
+	function imgSrc(size){
+		for(i=1;i<=size;i++){
+			name = $("#img_"+i+" span").html();
+			console.log(name)
+			imgSrc = $("#img_"+i+" img").attr("src");
+			$("#img_"+i).empty();
+			var html = '<img  src="'+imgSrc+'" id="upImg_'+i+'"/>'
+			html += "<div class='caption'><h4 id='name_"+i+"'>"+name+"</h4><div>";
+			 img = $("#img_"+i).append(html);
+			imgX = $("#upImg_"+i).attr('src');
+			console.log(imgX);
+			if(imgX=='...'){
+				$("#upImg_"+i).attr("src","${pageContext.request.contextPath }/resources/images/no_image.png");
+			}
+		}
+	}
+	function mainsearch(){
+		alert("구현중 XD")
+	}
+</script>
 </head>
-<body>
+<body onload="imgSrc('${prdList.size()}')">
 	<%@ include file="../common/topmenu.jsp" %>
 	<div class="row">
 		<div class="col-md-12" style="background: rgba(255, 0, 0, 0.5); width: 100%; height:350px;">
@@ -261,7 +288,7 @@ h1, h2, h3, h4 {
 											<a href="myreply.main"><button type="button" class="btn btn-info">나의댓글</button></a>
 										</div>
 										<div class="col-sm-4">
-											<button type="button" class="btn btn-info">주문내역</button>
+											<a href="orderList.prd?memId=${loginfo.id}"><button type="button" class="btn btn-info">주문내역</button></a>
 										</div>
 									</div>
 									<hr>
@@ -313,17 +340,15 @@ h1, h2, h3, h4 {
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="outer-board">
-						<form class="form-inline">
-							<div class="form-group">
-								<label class="sr-only" for="mainSearch">메인검색창</label>
-								<div class="col-md-12 input-group ">
-									<input type="text" class="form-control" name="search">
-									<div class="input-group-addon"><a href=""><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></div>
-								</div>
+					<form class="form-inline">
+						<div class="form-group">
+							<label class="sr-only" for="mainSearch">메인검색창</label>
+							<div class="col-md-12 input-group ">
+								<input type="text" class="form-control" name="search" id="search">
+								<div class="input-group-addon"><a href="javascript:mainsearch()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></div>
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -332,48 +357,27 @@ h1, h2, h3, h4 {
 	<div class="container">
 		<div class="section2">
 			<div class="row">
-				<h2>추천상품</h2>
+				<h2>인기상품</h2>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="outer-board">
 						<div class="row">
-							<div class="col-md-3">
-								<div class="thumbnail">
-									<img src="..." alt="...">
-									<div class="caption">
-										<h4>상품이름</h4>
-										<p>상품설명</p>
-									</div>
+							<c:forEach var="prd" items="${prdList }" varStatus="i">
+								<div class="col-md-3">
+									<a href="prodView.prd?prdNum=${prd.idx }">
+										<div class="thumbnail" id="img_${i.count }">
+											${prd.contents }
+											<img src="..." alt="...">
+											<span>${prd.name }</span>
+											<div class="caption">
+												<p>${prd.contents }</p>
+												<h4>${prd.name }</h4>
+											</div>
+										</div>
+									</a>
 								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="thumbnail">
-									<img src="..." alt="...">
-									<div class="caption">
-										<h4>상품이름</h4>
-										<p>상품설명</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="thumbnail">
-									<img src="..." alt="...">
-									<div class="caption">
-										<h4>상품이름</h4>
-										<p>상품설명</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="thumbnail">
-									<img src="..." alt="...">
-									<div class="caption">
-										<h4>상품이름</h4>
-										<p>상품설명</p>
-									</div>
-								</div>
-							</div>
+							</c:forEach>
 						</div>	
 					</div>
 				</div>

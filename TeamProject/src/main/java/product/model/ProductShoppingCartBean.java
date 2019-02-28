@@ -14,7 +14,16 @@ public class ProductShoppingCartBean {
 	private String name;
 	private String contents;
     private String deliverycharge;
+    private int totalsales;
+    
+    
 
+	public int getTotalsales() {
+		return totalsales;
+	}
+	public void setTotalsales(int totalsales) {
+		this.totalsales = totalsales;
+	}
 	public String getDeliverycharge() {
 		return deliverycharge;
 	}

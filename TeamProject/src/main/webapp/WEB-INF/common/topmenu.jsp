@@ -179,6 +179,23 @@ h3 {
 	      				</c:forEach>
 	      		</c:when>
 	      		<c:when test="${loginfo != null }">
+	      			<c:if test="${loginfo.id !='admin' }">
+	      				<c:forEach var="cate" items="${ctList }">
+	      					<c:if test="${cate.idx != 99999 }">
+	      						<li class="dropdown">
+							        <a class="dropdown-toggle" data-toggle="dropdown" href="#">${cate.name }
+							        <span class="caret"></span></a>
+							        <ul class="dropdown-menu">
+							         <c:forEach var="detail" items="${detailList }">
+										<c:if test="${detail.catNum eq cate.idx }">
+											<li><a href="javascript:urlCheck('${detail.url}','${detail.idx}')">${detail.name }/${detail.url }</a></li>
+										</c:if>
+									</c:forEach>
+							        </ul>
+							      </li>
+	      					</c:if>
+	      				</c:forEach>
+	      			</c:if>
 	      			<c:if test="${loginfo.id =='admin' }">
 				      <c:forEach var="cate" items="${ctList }">
 					      <li class="dropdown">
@@ -209,9 +226,9 @@ h3 {
 					</button>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="update.mem">내 정보 수정</a></li>
-						<li><a href="logout.mem">로그아웃</a></li>
 						<li><a href="orderList.prd?memId=${loginfo.id}">구매내역</a></li>
 						<li><a href="cartList.prd?memId=${loginfo.id}">장바구니</a></li>
+						<li><a href="logout.mem">로그아웃</a></li>
 					</ul>
 				</div>
 	      	</c:if>
