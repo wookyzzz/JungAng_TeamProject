@@ -157,8 +157,7 @@
 			alert('품절된 상품입니다.');
 			return false;
 		}
-		if(quantity-input_quantity<=0){
-			alert(quantity+","+input_quantity);
+		if(quantity-input_quantity<0){
 			alert('주문 수량 초과');
 			return false;
 		}
